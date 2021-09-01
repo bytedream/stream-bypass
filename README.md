@@ -24,11 +24,11 @@ The addon was tested on
 
 ### Firefox
 
-Install the `.xpi` (firefox addon) file from the [latest release](https://github.com/ByteDream/vivosx-source-redirector/releases/latest).
+Install the `.xpi` (firefox addon) file from the [latest release](https://github.com/ByteDream/stream-bypass/releases/latest).
 
 ### Chromium / Google Chrome
 
-1. Download the `stream-bypass-<version>.zip` file from the [latest release](https://github.com/ByteDream/vivosx-source-redirector/releases/latest) and unzip it (with [7zip](https://www.7-zip.org/) or something like that).
+1. Download the `stream-bypass-<version>.zip` file from the [latest release](https://github.com/ByteDream/stream-bypass/releases/latest) and unzip it (with [7zip](https://www.7-zip.org/) or something like that).
 2. Go into your browser and type `chrome://extensions` in the address bar.
 3. Turn the developer mode in the top right corner on.
 4. Click Load unpacked.
@@ -36,7 +36,7 @@ Install the `.xpi` (firefox addon) file from the [latest release](https://github
 
 ### Opera
 
-1. Download the `stream-bypass-<version>.zip` file from the [latest release](https://github.com/ByteDream/vivosx-source-redirector/releases/latest) and unzip it (with [7zip](https://www.7-zip.org/) or something like that).
+1. Download the `stream-bypass-<version>.zip` file from the [latest release](https://github.com/ByteDream/stream-bypass/releases/latest) and unzip it (with [7zip](https://www.7-zip.org/) or something like that).
 2. Go into your browser and type `opera://extensions` in the address bar.
 3. Turn the developer mode in the top right corner on.
 4. Click Load unpacked.
