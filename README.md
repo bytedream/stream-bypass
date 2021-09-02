@@ -77,7 +77,7 @@ For this, you need [docker](https://www.docker.com/) to be installed.
   ```
 - Compile
   ```
-  $ docker rum --rm -v build:/build stream-bypass
+  $ docker run --rm -v build:/build stream-bypass
   ```
 The compiled output will remain in a (new created if not existing) `build` directory.
 
