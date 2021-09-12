@@ -1,3 +1,7 @@
+function hasSuffix(content: string, suffix: string) {
+    return content.indexOf(suffix, content.length - suffix.length) !== -1
+}
+
 // @ts-ignore
 chrome.storage.local.get(['all', 'disabled'], function (result) {
     let keys = Object.keys(result)
@@ -12,10 +16,26 @@ chrome.storage.local.get(['all', 'disabled'], function (result) {
                 let matchClass = match[2] as Match
 
                 let re
-                if (regex === null) {
-                    location.assign(matchClass === null ? document.body.innerHTML : matchClass.match(new RegExp('').exec(document.body.innerHTML)))
-                } else if ((re = regex.exec(document.body.innerHTML)) !== null) {
-                    location.assign(matchClass === null ? re[0] : matchClass.match(re))
+                if (regex !== null) {
+                    if ((re = document.body.innerHTML.match(regex)) === null) {
+                        continue
+                    }
+                } else {
+                    re = document.body.innerHTML.match(regex)
+                }
+
+                return
+
+                if (matchClass === null) {
+                    if (regex === null) {
+                        location.assign(document.body.innerHTML)
+                    } else {
+                        location.assign(hasSuffix(re[0], 'm3u8') ? `https://bharadwajpro.github.io/m3u8-player/player/#${re[0]}`: re[0])
+                    }
+                } else {
+                    matchClass.match(re).then(function (path) {
+                        location.assign(hasSuffix(path, 'm3u8') ? `https://bharadwajpro.github.io/m3u8-player/player/#${path}`: path)
+                    })
                 }
             }
             return

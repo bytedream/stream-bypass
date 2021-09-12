@@ -3,15 +3,22 @@
   "name": "Stream Bypass",
   "author": "ByteDream",
   "description": "",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "homepage_url": "https://github.com/ByteDream/stream-bypass",
   "content_scripts": [
     {
       "all_frames": true,
       "matches": [
+        "*://evoload.io/*",
+        "*://mixdrop.co/*",
         "*://streamtape.com/*",
+        "*://streamzz.to/*",
+        "*://thevideome.com/*",
+        "*://vidlox.me/*",
         "*://vidoza.net/*",
+        "*://vivo.st/*",
         "*://vivo.sx/*",
+        "*://voe.sx/*",
         "*://vupload.com/*"
       ],
       "js": [

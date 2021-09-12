@@ -55,18 +55,13 @@ def copy_built():
     subprocess.call(['tsc', '-p', 'src'])
 
     build_path = Path('build')
-    if build_path.is_dir():
-        for file in build_path.rglob('*'):
-            if file.is_dir():
-                shutil.rmtree(str(file))
-            else:
-                file.unlink()
-    else:
+    if not build_path.is_dir():
         build_path.mkdir()
     for file in Path('src').rglob('*'):
         build_file = build_path.joinpath(str(file)[4:])
         if file.is_dir():
-            build_file.mkdir(parents=True)
+            if not build_file.exists():
+                build_file.mkdir(parents=True)
         elif file.suffix == '.sass':
             css_file = str(file)[:-4] + 'css'
             subprocess.call(['sass', '--no-source-map', file, css_file])

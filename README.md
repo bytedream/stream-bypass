@@ -24,7 +24,7 @@ The addon was tested on
 
 ### Firefox
 
-Install the `.xpi` (firefox addon) file from the [latest release](https://github.com/ByteDream/stream-bypass/releases/latest).
+Install the addon directly from the [firefox addon store](https://addons.mozilla.org/de/firefox/addon/stream-bypass/).
 
 ### Chromium / Google Chrome
 
