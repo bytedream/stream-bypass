@@ -38,7 +38,7 @@ class TheVideoMe implements Match {
 
 class Vivo implements Match {
     async match(match: RegExpMatchArray): Promise<string> {
-        return this.rot47(decodeURIComponent(match[1]))
+        return this.rot47(decodeURIComponent(match[0]))
     }
 
     // decrypts a string with the rot47 algorithm (https://en.wikipedia.org/wiki/ROT13#Variants)
@@ -71,8 +71,8 @@ const matches = [
     ['thevideome.com', new RegExp(/(?<=\|)\w{2,}/gm), new TheVideoMe()],
     ['vidlox.me', new RegExp(/(?<=\[")\S+?(?=")/gm), null],
     ['vidoza.net', new RegExp(/(?<=src:(\s*)?")\S*(?=")/gm), null],
-    ['vivo.st', new RegExp(/source:\s*'(\S+)'/gm), new Vivo()],
-    ['vivo.sx', new RegExp(/source:\s*'(\S+)'/gm), new Vivo()],
+    ['vivo.st', new RegExp(/(?<=source:\s')(\S+)(?=')/gm), new Vivo()],
+    ['vivo.sx', new RegExp(/(?<=source:\s')(\S+)(?=')/gm), new Vivo()],
     ['voe.sx', new RegExp(/https?:\/\/\S*m3u8(?=")/gm), null],
     ['vupload.com', new RegExp(/(?<=class\|)\w*/gm), new Vupload()]
 ]

@@ -24,8 +24,6 @@ chrome.storage.local.get(['all', 'disabled'], function (result) {
                     re = document.body.innerHTML.match(regex)
                 }
 
-                return
-
                 if (matchClass === null) {
                     if (regex === null) {
                         location.assign(document.body.innerHTML)
