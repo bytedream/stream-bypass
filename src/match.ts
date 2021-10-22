@@ -18,6 +18,20 @@ class Evoload implements Match {
     }
 }
 
+class MCloud implements Match {
+    async match(match: RegExpMatchArray): Promise<string> {
+        const code = window.location.pathname.split('/').slice(-1)[0]
+        const response = await fetch(`https://mcloud.to/info/${code}?skey=${match[0]}`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            referrer: `https://mcloud.to/embed/${code}`
+        })
+        const json = await response.json()
+        return json['media']['sources'][0]['file']
+    }
+}
+
 class Mixdrop implements Match {
     async match(match: RegExpMatchArray): Promise<string> {
         return `https://a-${match[1]}.${match[4]}.${match[5]}/v/${match[2]}.${match[6]}?s=${match[12]}&e=${match[13]}`
@@ -65,6 +79,7 @@ class Vupload implements Match {
 // every match HAS to be on an separate line
 const matches = [
     ['evoload.io', null, new Evoload()],
+    ['mcloud.to', new RegExp(/(?<=')\w+(?=';)/gm), new MCloud()],
     ['mixdrop.co', new RegExp(/(?<=\|)\w{2,}/gm), new Mixdrop()],
     ['streamtape.com', new RegExp(/id=\S*(?=')/gm), new Streamtape()],
     ['streamzz.to', new RegExp(/https?:\/\/get.streamz.tw\/getlink-\w+\.dll/gm), null],
