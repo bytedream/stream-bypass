@@ -28,11 +28,13 @@ chrome.storage.local.get(['all', 'disabled'], function (result) {
                     if (regex === null) {
                         location.assign(document.body.innerHTML)
                     } else {
-                        location.assign(hasSuffix(re[0], 'm3u8') ? `https://bharadwajpro.github.io/m3u8-player/player/#${re[0]}`: re[0])
+                        // @ts-ignore
+                        location.assign(hasSuffix(re[0], 'm3u8') ? chrome.runtime.getURL(`res/hls.html#${re[0]}`) : re[0])
                     }
                 } else {
                     matchClass.match(re).then(function (path) {
-                        location.assign(hasSuffix(path, 'm3u8') ? `https://bharadwajpro.github.io/m3u8-player/player/#${path}`: path)
+                        // @ts-ignore
+                        location.assign(hasSuffix(path, 'm3u8') ? chrome.runtime.getURL(`res/hls.html#${path}`) : path)
                     })
                 }
             }

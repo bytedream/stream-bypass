@@ -15,6 +15,7 @@
       "all_frames": true,
       "matches": [
         "*://evoload.io/*",
+        "*://mcloud.to/*",
         "*://mixdrop.co/*",
         "*://streamtape.com/*",
         "*://streamzz.to/*",
@@ -35,6 +36,7 @@
   "permissions": [
     "storage"
   ],
+  "content_security_policy": "script-src 'self' blob: https://cdn.jsdelivr.net *.io *.to *.co *.com *.me *.net *.st *.sx; object-src 'self'",
   "browser_action": {
     "default_icon": "icons/stream-bypass.png",
     "default_title": "Stream Bypass",
