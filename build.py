@@ -49,6 +49,29 @@ def write_supported():
     open('SUPPORTED', 'w').writelines([f'{match}\n' for match in load_matches()])
 
 
+def write_readme():
+    firefox_pattern = re.compile(r'Mozilla Firefox (?P<version>.+)')
+    chromium_pattern = re.compile(r'(?P<version>\d+\.\d+)')
+    tested = {}
+
+    stdout, stderr = subprocess.Popen(['firefox', '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+    if stderr == b'':
+        tested['Firefox'] = re.search(firefox_pattern, stdout.decode('utf-8').replace('\n', '')).group('version')
+
+    for command, name in {'chromium': 'Ungoogled Chromium', 'vivaldi-stable': 'Vivaldi', 'opera': 'Opera'}.items():
+        stdout, stderr = subprocess.Popen([command, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+        if stderr == b'':
+            tested[name] = re.search(chromium_pattern, stdout.decode('utf-8').replace('\n', '')).group('version')
+
+    # it this the right syntax if i want to read and write to a file? * dreams in python3.10 *
+    with open('README.md', 'r') as read_file:
+        new_readme = re.sub(r'(?<=The addon was tested on\n)(.+?)(?=\n*## Installing)', '\n'.join(f'- {name} ({version})' for name, version in tested.items()), read_file.read(), flags=re.DOTALL)
+        with open('README.md', 'w') as write_file:
+            write_file.write(new_readme)
+            write_file.close()
+        read_file.close()
+
+
 def copy_built():
     if not shutil.which('tsc'):
         sys.stderr.write('The typescript compiler `tsc` could not be found')
@@ -88,6 +111,7 @@ def clean_build():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-m', '--manifest', action='store_true', help='Builds the manifest.json file for addon information in ./src')
+    parser.add_argument('-r', '--readme', action='store_true', help='Updates the README.md with the currently installed ')
     parser.add_argument('-s', '--supported', action='store_true', help='Builds the SUPPORTED file with all supported domains in the current directory')
     parser.add_argument('-b', '--build', action='store_true', help='Creates a ./build folder and builds all typescript / sass files')
     parser.add_argument('-c', '--clean', action='store_true', help='Cleans the ./src folder from .js, .css and .map files')
@@ -96,6 +120,8 @@ if __name__ == '__main__':
 
     if parsed.manifest:
         write_manifest()
+    if parsed.readme:
+        write_readme()
     if parsed.supported:
         write_supported()
     if parsed.build:
