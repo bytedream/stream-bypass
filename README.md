@@ -27,9 +27,7 @@ Supported streaming providers (for a complete list of all supported websites, se
 		<li><a href="https://vivo.st">vivo.st</a></li>
 		<li><a href="https://vivo.sx">vivo.sx</a></li>
 		<li><a href="https://voe.sx">voe.sx</a></li>
-		<li><a href="https://vupload.com">vupload.com</a></li>
-		<li><a href="https://"></a></li>
-	</ul>
+		<li><a href="https://vupload.com">vupload.com</a></li></ul>
 </details>
 
 ---
