@@ -10,10 +10,12 @@ chrome.storage.local.get(['all', 'disabled'], function (result) {
     }
     // @ts-ignore
     for (let match of matches) {
-        if (window.location.href.indexOf(match[0]) !== -1) {
-            if (keys.indexOf('disabled') === -1 || result['disabled'].indexOf(match[0]) === -1) {
+        let domain = match[0] as string
+        if (window.location.href.indexOf(domain) !== -1) {
+            if (keys.indexOf('disabled') === -1 || result['disabled'].indexOf(domain) === -1) {
                 let regex = match[1] as RegExp
                 let matchClass = match[2] as Match
+                let reliability = match[3] as Reliability
 
                 let re
                 if (regex !== null) {
@@ -29,12 +31,12 @@ chrome.storage.local.get(['all', 'disabled'], function (result) {
                         location.assign(document.body.innerHTML)
                     } else {
                         // @ts-ignore
-                        location.assign(hasSuffix(re[0], 'm3u8') ? chrome.runtime.getURL(`res/hls.html#${re[0]}`) : re[0])
+                        location.assign(hasSuffix(re[0], 'm3u8') ? chrome.runtime.getURL(`res/hls.html?domain=${domain}&reliability=${reliability}#${re[0]}`) : re[0])
                     }
                 } else {
                     matchClass.match(re).then(function (path) {
                         // @ts-ignore
-                        location.assign(hasSuffix(path, 'm3u8') ? chrome.runtime.getURL(`res/hls.html#${path}`) : path)
+                        location.assign(hasSuffix(path, 'm3u8') ? chrome.runtime.getURL(`res/hls.html?domain=${domain}&reliability=${reliability}#${path}`) : path)
                     })
                 }
             }

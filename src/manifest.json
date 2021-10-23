@@ -3,7 +3,7 @@
   "name": "Stream Bypass",
   "author": "ByteDream",
   "description": "",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "homepage_url": "https://github.com/ByteDream/stream-bypass",
   "browser_specific_settings": {
     "gecko": {
@@ -20,7 +20,9 @@
         "*://streamtape.com/*",
         "*://streamzz.to/*",
         "*://thevideome.com/*",
+        "*://upstream.to/*",
         "*://vidlox.me/*",
+        "*://vidstream.pro/*",
         "*://vidoza.net/*",
         "*://vivo.st/*",
         "*://vivo.sx/*",
@@ -30,13 +32,14 @@
       "js": [
         "match.js",
         "index.js"
-      ]
+      ],
+      "run_at": "document_end"
     }
   ],
   "permissions": [
     "storage"
   ],
-  "content_security_policy": "script-src 'self' blob: https://cdn.jsdelivr.net *.io *.to *.co *.com *.me *.net *.st *.sx; object-src 'self'",
+  "content_security_policy": "script-src 'self' blob: https://cdn.jsdelivr.net https://unpkg.com *.io *.to *.co *.com *.me *.pro *.net *.st *.sx; object-src 'self'",
   "browser_action": {
     "default_icon": "icons/stream-bypass.png",
     "default_title": "Stream Bypass",

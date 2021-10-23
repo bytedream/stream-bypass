@@ -40,7 +40,7 @@ def write_manifest():
         toplevel = match.split('.')[-1]
         if toplevel not in domains:
             domains.append(toplevel)
-    manifest['content_security_policy'] = f"script-src 'self' blob: https://cdn.jsdelivr.net {' '.join(f'*.{toplevel}' for toplevel in domains)}; object-src 'self'"
+    manifest['content_security_policy'] = f"script-src 'self' blob: https://cdn.jsdelivr.net https://unpkg.com {' '.join(f'*.{toplevel}' for toplevel in domains)}; object-src 'self'"
 
     json.dump(manifest, open('src/manifest.json', 'w'), indent=2)
 
