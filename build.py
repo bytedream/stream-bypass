@@ -65,9 +65,21 @@ def write_readme():
 
     # it this the right syntax if i want to read and write to a file? * dreams in python3.10 *
     with open('README.md', 'r') as read_file:
-        new_readme = re.sub(r'(?<=The addon was tested on\n)(.+?)(?=\n*## Installing)', '\n'.join(f'- {name} ({version})' for name, version in tested.items()), read_file.read(), flags=re.DOTALL)
+        readme = read_file.read()
+
+        # adds all available websites
+        all_providers_regex = r'(?<=<ul>\n)(.+?)(?=</ul>)'
+        all_providers = '\n'.join(f'\t\t<li><a href="https://{provider}">{provider}</a></li>' for provider in open('SUPPORTED', 'r').read().split('\n')) + '\n\t'
+        readme = re.sub(all_providers_regex, all_providers, readme, flags=re.DOTALL)
+
+        # adds all installed browsers to the tested browser section. i'm just to lazy to seek out all browser versions manually
+        tested_browsers_regex = r'(?<=The addon was tested on\n)(.+?)(?=\n*## Installing)'
+        tested_browsers = '\n'.join(f'- {name} ({version})' for name, version in tested.items())
+        readme = re.sub(tested_browsers_regex, tested_browsers, readme, flags=re.DOTALL)
+
+        # rewrite the readme
         with open('README.md', 'w') as write_file:
-            write_file.write(new_readme)
+            write_file.write(readme)
             write_file.close()
         read_file.close()
 

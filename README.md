@@ -6,9 +6,33 @@ This addon replaces the video player from this sides with the native player buil
 This has the advantage, that no advertising or popups are shown when trying to interact with the video (playing, skipping, ...) or some sites are showing them even if you do nothing.
 Additionally this enables you to download the video by right-clicking it and just choose the download option.
 
-Supported streaming providers (for a complete list of all supported websites, see [here](SUPPORTED)):
-- [streamtape.com](https://streamtape.com/)
-- [vidoza.net](https://vidoza.net/)
+Supported streaming providers (for a complete list of all supported websites, see [here](SUPPORTED) or in [show all](#all-supported-websites) below):
+- [streamtape.com](https://streamtape.com)
+- [vivo.sx](https://vivo.sx)
+- [voe.sx](https://voe.sx)
+
+<details id="all-supported-websites">
+    <summary><b>Show all</b></summary>
+    <ul>
+		<li><a href="https://evoload.io">evoload.io</a></li>
+		<li><a href="https://mcloud.to">mcloud.to</a></li>
+		<li><a href="https://mixdrop.co">mixdrop.co</a></li>
+		<li><a href="https://streamtape.com">streamtape.com</a></li>
+		<li><a href="https://streamzz.to">streamzz.to</a></li>
+		<li><a href="https://thevideome.com">thevideome.com</a></li>
+		<li><a href="https://upstream.to">upstream.to</a></li>
+		<li><a href="https://vidlox.me">vidlox.me</a></li>
+		<li><a href="https://vidstream.pro">vidstream.pro</a></li>
+		<li><a href="https://vidoza.net">vidoza.net</a></li>
+		<li><a href="https://vivo.st">vivo.st</a></li>
+		<li><a href="https://vivo.sx">vivo.sx</a></li>
+		<li><a href="https://voe.sx">voe.sx</a></li>
+		<li><a href="https://vupload.com">vupload.com</a></li>
+		<li><a href="https://"></a></li>
+	</ul>
+</details>
+
+---
 
 <details id="example">
     <summary><b>How it's working</b></summary>
