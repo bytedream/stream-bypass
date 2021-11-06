@@ -3,6 +3,7 @@
 import argparse
 import json
 import sys
+import urllib.request
 from pathlib import Path
 import re
 import shutil
@@ -113,6 +114,19 @@ def copy_built():
             continue
         elif file.suffix != '.ts':
             shutil.copy(str(file), str(build_file))
+
+    ext_path = Path('build', 'ext')
+    if not ext_path.is_dir():
+        ext_path.mkdir()
+    for name, url in {
+        'hls.js': 'https://cdn.jsdelivr.net/npm/hls.js@latest',
+        'popper.js': 'https://unpkg.com/@popperjs/core@2',
+        'tippy.js': 'https://unpkg.com/tippy.js@6'
+    }.items():
+        with open(ext_path.joinpath(name), 'wb') as f:
+            ext_js = urllib.request.urlopen(url)
+            f.write(ext_js.read())
+            f.close()
 
 
 def clean_build():
