@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 
 import argparse
+import io
 import json
 import sys
 import urllib.request
+import zipfile
 from pathlib import Path
 import re
 import shutil
@@ -35,13 +37,6 @@ def write_manifest():
 
     for content_script in manifest['content_scripts']:
         content_script['matches'] = [f'*://{match}/*' for match in matches]
-
-    domains = []
-    for match in matches:
-        toplevel = match.split('.')[-1]
-        if toplevel not in domains:
-            domains.append(toplevel)
-    manifest['content_security_policy'] = f"script-src 'self' blob: https://cdn.jsdelivr.net https://unpkg.com {' '.join(f'*.{toplevel}' for toplevel in domains)}; object-src 'self'"
 
     json.dump(manifest, open('src/manifest.json', 'w'), indent=2)
 
@@ -118,15 +113,17 @@ def copy_built():
     ext_path = Path('build', 'ext')
     if not ext_path.is_dir():
         ext_path.mkdir()
-    for name, url in {
-        'hls.js': 'https://cdn.jsdelivr.net/npm/hls.js@latest',
-        'popper.js': 'https://unpkg.com/@popperjs/core@2',
-        'tippy.js': 'https://unpkg.com/tippy.js@6'
-    }.items():
-        with open(ext_path.joinpath(name), 'wb') as f:
-            ext_js = urllib.request.urlopen(url)
-            f.write(ext_js.read())
-            f.close()
+
+    # download hls.js (version 1.1.1)
+    with zipfile.ZipFile(io.BytesIO(urllib.request.urlopen('https://github.com/video-dev/hls.js/releases/download/v1.1.1/release.zip').read())) as z:
+        open(ext_path.joinpath('hls.light.min.js'), 'wb').write(z.read('dist/hls.light.min.js'))
+        z.close()
+
+    # download popperjs core (version 2.10.2)
+    open(ext_path.joinpath('popper.min.js'), 'wb').write(urllib.request.urlopen('https://unpkg.com/@popperjs/core@2.10.2/dist/umd/popper.min.js').read())
+
+    # download tippy.js (version 6.3.7)
+    open(ext_path.joinpath('tippy-bundle.umd.min.js'), 'wb').write(urllib.request.urlopen('https://unpkg.com/tippy.js@6.3.7/dist/tippy-bundle.umd.min.js').read())
 
 
 def clean_build():
