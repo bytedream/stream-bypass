@@ -35,7 +35,7 @@ function loadHls() {
                     break
                 case 3: // high
                     message = `The reliability for this domains is high, errors like this are very unlikely to happen.
-                    Try to refresh the page and if the error still exists you might want to open a new issue <a href="https://github.com/ByteDream/stream-bypass/issues">here</a>.
+                    Try to refresh the page and if the error still exists you might want to open a new issue <a href="https://github.com/ByteDream/stream-bypass/issues/new">here</a>.
                     When your using <a href="https://www.torproject.org/">Tor</a> such errors have a slight chance to occur more often,
                     so if this is the case just try to reload the page and see if you it's working then`
                     break
@@ -45,6 +45,8 @@ function loadHls() {
             showMessage(`Could not load hls video. ${message}`)
         }, rawReliability * 3000)
 
+        document.title = searchParams.get('domain')
+
         // @ts-ignore
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
             clearTimeout(thirdPartyFallback)
@@ -53,7 +55,7 @@ function loadHls() {
         })
     } else {
         // shows a message if hls is not supported
-        showMessage(`Failed to play m3u8 video (hls is not supported). Try again or create a new issue <a href="https://github.com/ByteDream/stream-bypass/issues">here</a>`)
+        showMessage(`Failed to play m3u8 video (hls is not supported). Try again or create a new issue <a href="https://github.com/ByteDream/stream-bypass/issues/new">here</a>`)
     }
 }
 

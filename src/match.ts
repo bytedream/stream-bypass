@@ -98,7 +98,8 @@ class Vivo implements Match {
 
 class Vupload implements Match {
     async match(match: RegExpMatchArray): Promise<string> {
-        return `https://www3.megaupload.to/${match[0]}/v.mp4`
+        // the best quality is the last match so the array is reversed here to have the last element at the first position
+        return match.reverse()[0]
     }
 }
 
@@ -127,5 +128,5 @@ const matches = [
     ['vivo.st', new RegExp(/(?<=source:\s')(\S+)(?=')/gm), new Vivo(), Reliability.HIGH],
     ['vivo.sx', new RegExp(/(?<=source:\s')(\S+)(?=')/gm), new Vivo(), Reliability.HIGH],
     ['voe.sx', new RegExp(/https?:\/\/\S*m3u8(?=")/gm), null, Reliability.HIGH],
-    ['vupload.com', new RegExp(/(?<=class\|)\w*/gm), new Vupload(), Reliability.NORMAL]
+    ['vupload.com', new RegExp(/(?<=src:\s?")\S+mp4/gm), new Vupload(), Reliability.NORMAL]
 ]
