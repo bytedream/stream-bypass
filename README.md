@@ -38,10 +38,10 @@ Supported streaming providers (for a complete list of all supported websites, se
 </details>
 
 The addon was tested on
-- Firefox (95.0b8)
-- Ungoogled Chromium (94.0)
-- Vivaldi (4.3)
-- Opera (81.0)
+- Firefox (95.0.2)
+- Ungoogled Chromium (96.0)
+- Vivaldi (5.0)
+- Opera (82.0)
 
 ## Installing
 
