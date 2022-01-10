@@ -51,7 +51,7 @@ Install the addon directly from the [firefox addon store](https://addons.mozilla
 
 ### Chromium / Google Chrome
 
-1. Download the `stream-bypass-<version>.zip` file from the [latest release](https://github.com/ByteDream/stream-bypass/releases/latest) and unzip it (with [7zip](https://www.7-zip.org/) or something like that).
+1. Download the zipfile from the [latest release](https://smartrelease.bytedream.org/github/ByteDream/stream-bypass/stream_bypass-{tag}.zip) and unzip it (with [7zip](https://www.7-zip.org/) or something like that).
 2. Go into your browser and type `chrome://extensions` in the address bar.
 3. Turn the developer mode in the top right corner on.
 4. Click Load unpacked.
@@ -59,7 +59,7 @@ Install the addon directly from the [firefox addon store](https://addons.mozilla
 
 ### Opera
 
-1. Download the `stream-bypass-<version>.zip` file from the [latest release](https://github.com/ByteDream/stream-bypass/releases/latest) and unzip it (with [7zip](https://www.7-zip.org/) or something like that).
+1.Download the zipfile from the [latest release](https://smartrelease.bytedream.org/github/ByteDream/stream-bypass/stream_bypass-{tag}.zip) and unzip it (with [7zip](https://www.7-zip.org/) or something like that).
 2. Go into your browser and type `opera://extensions` in the address bar.
 3. Turn the developer mode in the top right corner on.
 4. Click Load unpacked.
