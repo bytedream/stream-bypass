@@ -24,7 +24,8 @@ def load_matches():
         else:
             match = pattern.findall(line)
             if match:
-                matched.append(match[0])
+                if not line.strip().startswith('//'):
+                    matched.append(match[0])
             else:
                 break
 
