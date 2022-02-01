@@ -96,13 +96,6 @@ class Vivo implements Match {
     }
 }
 
-class Vupload implements Match {
-    async match(match: RegExpMatchArray): Promise<string> {
-        // the best quality is the last match so the array is reversed here to have the last element at the first position
-        return match.reverse()[0]
-    }
-}
-
 // all domains to match. the matches must be structured like this:
 //      [domain, regex match (can be null), class to call after match (can be null), reliability]
 // => the domain which should be redirected
@@ -128,5 +121,5 @@ const matches = [
     ['vivo.st', new RegExp(/(?<=source:\s')(\S+)(?=')/gm), new Vivo(), Reliability.HIGH],
     ['vivo.sx', new RegExp(/(?<=source:\s')(\S+)(?=')/gm), new Vivo(), Reliability.HIGH],
     ['voe.sx', new RegExp(/https?:\/\/\S*m3u8(?=")/gm), null, Reliability.HIGH],
-    ['vupload.com', new RegExp(/(?<=src:\s?")\S+mp4/gm), new Vupload(), Reliability.NORMAL]
+    ['vupload.com', new RegExp(/(?<=src:\s?").+?(?=")/gm), null, Reliability.NORMAL]
 ]
