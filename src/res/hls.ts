@@ -27,7 +27,7 @@ function loadHls() {
 
             switch (rawReliability) {
                 case 1: // low
-                    message = `The reliability for this domain is low, so errors like this are common.
+                    message = `The reliability for this domain is low, errors like this are common.
                     Try to choose another streaming provider (if existent) or deactivate the addon for this domain (${searchParams.get('domain')}) and try again`
                     break
                 case 2: // normal
@@ -36,7 +36,7 @@ function loadHls() {
                 case 3: // high
                     message = `The reliability for this domains is high, errors like this are very unlikely to happen.
                     Try to refresh the page and if the error still exists you might want to open a new issue <a href="https://github.com/ByteDream/stream-bypass/issues/new">here</a>.
-                    When your using <a href="https://www.torproject.org/">Tor</a> such errors have a slight chance to occur more often,
+                    When you're using <a href="https://www.torproject.org/">Tor</a> such errors have a slight chance to occur more often,
                     so if this is the case just try to reload the page and see if you it's working then`
                     break
             }
