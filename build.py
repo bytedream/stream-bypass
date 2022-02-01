@@ -67,7 +67,7 @@ def write_readme():
         # adds all available websites
         all_providers_regex = r'(?<=<ul>\n)(.+?)(?=</ul>)'
         domains = filter(lambda domain: domain != '', open('SUPPORTED', 'r').read().split('\n'))
-        all_providers = '\n'.join(f'\t\t<li><a href="https://{supported}">{supported}</a></li>' for supported in domains)
+        all_providers = '\n'.join(f'\t\t<li><a href="https://{supported}">{supported}</a></li>' for supported in domains) + '\n'
         readme = re.sub(all_providers_regex, all_providers, readme, flags=re.DOTALL)
 
         # adds all installed browsers to the tested browser section. i'm just to lazy to seek out all browser versions manually
