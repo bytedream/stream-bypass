@@ -6,6 +6,18 @@ This addon replaces the video player from this sides with the native player buil
 This has the advantage, that no advertising or popups are shown when trying to interact with the video (playing, skipping, ...) or some sites are showing them even if you do nothing.
 Additionally this enables you to download the video by right-clicking it and just choose the download option.
 
+<p align="center">
+  <a href="https://addons.mozilla.org/de/firefox/addon/stream-bypass/">
+    <img src="https://img.shields.io/amo/users/stream-bypass?label=Firefox%20Addon%20Store&style=flat-square" alt="Firefox Addon Store">
+  </a>
+  <a href="https://github.com/ByteDream/stream-bypass/releases/latest">
+    <img src="https://img.shields.io/github/downloads/ByteDream/stream-bypass/total?label=GitHub%20Downloads&style=flat-square" alt="GitHub Downloads">
+  </a>
+  <a href="https://discord.gg/gUWwekeNNg">
+    <img src="https://img.shields.io/discord/915659846836162561?label=discord&style=flat-square" alt="Discord">
+  </a>
+</p>
+
 Supported streaming providers (for a complete list of all supported websites, see [here](SUPPORTED) or in [show all](#all-supported-websites) below):
 - [streamtape.com](https://streamtape.com)
 - [vivo.sx](https://vivo.sx)
