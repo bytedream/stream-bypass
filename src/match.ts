@@ -58,7 +58,7 @@ class TheVideoMe implements Match {
 
 class Upstream implements Match {
     async match(match: RegExpMatchArray): Promise<string> {
-        return `https://${match[48]}.upstreamcdn.co/hls/,${match.sort((a, b) => {return b.length - a.length})[0]},.urlset/master.m3u8`
+        return `https://${match[47]}.upstreamcdn.co/hls/${match.sort((a, b) => {return b.length - a.length})[0]}/master.m3u8`
     }
 }
 
@@ -114,7 +114,7 @@ const matches = [
     ['streamtape.com', new RegExp(/id=\S*(?=')/gm), new Streamtape(), Reliability.NORMAL],
     ['streamzz.to', new RegExp(/https?:\/\/get.streamz.tw\/getlink-\w+\.dll/gm), null, Reliability.NORMAL],
     ['thevideome.com', new RegExp(/(?<=\|)\w{2,}/gm), new TheVideoMe(), Reliability.NORMAL],
-    ['upstream.to', new RegExp(/(?<=\|)\w{2,}/gm), new Upstream(), Reliability.LOW],
+    //['upstream.to', new RegExp(/(?<=\|)\w{2,}/gm), new Upstream(), Reliability.LOW],
     ['vidlox.me', new RegExp(/(?<=\[")\S+?(?=")/gm), null, Reliability.NORMAL],
     ['vidstream.pro', new RegExp(/(?<=')\w+(?=';)/gm), new Vidstream(), Reliability.LOW],
     ['vidoza.net', new RegExp(/(?<=src:(\s*)?")\S*(?=")/gm), null, Reliability.NORMAL],

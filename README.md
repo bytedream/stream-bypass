@@ -32,14 +32,14 @@ Supported streaming providers (for a complete list of all supported websites, se
 		<li><a href="https://streamtape.com">streamtape.com</a></li>
 		<li><a href="https://streamzz.to">streamzz.to</a></li>
 		<li><a href="https://thevideome.com">thevideome.com</a></li>
-		<li><a href="https://upstream.to">upstream.to</a></li>
 		<li><a href="https://vidlox.me">vidlox.me</a></li>
 		<li><a href="https://vidstream.pro">vidstream.pro</a></li>
 		<li><a href="https://vidoza.net">vidoza.net</a></li>
 		<li><a href="https://vivo.st">vivo.st</a></li>
 		<li><a href="https://vivo.sx">vivo.sx</a></li>
 		<li><a href="https://voe.sx">voe.sx</a></li>
-		<li><a href="https://vupload.com">vupload.com</a></li></ul>
+		<li><a href="https://vupload.com">vupload.com</a></li>
+</ul>
 </details>
 
 ---
@@ -50,10 +50,10 @@ Supported streaming providers (for a complete list of all supported websites, se
 </details>
 
 The addon was tested on
-- Firefox (95.0.2)
-- Ungoogled Chromium (96.0)
+- Firefox (96.0.3)
+- Ungoogled Chromium (97.0)
 - Vivaldi (5.0)
-- Opera (82.0)
+- Opera (83.0)
 
 ## Installing
 
