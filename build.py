@@ -37,7 +37,7 @@ def write_manifest():
     manifest = json.load(open('src/manifest.json', 'r'))
 
     for content_script in manifest['content_scripts']:
-        content_script['matches'] = [f'*://{match}/*' for match in matches]
+        content_script['matches'] = [f'*://*.{match}/*' for match in matches]
 
     json.dump(manifest, open('src/manifest.json', 'w'), indent=2)
 
