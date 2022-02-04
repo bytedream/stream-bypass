@@ -29,6 +29,7 @@ Supported streaming providers (for a complete list of all supported websites, se
 		<li><a href="https://evoload.io">evoload.io</a></li>
 		<li><a href="https://mcloud.to">mcloud.to</a></li>
 		<li><a href="https://mixdrop.co">mixdrop.co</a></li>
+		<li><a href="https://newgrounds.com">newgrounds.com</a></li>
 		<li><a href="https://streamtape.com">streamtape.com</a></li>
 		<li><a href="https://streamzz.to">streamzz.to</a></li>
 		<li><a href="https://thevideome.com">thevideome.com</a></li>
