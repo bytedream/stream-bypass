@@ -14,19 +14,20 @@
     {
       "all_frames": true,
       "matches": [
-        "*://evoload.io/*",
-        "*://mcloud.to/*",
-        "*://mixdrop.co/*",
-        "*://streamtape.com/*",
-        "*://streamzz.to/*",
-        "*://thevideome.com/*",
-        "*://vidlox.me/*",
-        "*://vidstream.pro/*",
-        "*://vidoza.net/*",
-        "*://vivo.st/*",
-        "*://vivo.sx/*",
-        "*://voe.sx/*",
-        "*://vupload.com/*"
+        "*://*.evoload.io/*",
+        "*://*.mcloud.to/*",
+        "*://*.mixdrop.co/*",
+        "*://*.newgrounds.com/*",
+        "*://*.streamtape.com/*",
+        "*://*.streamzz.to/*",
+        "*://*.thevideome.com/*",
+        "*://*.vidlox.me/*",
+        "*://*.vidstream.pro/*",
+        "*://*.vidoza.net/*",
+        "*://*.vivo.st/*",
+        "*://*.vivo.sx/*",
+        "*://*.voe.sx/*",
+        "*://*.vupload.com/*"
       ],
       "js": [
         "match.js",
@@ -38,6 +39,7 @@
   "permissions": [
     "storage"
   ],
+  "content_security_policy": "script-src 'self' blob:; object-src 'self'",
   "browser_action": {
     "default_icon": "icons/stream-bypass.png",
     "default_title": "Stream Bypass",
