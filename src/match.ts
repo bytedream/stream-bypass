@@ -44,6 +44,19 @@ class Mixdrop implements Match {
     }
 }
 
+class Newgrounds implements Match {
+    async match(match: RegExpMatchArray): Promise<string> {
+        let id = window.location.pathname.split('/').slice(-1)[0]
+        let response = await fetch(`https://www.newgrounds.com/portal/video/${id}`, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        let json = await response.json()
+        return decodeURI(json['sources'][Object.keys(json['sources'])[0]][0]['src'])
+    }
+}
+
 class Streamtape implements Match {
     async match(match: RegExpMatchArray): Promise<string> {
         return `https://streamtape.com/get_video?${match[0]}`
@@ -111,6 +124,7 @@ const matches = [
     ['evoload.io', null, new Evoload(), Reliability.NORMAL],
     ['mcloud.to', new RegExp(/(?<=')\w+(?=';)/gm), new MCloud(), Reliability.NORMAL],
     ['mixdrop.co', new RegExp(/(?<=\|)\w{2,}/gm), new Mixdrop(), Reliability.HIGH],
+    ['newgrounds.com', null, new Newgrounds(), Reliability.HIGH],
     ['streamtape.com', new RegExp(/id=\S*(?=')/gm), new Streamtape(), Reliability.NORMAL],
     ['streamzz.to', new RegExp(/https?:\/\/get.streamz.tw\/getlink-\w+\.dll/gm), null, Reliability.NORMAL],
     ['thevideome.com', new RegExp(/(?<=\|)\w{2,}/gm), new TheVideoMe(), Reliability.NORMAL],
