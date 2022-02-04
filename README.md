@@ -60,7 +60,7 @@ The addon was tested on
 
 ### Firefox
 
-Install the addon directly from the [firefox addon store](https://addons.mozilla.org/de/firefox/addon/stream-bypass/).
+Install the addon directly from the [firefox addon store](https://addons.mozilla.org/de/firefox/addon/stream-bypass/) or from the [latest release](https://smartrelease.bytedream.org/github/ByteDream/stream-bypass/stream_bypass-{tag}_firefox.xpi) (if anything newer is available since firefox disables the plugin sometimes because of a setting which is necessary to run the addon properly).
 
 ### Chromium / Google Chrome
 
