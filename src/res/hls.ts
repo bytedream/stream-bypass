@@ -1,6 +1,6 @@
 function showMessage(message: string) {
     let messageElement = document.getElementById('message') as HTMLParagraphElement
-    messageElement.innerText = message
+    messageElement.innerHTML = message
     messageElement.hidden = false
     document.getElementById('video').hidden = true
 }
