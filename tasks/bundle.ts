@@ -1,6 +1,6 @@
-const fs = require('fs')
-const path = require('path')
-const yazl = require('yazl')
+import * as fs from "fs";
+import * as path from "path";
+import * as yazl from "yazl";
 
 function walkDirectory(dir, callback) {
     for (const file of fs.readdirSync(dir)) {

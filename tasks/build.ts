@@ -9,22 +9,55 @@ const sass = require('node-sass')
 const sassPluginNodeImport = require('node-sass-package-importer')
 const typescript = require('typescript')
 
-// because of javascript magic, require and import cannot be used at the same time
-/*async function build_manifest() {
+async function build_manifest() {
     const manifest = JSON.parse(await fs.readFileSync('src/manifest.json'))
 
-    const manifestMatches = []
+    manifest['version'] = process.env.npm_package_version
 
+    // because nodejs is nodejs, the simple commented out code below cannot be used.
+    // thus, the following bloated regexes must be used
+    /*const manifestMatches = []
     for (const m of matches) {
         for (const domain of m.domains) {
             manifestMatches.push(`*://*.${domain}/*`)
         }
     }
+    manifest['content_scripts']['matches'] = manifestMatches*/
 
-    manifest['content_scripts']['matches'] = manifestMatches
+    manifest['content_scripts']['matches'] = []
 
-    await fs.writeFileSync('src/manifest.json', JSON.stringify(manifest))
-}*/
+    const matchesRegex = new RegExp(/export\s+const\s+matches\s+=\s+(?<matches>\[.*?])/gms)
+    const matchesClassesRegex = new RegExp(/new\s+(?<class>\w+)\(\)/gms)
+
+    const matchTs = fs.readFileSync('src/match/match.ts')
+    const jsMatches = matchesRegex.exec(matchTs).groups.matches
+    let m
+    while ((m = matchesClassesRegex.exec(jsMatches))) {
+        if (m.index === matchesClassesRegex.lastIndex) {
+            matchesClassesRegex.lastIndex++
+        }
+
+        if (m.groups.class !== undefined) {
+            const classDomainsRegex = new RegExp('class\\s+' + m.groups.class + '.*?domains\\s*=\\s*(?<domains>\\[.*?])', 'gms')
+            let mm
+            while ((mm = classDomainsRegex.exec(matchTs))) {
+                if (mm.index === classDomainsRegex.lastIndex) {
+                    classDomainsRegex.lastIndex++
+                }
+
+                if (mm.groups.domains !== undefined) {
+                    const matches = []
+                    for (const domain of JSON.parse(mm.groups.domains.replaceAll('\'', '"', -1))) {
+                        matches.push(`*://*.${domain}/*`)
+                    }
+                    manifest['content_scripts'][0]['matches'] = manifest['content_scripts'][0]['matches'].concat(matches)
+                }
+            }
+        }
+    }
+
+    await fs.writeFileSync('src/manifest.json', JSON.stringify(manifest, null, 2))
+}
 
 async function build_misc() {
     const files = {
@@ -101,6 +134,7 @@ async function build_js() {
 }
 
 async function build() {
+    await build_manifest()
     await build_misc()
     await build_html()
     await build_css()
