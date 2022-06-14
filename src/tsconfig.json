@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2015",
+    "module": "esnext",
+    "target": "es2019",
     "removeComments": true,
     "lib": [
       "dom",
@@ -12,6 +12,6 @@
     ]
   },
   "exclude": [
-    "node_modules"
-  ],
+    "../node_modules"
+  ]
 }

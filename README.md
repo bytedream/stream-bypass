@@ -18,7 +18,7 @@ Additionally this enables you to download the video by right-clicking it and jus
   </a>
 </p>
 
-Supported streaming providers (for a complete list of all supported websites, see [here](SUPPORTED) or in [show all](#all-supported-websites) below):
+Supported streaming providers (for a complete list of all supported websites, click [show all](#all-supported-websites) down below):
 - [streamtape.com](https://streamtape.com)
 - [vivo.sx](https://vivo.sx)
 - [voe.sx](https://voe.sx)
@@ -40,7 +40,7 @@ Supported streaming providers (for a complete list of all supported websites, se
 		<li><a href="https://vivo.sx">vivo.sx</a></li>
 		<li><a href="https://voe.sx">voe.sx</a></li>
 		<li><a href="https://vupload.com">vupload.com</a></li>
-</ul>
+    </ul>
 </details>
 
 ---
@@ -49,12 +49,6 @@ Supported streaming providers (for a complete list of all supported websites, se
     <summary><b>How it's working</b></summary>
     <img src="example.gif" alt="">
 </details>
-
-The addon was tested on
-- Firefox (96.0.3)
-- Ungoogled Chromium (97.0)
-- Vivaldi (5.0)
-- Opera (83.0)
 
 ## Installing
 
@@ -80,42 +74,18 @@ Install the addon directly from the [firefox addon store](https://addons.mozilla
 
 ## Compiling
 
-If you want to use / install the addon from source, you have to compile the `typescript` and `sass` files yourself.
-- Compile it [manual](#manual).
-- Compile it using [docker](#docker).
+Requirements:
+- `npm` installed.
+- A copy of this repository and a shell / console open in the copied directory.
 
-### Manual
+If the requirements are satisfied, you can continue with the following commands:
+```shell
+# install all dependencies
+$ npm install
 
-For compiling everything bare bones, you need [typescript](https://www.typescriptlang.org/) and [sass](https://sass-lang.com/) installed.
-- Compile typescript
-  ```
-  $ tsc -p src
-  ```
-- Compile sass (replace `<path to sass file>` with every `.sass` file in the `src` directory)
-  ```
-  $ sass --no-source-map <path to sass file>
-  ```
-The compiled output will be in the `src` directory.
-
-If you want to keep it a little cleaner, you additionally need [python3](https://www.python.org).
-- Compile everything with one line
-  ```
-  $ python3 build.py -b -c
-  ```
-The compiled output will remain in a (new created if not existing) `build` directory.
-
-### Docker
-
-For this, you need [docker](https://www.docker.com/) to be installed.
-- Build the docker image
-  ```
-  $ docker build -t stream-bypass .
-  ```
-- Compile
-  ```
-  $ docker run --rm -v build:/build stream-bypass
-  ```
-The compiled output will remain in a (new created if not existing) `build` directory.
+# build the extension source to a build/ directory
+$ npm run build
+```
 
 ##### Install
 
