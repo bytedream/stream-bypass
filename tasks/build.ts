@@ -9,11 +9,7 @@ const sass = require('node-sass')
 const sassPluginNodeImport = require('node-sass-package-importer')
 const typescript = require('typescript')
 
-async function build_manifest() {
-    const manifest = JSON.parse(await fs.readFileSync('src/manifest.json'))
-
-    manifest['version'] = process.env.npm_package_version
-
+function getDomains() {
     // because nodejs is nodejs, the simple commented out code below cannot be used.
     // thus, the following bloated regexes must be used
     /*const manifestMatches = []
@@ -24,7 +20,7 @@ async function build_manifest() {
     }
     manifest['content_scripts']['matches'] = manifestMatches*/
 
-    manifest['content_scripts']['matches'] = []
+    let domains = []
 
     const matchesRegex = new RegExp(/export\s+const\s+matches\s+=\s+(?<matches>\[.*?])/gms)
     const matchesClassesRegex = new RegExp(/new\s+(?<class>\w+)\(\)/gms)
@@ -47,19 +43,39 @@ async function build_manifest() {
 
                 if (mm.groups.domains !== undefined) {
                     const matches = []
-                    for (const domain of JSON.parse(mm.groups.domains.replaceAll('\'', '"', -1))) {
-                        matches.push(`*://*.${domain}/*`)
+                    for (const domain of JSON.parse(mm.groups.domains.replace(/'/g, '"', -1))) {
+                        matches.push(domain)
                     }
-                    manifest['content_scripts'][0]['matches'] = manifest['content_scripts'][0]['matches'].concat(matches)
+                    domains = domains.concat(matches)
                 }
             }
         }
     }
 
-    await fs.writeFileSync('src/manifest.json', JSON.stringify(manifest, null, 2))
+    return domains
 }
 
-async function build_misc() {
+async function buildManifest() {
+    const manifest = JSON.parse(fs.readFileSync('src/manifest.json'))
+
+    manifest['version'] = process.env.npm_package_version
+
+    manifest['content_scripts']['matches'] = getDomains().map((domain) => {`*://*.${domain}/*`})
+
+    fs.writeFileSync('src/manifest.json', JSON.stringify(manifest, null, 2))
+}
+
+async function buildReadme() {
+    let readme = fs.readFileSync('README.md')
+
+    readme = readme.toString().replace(/<ul>.*?<\/ul>/gms, '<ul>\n' + getDomains().map((domain) => {
+        return `\t\t<li><a href="https://${domain}">${domain.charAt(0).toUpperCase() + domain.substring(1)}</a></li>`
+    }).join('\n') + '\n\t</ul>')
+
+    fs.writeFileSync('README.md', readme)
+}
+
+async function buildMisc() {
     const files = {
         'src/manifest.json': 'build/manifest.json',
         'src/icons/stream-bypass.png': 'build/icons/stream-bypass.png'
@@ -71,7 +87,7 @@ async function build_misc() {
     }
 }
 
-async function build_html() {
+async function buildHtml() {
     const files = {
         'src/ui/popup/popup.html': 'build/ui/popup/popup.html',
         'src/ui/hls/hls.html': 'build/ui/hls/hls.html'
@@ -83,7 +99,7 @@ async function build_html() {
     }
 }
 
-async function build_css() {
+async function buildCss() {
     const files = {
         'src/ui/popup/popup.sass': 'build/ui/popup/popup.css',
         'src/ui/hls/hls.sass': 'build/ui/hls/hls.css'
@@ -99,7 +115,7 @@ async function build_css() {
     }
 }
 
-async function build_js() {
+async function buildJs() {
     const files = {
         'src/ui/popup/popup.ts': 'build/ui/popup/popup.js',
         'src/ui/hls/hls.ts': 'build/ui/hls/hls.js',
@@ -134,11 +150,12 @@ async function build_js() {
 }
 
 async function build() {
-    await build_manifest()
-    await build_misc()
-    await build_html()
-    await build_css()
-    await build_js()
+    await buildManifest()
+    await buildReadme()
+    await buildMisc()
+    await buildHtml()
+    await buildCss()
+    await buildJs()
 }
 
 build()
