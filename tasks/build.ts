@@ -60,7 +60,7 @@ async function buildManifest() {
 
     manifest['version'] = process.env.npm_package_version
 
-    manifest['content_scripts']['matches'] = getDomains().map((domain) => {`*://*.${domain}/*`})
+    manifest['content_scripts'][0]['matches'] = getDomains().map((domain) => {return `*://*.${domain}/*`})
 
     fs.writeFileSync('src/manifest.json', JSON.stringify(manifest, null, 2))
 }
