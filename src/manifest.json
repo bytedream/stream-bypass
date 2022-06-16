@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Stream Bypass",
   "author": "ByteDream",
   "description": "A multi-browser addon / extension for multiple streaming providers which redirects directly to the source video.",
@@ -37,11 +37,21 @@
   "permissions": [
     "storage"
   ],
-  "browser_action": {
+  "action": {
     "default_icon": "icons/stream-bypass.png",
     "default_title": "Stream Bypass",
     "default_popup": "ui/popup/popup.html"
   },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "ui/hls/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
   "icons": {
     "128": "icons/stream-bypass.png"
   }
