@@ -3,9 +3,8 @@ import {matches, Reliability} from "../../match/match";
 import Hls from "hls.js";
 
 function show_message(message: string) {
-    const messageElement = document.getElementById('message') as HTMLParagraphElement
-    messageElement.innerText = message
-    messageElement.hidden = false
+    document.getElementById('message').innerText = message
+    document.getElementById('message-container').hidden = false
     document.getElementById('video').hidden = true
 }
 
