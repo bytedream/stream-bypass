@@ -12,7 +12,6 @@ export abstract class Match {
     regex: RegExp
     abstract match(match: RegExpMatchArray): Promise<string>
 
-    locked?: boolean
     notice?: string
 }
 
@@ -40,28 +39,6 @@ class Evoload implements Match {
     }
 }
 
-class MCloud implements Match {
-    name = 'MCloud'
-    id = 'mcloud'
-    reliability = Reliability.HIGH
-    domains = [
-        'mcloud.to'
-    ]
-    regex = new RegExp(/(?<=')\w+(?=';)/gm)
-
-    async match(match: RegExpMatchArray): Promise<string> {
-        const code = window.location.pathname.split('/').slice(-1)[0]
-        const response = await fetch(`https://mcloud.to/info/${code}?skey=${match[0]}`, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            referrer: `https://mcloud.to/embed/${code}`
-        })
-        const json = await response.json()
-        return json['media']['sources'][0]['file']
-    }
-}
-
 class Mixdrop implements Match {
     name = 'Mixdrop'
     id = 'mixdrop'
@@ -75,6 +52,20 @@ class Mixdrop implements Match {
         return `https://a-${match[1]}.${match[4]}.${match[5]}/v/${match[2]}.${match[6]}?s=${match[12]}&e=${match[13]}`
     }
 }
+
+/*class Mp4Upload implements Match {
+    name = 'Mp4Upload'
+    id = 'mp4upload'
+    reliability = Reliability.LOW
+    domains = [
+        'mp4upload.com'
+    ]
+    regex = new RegExp(/(?<=\|)\w{2,}/gm)
+
+    async match(match: RegExpMatchArray): Promise<string> {
+        return `https://${match[34]}.mp4upload.com:${match[89]}/d/${match[88]}/video.mp4`
+    }
+}*/
 
 class Newgrounds implements Match {
     name = 'Newgrounds'
@@ -122,20 +113,6 @@ class Streamzz implements Match {
 
     async match(match: RegExpMatchArray): Promise<string> {
         return match[0]
-    }
-}
-
-class TheVideoMe implements Match {
-    name = 'TheVideoMe'
-    id = 'thevideome'
-    reliability = Reliability.NORMAL
-    domains = [
-        'thevideome.com'
-    ]
-    regex = new RegExp(/(?<=\|)\w{2,}/gm)
-
-    async match(match: RegExpMatchArray): Promise<string> {
-        return `https://thevideome.com/${match[5]}.mp4`
     }
 }
 
@@ -206,12 +183,11 @@ class Vidoza implements Match {
 class Vivo implements Match {
     name = 'Vivo'
     id = 'vivo'
-    reliability = Reliability.HIGH
+    reliability = Reliability.LOW
     domains = [
-        'vivo.st',
         'vivo.sx'
     ]
-    regex = new RegExp(/(?<=source:\s')(\S+)(?=')/gm)
+    regex = new RegExp(/(?<=source:\s')(\S+)(?=')/gms)
 
     async match(match: RegExpMatchArray): Promise<string> {
         return this.rot47(decodeURIComponent(match[0]))
@@ -263,12 +239,10 @@ class Vupload implements Match {
 
 export const matches = [
     new Evoload(),
-    new MCloud(),
     new Mixdrop(),
     new Newgrounds(),
     new Streamtape(),
     new Streamzz(),
-    new TheVideoMe(),
     new Upstream(),
     new Vidlox(),
     new Vidoza(),
