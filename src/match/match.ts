@@ -145,25 +145,17 @@ class Vidlox implements Match {
     }
 }
 
-class Vidstream implements Match {
-    name = 'Vidstream'
-    id = 'vidstream'
-    reliability = Reliability.LOW
+class Vidoza implements Match {
+    name = 'Vidoza'
+    id = 'vidoza'
+    reliability = Reliability.HIGH
     domains = [
-        'vidstream.pro'
+        'vidoza.net'
     ]
-    regex = new RegExp(/(?<=')\w+(?=';)/gm)
+    regex = new RegExp(/(?<=src:\s?").+?(?=")/gm)
 
     async match(match: RegExpMatchArray): Promise<string> {
-        const code = window.location.pathname.split('/').slice(-1)[0]
-        const response = await fetch(`https://vidstream.pro/info/${code}?skey=${match[0]}`, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            referrer: `https://vidstream.pro/embed/${code}`
-        })
-        const json = await response.json()
-        return json['media']['sources'][0]['file']
+        return match[0]
     }
 }
 
@@ -232,6 +224,7 @@ export const matches = [
     new Streamzz(),
     new Upstream(),
     new Vidlox(),
+    new Vidoza(),
     new Vivo(),
     new Voe(),
     new Vupload()
