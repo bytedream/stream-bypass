@@ -5,7 +5,9 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "node tasks/build.ts",
-    "bundle": "node tasks/build.ts && node tasks/bundle.ts"
+    "bundle": "node tasks/build.ts && web-ext build -s build -a dist -o",
+    "bundle:all": "node tasks/build.ts && web-ext build -s build -a dist -o && web-ext sign -s build -a dist",
+    "check": "web-ext lint -s build"
   },
   "repository": {
     "type": "git",
@@ -34,6 +36,6 @@
     "rollup": "^2.75.6",
     "tippy.js": "^6.3.7",
     "typescript": "^4.7.3",
-    "yazl": "^2.5.1"
+    "web-ext": "^7.0.0"
   }
 }
