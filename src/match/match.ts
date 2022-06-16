@@ -107,12 +107,13 @@ class Streamzz implements Match {
     id = 'streamzz'
     reliability = Reliability.NORMAL
     domains = [
-        'streamzz.to'
+        'streamzz.to',
+        'streamz.ws'
     ]
-    regex = new RegExp(/https?:\/\/get.streamz.tw\/getlink-\w+\.dll/gm)
+    regex = new RegExp(/(?<=\|)\w{2,}/gm)
 
     async match(match: RegExpMatchArray): Promise<string> {
-        return match[0]
+        return `https://get.${document.domain.split('.')[0]}.tw/getlink-${match.sort((a, b) => b.length - a.length)[0]}.dll`
     }
 }
 
@@ -163,20 +164,6 @@ class Vidstream implements Match {
         })
         const json = await response.json()
         return json['media']['sources'][0]['file']
-    }
-}
-
-class Vidoza implements Match {
-    name = 'Vidoza'
-    id = 'vidoza'
-    reliability = Reliability.NORMAL
-    domains = [
-        'vidoza.net'
-    ]
-    regex = new RegExp(/(?<=src:(\s*)?")\S*(?=")/gm)
-
-    async match(match: RegExpMatchArray): Promise<string> {
-        return match[0]
     }
 }
 
@@ -245,7 +232,6 @@ export const matches = [
     new Streamzz(),
     new Upstream(),
     new Vidlox(),
-    new Vidoza(),
     new Vivo(),
     new Voe(),
     new Vupload()
