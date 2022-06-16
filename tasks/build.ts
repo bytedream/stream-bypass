@@ -65,16 +65,6 @@ async function buildManifest() {
     fs.writeFileSync('src/manifest.json', JSON.stringify(manifest, null, 2))
 }
 
-async function buildReadme() {
-    let readme = fs.readFileSync('README.md')
-
-    readme = readme.toString().replace(/<ul>.*?<\/ul>/gms, '<ul>\n' + getDomains().map((domain) => {
-        return `\t\t<li><a href="https://${domain}">${domain.charAt(0).toUpperCase() + domain.substring(1)}</a></li>`
-    }).join('\n') + '\n\t</ul>')
-
-    fs.writeFileSync('README.md', readme)
-}
-
 async function buildMisc() {
     const files = {
         'src/manifest.json': 'build/manifest.json',
@@ -151,7 +141,6 @@ async function buildJs() {
 
 async function build() {
     await buildManifest()
-    await buildReadme()
     await buildMisc()
     await buildHtml()
     await buildCss()
