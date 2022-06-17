@@ -67,25 +67,28 @@ Install the addon directly from the [firefox addon store](https://addons.mozilla
 
 ## 📜 Supported sites
 
-| Site                                     | Supported | Note                                |
-|------------------------------------------|-----------|-------------------------------------|
-| [evoload.io](https://evoload.io)         | ✔️        |                                     |
-| [mixdrop.co](https://mixdrop.co)         | ✔ ️       |                                     |		
-| [mp4upload.com](https://mp4upload.com)   | ❌         | URL can be extracted but not played |
-| [newgrounds.com](https://newgrounds.com) | ✔         |                                     |
-| [streamtape.com](https://streamtape.com) | ✔         |                                     |
-| [streamzz.to](https://streamzz.to)       | ✔         |                                     |
-| [upstream.to](https://upstream.to)       | ✔         |                                     |
-| [vidlox.me](https://vidlox.me)           | ⚠         | Website down / Timeout              |
-| [vidoza.net](https://videoza.net)        | ✔         |                                     |
-| [vivo.sx](https://vivo.sx)               | ⚠️        | Website down / Timeout              |
-| [voe.sx](https://voe.sx)                 | ✔         |                                     |
-| [voeunblk.com](https://voeunblk.com)     | ✔         |                                     |
-| [vupload.com](https://vupload.com)       | ✔         |                                     |
+| Site                                                                  | Supported | Note                                             |
+|-----------------------------------------------------------------------|-----------|--------------------------------------------------|
+| [doodstream.com](doodstream.com) / [dood.pm](https://dood.pm)         | ❌         | Reverse engineering the site costs too much time |
+| [evoload.io](https://evoload.io)                                      | ✔️        |                                                  |
+| [mixdrop.co](https://mixdrop.co)                                      | ✔ ️       |                                                  |		
+| [mp4upload.com](https://mp4upload.com)                                | ❌         | URL can be extracted but not played              |
+| [newgrounds.com](https://newgrounds.com)                              | ✔         |                                                  |
+| [streamtape.com](https://streamtape.com)                              | ✔         |                                                  |
+| [streamzz.to](https://streamzz.to) / [streamz.ws](https://streamz.ws) | ✔         |                                                  |
+| [upstream.to](https://upstream.to)                                    | ✔         |                                                  |
+| [videovard.sx](https://videovard.sx)                                  | ❌         | Reverse engineering the site costs too much time |
+| [vidlox.me](https://vidlox.me)                                        | ⚠         | Website down / Timeout                           |
+| [vidoza.net](https://vidoza.net)                                      | ✔         |                                                  |
+| [vivo.sx](https://vivo.sx)                                            | ⚠️        | Website down / Timeout                           |
+| [voe.sx](https://voe.sx) / [voeunblk.com](https://voeunblk.com)       | ✔         |                                                  |
+| [vupload.com](https://vupload.com)                                    | ✔         |                                                  |
 
 - ✔️: Everything ok.
 - ⚠: Included in the addon but will probably not work. See `Note` in this case, an explanation why will stand there in the most cases.
 - ❌: Not included / supported by the addon. This can have various reasons. See `Note` for an explanation.
+
+Some sites put much effort in obfuscating their code / how they receive the video stream so that it simply cost too much time for me to reverse engineer it and find out how to bypass the native video player of the site.
 
 ## ⚙️ Compiling
 
