@@ -68,7 +68,11 @@ async function buildManifest() {
 async function buildMisc() {
     const files = {
         'src/manifest.json': 'build/manifest.json',
-        'src/icons/stream-bypass.png': 'build/icons/stream-bypass.png'
+
+        'src/icons/logo_48.png': 'build/icons/logo_48.png',
+        'src/icons/logo_128.png': 'build/icons/logo_128.png',
+        'src/icons/disabled_48.png': 'build/icons/disabled_48.png',
+        'src/icons/disabled_128.png': 'build/icons/disabled_128.png',
     }
 
     for (const [src, dst] of Object.entries(files)) {
@@ -110,7 +114,8 @@ async function buildJs() {
         'src/ui/popup/popup.ts': 'build/ui/popup/popup.js',
         'src/ui/player/player.ts': 'build/ui/player/player.js',
 
-        'src/index.ts': 'build/index.js'
+        'src/index.ts': 'build/index.js',
+        'src/background.ts': 'build/background.js'
     }
 
     for (const [src, dst] of Object.entries(files)) {

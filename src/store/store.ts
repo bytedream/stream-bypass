@@ -34,10 +34,19 @@ export async function getAllDisabled(): Promise<boolean> {
 
 export async function enableAll() {
     await storageSet('all', false)
+    await chrome.browserAction.setIcon({
+        path: null
+    })
 }
 
 export async function disableAll() {
     await storageSet('all', true)
+    await chrome.browserAction.setIcon({
+        path: {
+            48: chrome.runtime.getURL('icons/disabled_48.png'),
+            128: chrome.runtime.getURL('icons/disabled_128.png')
+        }
+    })
 }
 
 export async function enable(match: Match) {
