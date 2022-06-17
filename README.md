@@ -112,7 +112,7 @@ $ npm run bundle
 
 ##### Install
 
-If you want to use the addon in Chromium or any browser which is based on it (almost every other, Google Chrome, Opera, ...), follow the steps in [installation](#installation).
+If you want to use the addon in Chromium or any browser which is based on it (almost every other, Google Chrome, Opera, ...), follow the steps in [installation](#-installation).
 When using firefox, use the following:
 1. Type `about:debugging` in the browser's address bar.
 2. Select 'This Firefox' tab (maybe named different, depending on your language).
