@@ -80,7 +80,7 @@ async function buildMisc() {
 async function buildHtml() {
     const files = {
         'src/ui/popup/popup.html': 'build/ui/popup/popup.html',
-        'src/ui/hls/hls.html': 'build/ui/hls/hls.html'
+        'src/ui/player/player.html': 'build/ui/player/player.html'
     }
 
     for (const [src, dst] of Object.entries(files)) {
@@ -92,7 +92,7 @@ async function buildHtml() {
 async function buildCss() {
     const files = {
         'src/ui/popup/popup.sass': 'build/ui/popup/popup.css',
-        'src/ui/hls/hls.sass': 'build/ui/hls/hls.css'
+        'src/ui/player/player.sass': 'build/ui/player/player.css'
     }
 
     for (const [src, dst] of Object.entries(files)) {
@@ -108,7 +108,7 @@ async function buildCss() {
 async function buildJs() {
     const files = {
         'src/ui/popup/popup.ts': 'build/ui/popup/popup.js',
-        'src/ui/hls/hls.ts': 'build/ui/hls/hls.js',
+        'src/ui/player/player.ts': 'build/ui/player/player.js',
 
         'src/index.ts': 'build/index.js'
     }

@@ -1,4 +1,4 @@
-import {matches, Reliability} from "../../match/match";
+import {Match, matches, Reliability} from "../../match/match";
 // @ts-ignore
 import Hls from "hls.js";
 
@@ -8,18 +8,13 @@ function show_message(message: string) {
     document.getElementById('video').hidden = true
 }
 
-async function main() {
-    const urlQuery = new URLSearchParams(window.location.search)
-    const id = urlQuery.get('id')
-    const url = urlQuery.get('url')
+async function play_native(url: string, match: Match) {
+    const video = document.getElementById('video') as HTMLVideoElement
+    video.controls = true
+    video.src = url
+}
 
-    const match = matches.find((m) => m.id === id)
-    if (match === undefined) {
-        show_message(`Invalid id: ${id}. Please report this <a href="https://github.com/ByteDream/stream-bypass/issues/new">here</a>`)
-        return
-    }
-    document.title = match.name
-
+async function play_hls(url: string, match: Match) {
     const video = document.getElementById('video') as HTMLVideoElement
     video.controls = true
 
@@ -64,6 +59,21 @@ async function main() {
     } else {
         show_message('Failed to play m3u8 video (hls is not supported). Try again or create a new issue <a href="https://github.com/ByteDream/stream-bypass/issues/new">here</a>')
     }
+}
+
+async function main() {
+    const urlQuery = new URLSearchParams(window.location.search)
+    const id = urlQuery.get('id')
+    const url = urlQuery.get('url')
+
+    const match = matches.find((m) => m.id === id)
+    if (match === undefined) {
+        show_message(`Invalid id: ${id}. Please report this <a href="https://github.com/ByteDream/stream-bypass/issues/new">here</a>`)
+        return
+    }
+    document.title = match.name
+
+    url.endsWith('.m3u8') ? await play_hls(url, match) : await play_native(url, match)
 }
 
 main()
