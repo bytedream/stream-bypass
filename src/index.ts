@@ -5,10 +5,9 @@ async function main() {
     if (await getAllDisabled()) {
         return
     }
-    const disabled = await getDisabled()
 
     for (const match of matches) {
-        if (disabled.some((v) => v == match) || !match.domains.some((v) => window.location.host.indexOf(v) !== -1)) {
+        if (!match.domains.some((v) => window.location.host.indexOf(v) !== -1) || ((await getDisabled()).some((v) => v === match))) {
             continue
         }
 
@@ -18,7 +17,7 @@ async function main() {
         }
 
         const url = await match.match(re)
-        location.assign(url.indexOf('.m3u8', url.length - 5) === -1 ? url : chrome.runtime.getURL(`ui/hls/hls.html?id=${match.id}&url=${encodeURIComponent(url)}`))
+        location.assign(chrome.runtime.getURL(`ui/player/player.html?id=${match.id}&url=${encodeURIComponent(url)}`))
     }
 }
 
