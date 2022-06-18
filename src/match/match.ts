@@ -134,7 +134,7 @@ class Upstream implements Match {
 class Vidlox implements Match {
     name = 'Vidlox'
     id = 'vidlox'
-    reliability = Reliability.NORMAL
+    reliability = Reliability.LOW
     domains = [
         'vidlox.me'
     ]
