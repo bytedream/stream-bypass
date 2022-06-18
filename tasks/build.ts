@@ -115,7 +115,6 @@ async function buildJs() {
         'src/ui/player/player.ts': 'build/ui/player/player.js',
 
         'src/index.ts': 'build/index.js',
-        'src/background.ts': 'build/background.js'
     }
 
     for (const [src, dst] of Object.entries(files)) {
