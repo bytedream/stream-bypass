@@ -7,10 +7,10 @@ A multi-browser addon / extension for multiple streaming providers which redirec
     <img src="https://img.shields.io/github/v/release/ByteDream/stream-bypass?label=Version&style=flat-square" alt="Version">
   </a>
   <a href="https://addons.mozilla.org/de/firefox/addon/stream-bypass/">
-    <img src="https://img.shields.io/amo/users/stream-bypass?label=Firefox%20Addon%20Downloads&style=flat-square" alt="Firefox Addon Store">
+    <img src="https://img.shields.io/amo/users/stream-bypass?label=Firefox%20Store%20Downloads&style=flat-square" alt="Firefox Addon Store">
   </a>
   <a href="https://addons.mozilla.org/de/firefox/addon/stream-bypass/">
-    <img src="https://img.shields.io/amo/stars/stream-bypass?label=Firefox%20Addon%20Stars&style=flat-square" alt="Firefox Addon Stars">
+    <img src="https://img.shields.io/amo/stars/stream-bypass?label=Firefox%20Store%20Stars&style=flat-square" alt="Firefox Addon Stars">
   </a>
   <a href="https://github.com/ByteDream/stream-bypass/releases/latest">
     <img src="https://img.shields.io/github/downloads/ByteDream/stream-bypass/total?label=GitHub%20Downloads&style=flat-square" alt="GitHub Downloads">
