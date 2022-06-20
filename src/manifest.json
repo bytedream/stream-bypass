@@ -3,7 +3,7 @@
   "name": "Stream Bypass",
   "author": "ByteDream",
   "description": "A multi-browser addon / extension for multiple streaming providers which redirects directly to the source video.",
-  "version": "1.6.0",
+  "version": "2.0.0",
   "homepage_url": "https://github.com/ByteDream/stream-bypass",
   "browser_specific_settings": {
     "gecko": {
@@ -15,22 +15,20 @@
       "all_frames": true,
       "matches": [
         "*://*.evoload.io/*",
-        "*://*.mcloud.to/*",
         "*://*.mixdrop.co/*",
         "*://*.newgrounds.com/*",
         "*://*.streamtape.com/*",
         "*://*.streamzz.to/*",
-        "*://*.thevideome.com/*",
+        "*://*.streamz.ws/*",
+        "*://*.upstream.to/*",
         "*://*.vidlox.me/*",
-        "*://*.vidstream.pro/*",
         "*://*.vidoza.net/*",
-        "*://*.vivo.st/*",
         "*://*.vivo.sx/*",
         "*://*.voe.sx/*",
+        "*://*.voeunblk.com/*",
         "*://*.vupload.com/*"
       ],
       "js": [
-        "match.js",
         "index.js"
       ],
       "run_at": "document_end"
@@ -39,13 +37,16 @@
   "permissions": [
     "storage"
   ],
-  "content_security_policy": "script-src 'self' blob:; object-src 'self'",
   "browser_action": {
-    "default_icon": "icons/stream-bypass.png",
+    "default_icon": {
+      "48": "icons/logo_48.png",
+      "128": "icons/logo_128.png"
+    },
     "default_title": "Stream Bypass",
-    "default_popup": "popup/popup.html"
+    "default_popup": "ui/popup/popup.html"
   },
   "icons": {
-    "128": "icons/stream-bypass.png"
+    "48": "icons/logo_48.png",
+    "128": "icons/logo_128.png"
   }
 }

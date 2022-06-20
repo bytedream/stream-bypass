@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2015",
+    "module": "esnext",
+    "target": "es2019",
     "removeComments": true,
+    "esModuleInterop": true,
     "lib": [
       "dom",
       "es5",
       "scripthost",
       "es2015.collection",
       "es2015.promise"
-    ]
+    ],
   },
   "exclude": [
-    "node_modules"
-  ],
+    "../node_modules"
+  ]
 }
