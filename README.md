@@ -27,7 +27,7 @@ A multi-browser addon / extension for multiple streaming providers which redirec
   •
   <a href="#-supported-sites">Supported Sites 📜</a>
   •
-  <a href="#%EF%B8%8F-compiling">Compiling ⚙️</a>
+  <a href="#%EF%B8%8F-building">Building ⚙️</a>
   •
   <a href="#-license">License ⚖</a>
 </p>
