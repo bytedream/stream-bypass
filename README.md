@@ -90,9 +90,9 @@ Install the addon directly from the [firefox addon store](https://addons.mozilla
 
 Some sites put much effort in obfuscating their code / how they receive the video stream so that it simply cost too much time for me to reverse engineer it and find out how to bypass the native video player of the site.
 
-## ⚙️ Compiling
+## ⚙️ Building
 
-If you want to compile the addon from source and not using the [installation](#installation) way, follow the instructions.
+If you want to build the addon from source and not using the [installation](#installation) way, follow the instructions.
 
 Requirements:
 - `npm` installed.
