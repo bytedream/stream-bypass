@@ -26,6 +26,7 @@
         "*://*.vivo.sx/*",
         "*://*.voe.sx/*",
         "*://*.voeunblk.com/*",
+        "*://*.voeun-block.net/*",
         "*://*.vupload.com/*"
       ],
       "js": [
