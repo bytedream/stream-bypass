@@ -27,6 +27,7 @@
         "*://*.voe.sx/*",
         "*://*.voeunblk.com/*",
         "*://*.voeun-block.net/*",
+        "*://*.un-block-voe.net/*",
         "*://*.vupload.com/*"
       ],
       "js": [

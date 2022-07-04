@@ -194,7 +194,8 @@ class Voe implements Match {
     domains = [
         'voe.sx',
         'voeunblk.com',
-        'voeun-block.net'
+        'voeun-block.net',
+        'un-block-voe.net'
     ]
     regex = new RegExp(/https?:\/\/\S*m3u8(?=")/gm)
 
