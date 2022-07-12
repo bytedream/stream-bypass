@@ -33,7 +33,7 @@ export async function getDisabled(): Promise<Match[]> {
 
 export async function getAllDisabled(): Promise<boolean> {
     const value = await storageGet('all')
-    return value !== undefined ? value as unknown as boolean : false
+    return value !== undefined ? String(value).toLowerCase() === 'true' : false
 }
 
 export async function enableAll() {
