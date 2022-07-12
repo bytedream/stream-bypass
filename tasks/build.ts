@@ -25,7 +25,7 @@ function getDomains() {
     const matchesRegex = new RegExp(/export\s+const\s+matches\s+=\s+(?<matches>\[.*?])/gms)
     const matchesClassesRegex = new RegExp(/(?<!\/\/\s*)new\s+(?<class>\w+)\(\)/gms)
 
-    const matchTs = fs.readFileSync('src/match/match.ts')
+    const matchTs = fs.readFileSync('src/match/matches.ts')
     const jsMatches = matchesRegex.exec(matchTs).groups.matches
     let m
     while ((m = matchesClassesRegex.exec(jsMatches))) {
