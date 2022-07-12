@@ -32,6 +32,9 @@
     "webRequest",
     "<all_urls>"
   ],
+  "web_accessible_resources": [
+    "ui/player/*"
+  ],
   "browser_action": {
     "default_icon": {
       "48": "icons/logo_48.png",
