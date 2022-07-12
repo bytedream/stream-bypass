@@ -9,58 +9,10 @@ const sass = require('node-sass')
 const sassPluginNodeImport = require('node-sass-package-importer')
 const typescript = require('typescript')
 
-function getDomains() {
-    // because nodejs is nodejs, the simple commented out code below cannot be used.
-    // thus, the following bloated regexes must be used
-    /*const manifestMatches = []
-    for (const m of matches) {
-        for (const domain of m.domains) {
-            manifestMatches.push(`*://*.${domain}/*`)
-        }
-    }
-    manifest['content_scripts']['matches'] = manifestMatches*/
-
-    let domains = []
-
-    const matchesRegex = new RegExp(/export\s+const\s+matches\s+=\s+(?<matches>\[.*?])/gms)
-    const matchesClassesRegex = new RegExp(/(?<!\/\/\s*)new\s+(?<class>\w+)\(\)/gms)
-
-    const matchTs = fs.readFileSync('src/match/matches.ts')
-    const jsMatches = matchesRegex.exec(matchTs).groups.matches
-    let m
-    while ((m = matchesClassesRegex.exec(jsMatches))) {
-        if (m.index === matchesClassesRegex.lastIndex) {
-            matchesClassesRegex.lastIndex++
-        }
-
-        if (m.groups.class !== undefined) {
-            const classDomainsRegex = new RegExp('class\\s+' + m.groups.class + '.*?domains\\s*=\\s*(?<domains>\\[.*?])', 'gms')
-            let mm
-            while ((mm = classDomainsRegex.exec(matchTs))) {
-                if (mm.index === classDomainsRegex.lastIndex) {
-                    classDomainsRegex.lastIndex++
-                }
-
-                if (mm.groups.domains !== undefined) {
-                    const matches = []
-                    for (const domain of JSON.parse(mm.groups.domains.replace(/'/g, '"', -1))) {
-                        matches.push(domain)
-                    }
-                    domains = domains.concat(matches)
-                }
-            }
-        }
-    }
-
-    return domains
-}
-
 async function buildManifest() {
     const manifest = JSON.parse(fs.readFileSync('src/manifest.json'))
 
     manifest['version'] = process.env.npm_package_version
-
-    manifest['content_scripts'][0]['matches'] = getDomains().map((domain) => {return `*://*.${domain}/*`})
 
     fs.writeFileSync('src/manifest.json', JSON.stringify(manifest, null, 2))
 }
@@ -115,6 +67,7 @@ async function buildJs() {
         'src/ui/player/player.ts': 'build/ui/player/player.js',
 
         'src/index.ts': 'build/index.js',
+        'src/background.ts': 'build/background.js'
     }
 
     for (const [src, dst] of Object.entries(files)) {

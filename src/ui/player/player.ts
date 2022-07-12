@@ -1,4 +1,4 @@
-import {Match, matches, Reliability} from "../../match/match";
+import {Match, matches, Reliability} from "../../match/matches";
 // @ts-ignore
 import Hls from "hls.js";
 

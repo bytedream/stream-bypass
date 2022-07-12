@@ -1,6 +1,6 @@
-import {Match, matches} from "../match/match";
+import {Match, matches} from "../match/matches";
 
-async function storageGet(key: string): Promise<any> {
+export async function storageGet(key: string): Promise<any> {
     return new Promise((resolve) => {
         chrome.storage.local.get(key, (value) => {
             resolve(value[key])
@@ -8,10 +8,14 @@ async function storageGet(key: string): Promise<any> {
     })
 }
 
-async function storageSet(key: string, value: any) {
+export async function storageSet(key: string, value: any) {
     const obj = {}
     obj[key] = value
     await chrome.storage.local.set(obj)
+}
+
+export async function storageDelete(key: string) {
+    await chrome.storage.local.remove(key)
 }
 
 export async function getDisabled(): Promise<Match[]> {

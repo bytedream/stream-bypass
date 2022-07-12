@@ -192,10 +192,7 @@ class Voe implements Match {
     id = 'voe'
     reliability = Reliability.HIGH
     domains = [
-        'voe.sx',
-        'voeunblk.com',
-        'voeun-block.net',
-        'un-block-voe.net'
+        'voe.sx'
     ]
     regex = new RegExp(/https?:\/\/\S*m3u8(?=")/gm)
 

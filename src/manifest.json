@@ -14,21 +14,7 @@
     {
       "all_frames": true,
       "matches": [
-        "*://*.evoload.io/*",
-        "*://*.mixdrop.co/*",
-        "*://*.newgrounds.com/*",
-        "*://*.streamtape.com/*",
-        "*://*.streamzz.to/*",
-        "*://*.streamz.ws/*",
-        "*://*.upstream.to/*",
-        "*://*.vidlox.me/*",
-        "*://*.vidoza.net/*",
-        "*://*.vivo.sx/*",
-        "*://*.voe.sx/*",
-        "*://*.voeunblk.com/*",
-        "*://*.voeun-block.net/*",
-        "*://*.un-block-voe.net/*",
-        "*://*.vupload.com/*"
+        "<all_urls>"
       ],
       "js": [
         "index.js"
@@ -36,8 +22,15 @@
       "run_at": "document_end"
     }
   ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
   "permissions": [
-    "storage"
+    "storage",
+    "webRequest",
+    "<all_urls>"
   ],
   "browser_action": {
     "default_icon": {

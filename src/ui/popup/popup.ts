@@ -1,5 +1,5 @@
 import {getDisabled, disable, enable, getAllDisabled, enableAll, disableAll} from "../../store/store";
-import {matches, Reliability} from "../../match/match";
+import {matches, Reliability} from "../../match/matches";
 
 async function main() {
     const disabled = await getDisabled()

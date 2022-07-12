@@ -1,24 +1,26 @@
-import {matches} from "./match/match";
-import {getAllDisabled, getDisabled} from "./store/store";
+import {getMatch} from "./match/match";
+import {storageDelete, storageGet} from "./store/store";
+import {Match, matches} from "./match/matches";
 
 async function main() {
-    if (await getAllDisabled()) {
+    let match: Match;
+    if ((match = await getMatch(window.location.host)) === undefined) {
+        let id: string
+        if ((id = await storageGet('redirect')) !== undefined) {
+            match = matches.find(m => m.id === id)
+            await storageDelete('redirect')
+        } else {
+            return
+        }
+    }
+
+    const re = document.body.innerHTML.match(match.regex)
+    if (re === null) {
         return
     }
 
-    for (const match of matches) {
-        if (!match.domains.some((v) => window.location.host.indexOf(v) !== -1) || ((await getDisabled()).some((v) => v === match))) {
-            continue
-        }
-
-        const re = document.body.innerHTML.match(match.regex)
-        if (re === null) {
-            continue
-        }
-
-        const url = await match.match(re)
-        location.assign(chrome.runtime.getURL(`ui/player/player.html?id=${match.id}&url=${encodeURIComponent(url)}`))
-    }
+    const url = await match.match(re)
+    location.assign(chrome.runtime.getURL(`ui/player/player.html?id=${match.id}&url=${encodeURIComponent(url)}`))
 }
 
 main()
