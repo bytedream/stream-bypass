@@ -15,6 +15,32 @@ export abstract class Match {
     notice?: string
 }
 
+// DOES NOT WORK.
+// The url can be extracted (sometimes??? wtf) without problems but to receive the actual video, custom request
+// headers must be set. And because the javascript and browser ecosystem is so fucked up, there is no good way to
+// do this with media which can be natively played with the browser, like here.
+class Doodstream implements Match {
+    name = 'Doodstream'
+    id = 'doodstream'
+    reliability = Reliability.HIGH
+    domains = [
+        'doodstream.com',
+        'dood.pm'
+    ]
+    regex = new RegExp(/(\/pass_md5\/.*?)'.*(\?token=.*?expiry=)/s)
+
+    async match(match: RegExpMatchArray): Promise<string> {
+        const response = await fetch(`https://${window.location.host}${match[1]}`, {
+            headers: {
+                'Range': 'bytes=0-'
+            },
+            referrer: `https://${window.location.host}/e/${window.location.pathname.split('/').slice(-1)[0]}`,
+        });
+
+        return `${await response.text()}1234567890${match[2]}${Date.now()}`
+    }
+}
+
 class Evoload implements Match {
     name = 'Evoload'
     id = 'evoload'
