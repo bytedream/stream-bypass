@@ -121,10 +121,10 @@ class Streamtape implements Match {
     domains = [
         'streamtape.com'
     ]
-    regex = new RegExp(/id=\S*(?=')/gm)
+    regex = new RegExp(/\/get_video\S*(?=')/gm)
 
     async match(match: RegExpMatchArray): Promise<string> {
-        return `https://streamtape.com/get_video?${match[0]}`
+        return `https://streamtape.com${match[0]}`
     }
 }
 
