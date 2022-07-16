@@ -65,13 +65,14 @@ async function main() {
     const urlQuery = new URLSearchParams(window.location.search)
     const id = urlQuery.get('id')
     const url = urlQuery.get('url')
+    const domain = urlQuery.get('domain')
 
     const match = matches.find((m) => m.id === id)
     if (match === undefined) {
         show_message(`Invalid id: ${id}. Please report this <a href="https://github.com/ByteDream/stream-bypass/issues/new">here</a>`)
         return
     }
-    document.title = match.name
+    document.title = `Stream Bypass (${domain})`
 
     url.endsWith('.m3u8') ? await play_hls(url, match) : await play_native(url, match)
 }
