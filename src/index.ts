@@ -20,7 +20,7 @@ async function main() {
     }
 
     const url = await match.match(re)
-    location.assign(chrome.runtime.getURL(`ui/player/player.html?id=${match.id}&url=${encodeURIComponent(url)}&domains=${window.location.host}`))
+    window.location.assign(chrome.runtime.getURL(`ui/player/player.html?id=${match.id}&url=${encodeURIComponent(url)}&domains=${window.location.host}`))
 }
 
 main()
