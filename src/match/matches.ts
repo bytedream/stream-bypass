@@ -16,10 +16,6 @@ export abstract class Match {
     notice?: string
 }
 
-// DOES NOT WORK.
-// The url can be extracted (sometimes??? wtf) without problems but to receive the actual video, custom request
-// headers must be set. And because the javascript and browser ecosystem is so fucked up, there is no good way to
-// do this with media which can be natively played with the browser, like here.
 class Doodstream implements Match {
     name = 'Doodstream'
     id = 'doodstream'
