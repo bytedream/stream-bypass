@@ -81,7 +81,7 @@ class Mixdrop implements Match {
 class Mp4Upload implements Match {
     name = 'Mp4Upload'
     id = 'mp4upload'
-    reliability = Reliability.LOW
+    reliability = Reliability.NORMAL
     domains = [
         'mp4upload.com'
     ]
