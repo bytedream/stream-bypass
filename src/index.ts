@@ -1,6 +1,7 @@
 import {getMatch} from "./match/match";
 import {storageDelete, storageGet} from "./store/store";
 import {Match, matches} from "./match/matches";
+import play = chrome.cast.media.timeout.play;
 
 async function main() {
     let match: Match;
@@ -20,7 +21,18 @@ async function main() {
     }
 
     const url = await match.match(re)
-    window.location.assign(chrome.runtime.getURL(`ui/player/player.html?id=${match.id}&url=${encodeURIComponent(url)}&domains=${window.location.host}`))
+
+    if (match.replace && !url.endsWith('.m3u8')) {
+        const player = document.createElement('video')
+        player.style.width = '100%'
+        player.controls = true
+        player.src = url
+
+        document.body.innerHTML = ''
+        document.body.append(player)
+    } else {
+        window.location.assign(chrome.runtime.getURL(`ui/player/player.html?id=${match.id}&url=${encodeURIComponent(url)}&domains=${window.location.host}`))
+    }
 }
 
 main()

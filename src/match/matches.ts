@@ -9,6 +9,7 @@ export abstract class Match {
     id: string
     reliability: Reliability
     domains: string[]
+    replace?: boolean
     regex: RegExp
     abstract match(match: RegExpMatchArray): Promise<string>
 
@@ -27,6 +28,7 @@ class Doodstream implements Match {
         'doodstream.com',
         'dood.pm'
     ]
+    replace = true
     regex = new RegExp(/(\/pass_md5\/.*?)'.*(\?token=.*?expiry=)/s)
 
     async match(match: RegExpMatchArray): Promise<string> {
@@ -242,6 +244,7 @@ class Vupload implements Match {
 }
 
 export const matches = [
+    new Doodstream(),
     new Evoload(),
     new Mixdrop(),
     new Newgrounds(),
