@@ -77,19 +77,20 @@ class Mixdrop implements Match {
     }
 }
 
-/*class Mp4Upload implements Match {
+class Mp4Upload implements Match {
     name = 'Mp4Upload'
     id = 'mp4upload'
     reliability = Reliability.LOW
     domains = [
         'mp4upload.com'
     ]
+    replace = true
     regex = new RegExp(/(?<=\|)\w{2,}/gm)
 
     async match(match: RegExpMatchArray): Promise<string> {
         return `https://${match[34]}.mp4upload.com:${match[89]}/d/${match[88]}/video.mp4`
     }
-}*/
+}
 
 class Newgrounds implements Match {
     name = 'Newgrounds'
@@ -243,6 +244,7 @@ export const matches = [
     new Doodstream(),
     new Evoload(),
     new Mixdrop(),
+    new Mp4Upload(),
     new Newgrounds(),
     new Streamtape(),
     new Streamzz(),
