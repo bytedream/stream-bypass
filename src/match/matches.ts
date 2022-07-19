@@ -22,7 +22,8 @@ class Doodstream implements Match {
     reliability = Reliability.HIGH
     domains = [
         'doodstream.com',
-        'dood.pm'
+        'dood.pm',
+        'dood.ws'
     ]
     replace = true
     regex = new RegExp(/(\/pass_md5\/.*?)'.*(\?token=.*?expiry=)/s)
