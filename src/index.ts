@@ -25,6 +25,7 @@ async function main() {
     if (match.replace && !url.endsWith('.m3u8')) {
         const player = document.createElement('video')
         player.style.width = '100%'
+        player.style.height = '100%'
         player.controls = true
         player.src = url
 
