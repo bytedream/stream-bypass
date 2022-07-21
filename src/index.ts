@@ -32,7 +32,7 @@ async function main() {
         document.body.innerHTML = ''
         document.body.append(player)
     } else {
-        window.location.assign(chrome.runtime.getURL(`ui/player/player.html?id=${match.id}&url=${encodeURIComponent(url)}&domains=${window.location.host}`))
+        window.location.assign(chrome.runtime.getURL(`ui/player/player.html?id=${match.id}&url=${encodeURIComponent(url)}&domain=${window.location.host}`))
     }
 }
 
