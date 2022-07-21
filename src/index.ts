@@ -1,7 +1,6 @@
 import {getMatch} from "./match/match";
 import {storageDelete, storageGet} from "./store/store";
 import {Match, matches} from "./match/matches";
-import play = chrome.cast.media.timeout.play;
 
 async function main() {
     let match: Match;
