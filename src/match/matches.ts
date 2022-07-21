@@ -67,14 +67,22 @@ class Evoload implements Match {
 class Mixdrop implements Match {
     name = 'Mixdrop'
     id = 'mixdrop'
-    reliability = Reliability.HIGH
+    reliability = Reliability.NORMAL
     domains = [
         'mixdrop.co'
     ]
     regex = new RegExp(/(?<=\|)\w{2,}/gm)
 
     async match(match: RegExpMatchArray): Promise<string> {
-        return `https://a-${match[1]}.${match[4]}.${match[5]}/v/${match[2]}.${match[6]}?s=${match[12]}&e=${match[13]}`
+        const prefix = /(?<=\/\/)[a|s](?=-)/.exec(document.body.innerHTML)[0]
+        const subdomain = match[1].length < match[2].length ? match[1] : match[2]
+        const domain = match.slice().sort((a, b) => b.length - a.length).find(m => /^[a-z]+$/.test(m))
+        const id = match[1].length > match[2].length ? match[1] : match[2]
+        const tld = match.find(m => ['net', 'io', 'to', 'sx', 'com'].indexOf(m) !== -1)
+        const s = match.slice().sort((a, b) => b.length - a.length).slice(1)[0]
+        const e_t = match.find(m => m.length === 10 && !isNaN(parseInt(m)))
+
+        return `https://${prefix}-${subdomain}.${domain}.${tld}/v/${id}.mp4?s=${s}&e=${e_t}&_t=${e_t}`
     }
 }
 
