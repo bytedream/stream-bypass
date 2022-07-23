@@ -3,7 +3,7 @@ import {Match, matches, Reliability} from "../../match/matches";
 import Hls from "hls.js";
 
 function show_message(message: string) {
-    document.getElementById('message').innerHTML = message
+    document.getElementById('message').innerText = message
     document.getElementById('message-container').hidden = false
     document.getElementById('video').hidden = true
 }
@@ -48,9 +48,9 @@ async function play_hls(url: string, match: Match) {
                     message = `The reliability for this domain is normal, errors like this can occur but are not very common. Try to refresh the page`
                     break
                 case Reliability.HIGH:
-                    message = `The reliability for this domains is high, errors like this are very unlikely to happen.<br>
-                    Try to refresh the page and if the error still exists you might want to open a new issue <a href="https://github.com/ByteDream/stream-bypass/issues/new">here</a>.<br>
-                    When you're using <a href="https://www.torproject.org/">Tor</a>, such errors have a slight chance to occur more often,
+                    message = `The reliability for this domains is high, errors like this are very unlikely to happen.
+                    Try to refresh the page and if the error still exists you might want to open a new issue.
+                    When you're using Tor, such errors have a slight chance to occur more often,
                     so if this is the case just try to reload the page and see if it's working then`
                     break
             }
