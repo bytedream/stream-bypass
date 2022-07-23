@@ -12,6 +12,7 @@ video
   left: 0
 
 #message-container
+  visibility: hidden
   display: flex
   justify-content: center
   align-items: center
@@ -19,6 +20,9 @@ video
   color: white
   text-align: center
   height: 100%
+
+  & *
+    visibility: inherit
 
   & a, & a:visited
     color: red

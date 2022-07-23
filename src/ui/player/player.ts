@@ -4,7 +4,7 @@ import Hls from "hls.js";
 
 function show_message(message: string) {
     document.getElementById('message').innerText = message
-    document.getElementById('message-container').hidden = false
+    document.getElementById('message-container').style.visibility = 'visible'
     document.getElementById('video').hidden = true
 }
 
