@@ -23,7 +23,8 @@ class Doodstream implements Match {
     domains = [
         'doodstream.com',
         'dood.pm',
-        'dood.ws'
+        'dood.ws',
+        'dood.wf'
     ]
     replace = true
     regex = new RegExp(/(\/pass_md5\/.*?)'.*(\?token=.*?expiry=)/s)
