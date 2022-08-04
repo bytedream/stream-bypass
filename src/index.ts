@@ -4,20 +4,20 @@ import {Match, matches} from "./match/matches";
 
 async function main() {
     let match: Match;
+    let redirect = false;
     if ((match = await getMatch(window.location.host)) === undefined) {
         let id: string
         if ((id = await storageGet('redirect')) !== undefined) {
+            redirect = true
             match = matches.find(m => m.id === id)
-            await storageDelete('redirect')
         } else {
             return
         }
     }
 
     const re = document.body.innerHTML.match(match.regex)
-    if (re === null) {
-        return
-    }
+    if (re === null) return
+    if (redirect) await storageDelete('redirect')
 
     const url = await match.match(re)
 
