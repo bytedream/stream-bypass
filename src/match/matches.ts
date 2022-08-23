@@ -19,7 +19,7 @@ export abstract class Match {
 class Doodstream implements Match {
     name = 'Doodstream'
     id = 'doodstream'
-    reliability = Reliability.HIGH
+    reliability = Reliability.NORMAL
     domains = [
         'doodstream.com',
         'dood.pm',
