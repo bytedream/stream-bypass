@@ -8,10 +8,42 @@ function show_message(message: string) {
     document.getElementById('video').hidden = true
 }
 
+async function check_loaded(match: Match, check: () => boolean) {
+    const loaded = await new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(false)
+        }, match.reliability * 3000)
+
+        check() ? resolve(true) : resolve(false)
+    })
+
+    if (!loaded) {
+        let message: string
+        switch (match.reliability) {
+            case Reliability.LOW:
+                message = `The reliability for this domain is low, errors like this are common.
+                    Try to choose another streaming provider (if existent) or deactivate the addon for this provider (${match.name}) and try again`
+                break
+            case Reliability.NORMAL:
+                message = `The reliability for this domain is normal, errors like this can occur but are not very common. Try to refresh the page`
+                break
+            case Reliability.HIGH:
+                message = `The reliability for this domains is high, errors like this are very unlikely to happen.
+                    Try to refresh the page and if the error still exists you might want to open a new issue.
+                    When you're using Tor, such errors have a slight chance to occur more often,
+                    so if this is the case just try to reload the page and see if it's working then`
+                break
+        }
+        show_message(`Could not load video. ${message}`)
+    }
+}
+
 async function play_native(url: string, match: Match) {
     const video = document.getElementById('video') as HTMLVideoElement
     video.controls = true
     video.src = url
+
+    await check_loaded(match, () => { return video.readyState >= 3 })
 }
 
 async function play_hls(url: string, match: Match) {
@@ -27,35 +59,7 @@ async function play_hls(url: string, match: Match) {
         hls.loadSource(url)
         hls.attachMedia(video)
 
-        const loaded = await new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(false)
-            }, match.reliability * 3000)
-
-            hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                resolve(true)
-            })
-        })
-
-        if (!loaded) {
-            let message: string
-            switch (match.reliability) {
-                case Reliability.LOW:
-                    message = `The reliability for this domain is low, errors like this are common.
-                    Try to choose another streaming provider (if existent) or deactivate the addon for this provider (${match.name}) and try again`
-                    break
-                case Reliability.NORMAL:
-                    message = `The reliability for this domain is normal, errors like this can occur but are not very common. Try to refresh the page`
-                    break
-                case Reliability.HIGH:
-                    message = `The reliability for this domains is high, errors like this are very unlikely to happen.
-                    Try to refresh the page and if the error still exists you might want to open a new issue.
-                    When you're using Tor, such errors have a slight chance to occur more often,
-                    so if this is the case just try to reload the page and see if it's working then`
-                    break
-            }
-            show_message(`Could not load video. ${message}`)
-        }
+        await check_loaded(match, () => { return video.readyState >= 3 })
     } else {
         show_message('Failed to play m3u8 video (hls is not supported). Try again or create a new issue <a href="https://github.com/ByteDream/stream-bypass/issues/new">here</a>')
     }
