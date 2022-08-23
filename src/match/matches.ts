@@ -140,7 +140,7 @@ class Streamtape implements Match {
 class Streamzz implements Match {
     name = 'Streamzz'
     id = 'streamzz'
-    reliability = Reliability.NORMAL
+    reliability = Reliability.LOW
     domains = [
         'streamzz.to',
         'streamz.ws'
