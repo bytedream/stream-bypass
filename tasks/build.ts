@@ -47,8 +47,8 @@ async function buildHtml() {
 
 async function buildCss() {
     const files = {
-        'src/ui/popup/popup.sass': 'build/ui/popup/popup.css',
-        'src/ui/player/player.sass': 'build/ui/player/player.css'
+        'src/ui/popup/popup.scss': 'build/ui/popup/popup.css',
+        'src/ui/player/player.scss': 'build/ui/player/player.css'
     }
 
     for (const [src, dst] of Object.entries(files)) {
