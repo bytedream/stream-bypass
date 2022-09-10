@@ -1,6 +1,6 @@
 {
   "name": "stream-bypass",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "Multi-browser addon for multiple streaming providers which redirects directly to the source video",
   "main": "src/index.ts",
   "scripts": {
@@ -21,12 +21,12 @@
   "homepage": "https://github.com/ByteDream/stream-bypass#readme",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.0",
-    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-node-resolve": "^14.0.1",
     "@rollup/plugin-replace": "^4.0.0",
     "@rollup/plugin-typescript": "^8.3.3",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",
-    "@types/chrome": "^0.0.190",
+    "@types/chrome": "^0.0.196",
     "@types/node-sass": "^4.11.2",
     "@types/yazl": "^2.4.2",
     "eslint": "^8.17.0",
