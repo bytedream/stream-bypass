@@ -1,5 +1,5 @@
 import {getMatch} from "./match/match";
-import {storageGet, storageSet} from "./store/store";
+import {storageDelete, storageGet, storageSet} from "./store/store";
 import {Match} from "./match/matches";
 
 chrome.webRequest.onBeforeRedirect.addListener(async details => {
@@ -9,6 +9,8 @@ chrome.webRequest.onBeforeRedirect.addListener(async details => {
         if ((match = await getMatch(new URL(details.url).host)) !== undefined) {
             await storageSet('redirect', match.id)
         }
+    } else {
+        await storageDelete('redirect')
     }
 }, {
     urls: ['<all_urls>'],

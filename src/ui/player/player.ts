@@ -8,13 +8,15 @@ function show_message(message: string) {
     document.getElementById('video').hidden = true
 }
 
-async function check_loaded(match: Match, check: () => boolean) {
-    const loaded = await new Promise((resolve, reject) => {
+async function check_loaded(match: Match, check: Promise<boolean>) {
+    const loaded = await new Promise((resolve, _) => {
         setTimeout(() => {
             resolve(false)
         }, match.reliability * 3000)
 
-        check() ? resolve(true) : resolve(false)
+        check
+            .then(value => resolve(value))
+            .catch(_ => resolve(false))
     })
 
     if (!loaded) {
@@ -43,7 +45,11 @@ async function play_native(url: string, match: Match) {
     video.controls = true
     video.src = url
 
-    await check_loaded(match, () => { return video.readyState >= 3 })
+    const readyState = new Promise<boolean>((resolve, _) => {
+        video.onloadeddata = () => resolve(true)
+    })
+
+    await check_loaded(match, readyState)
 }
 
 async function play_hls(url: string, match: Match) {
@@ -59,7 +65,11 @@ async function play_hls(url: string, match: Match) {
         hls.loadSource(url)
         hls.attachMedia(video)
 
-        await check_loaded(match, () => { return video.readyState >= 3 })
+        const readyState = new Promise<boolean>((resolve, _) => {
+            video.onloadeddata = () => resolve(true)
+        })
+
+        await check_loaded(match, readyState)
     } else {
         show_message('Failed to play m3u8 video (hls is not supported). Try again or create a new issue <a href="https://github.com/ByteDream/stream-bypass/issues/new">here</a>')
     }
