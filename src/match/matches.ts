@@ -1,5 +1,5 @@
 export enum Reliability {
-    HIGH = 1,
+    HIGH,
     NORMAL,
     LOW,
 }
