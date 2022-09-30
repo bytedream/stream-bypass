@@ -65,6 +65,26 @@ class Evoload implements Match {
     }
 }
 
+class Filemoon implements Match {
+    name = 'Filemoon'
+    id = 'filemoon'
+    reliability = Reliability.NORMAL
+    domains = [
+        'filemoon.sx'
+    ]
+    regex = new RegExp(/(?<=\|)\w{2,}/gm)
+
+    async match(match: RegExpMatchArray): Promise<string> {
+        const start_idx = match.indexOf('moon')
+
+        const prefix = `${match[start_idx]}-${match[start_idx-1]}-${match[start_idx-2]}-${match[start_idx-3]}`
+        const time = match.find(m => m.length === 10 && !isNaN(parseInt(m)))
+        const offset = !isNaN(parseInt(match[start_idx-12])) && parseInt(match[start_idx-12]).toString().length == match[start_idx-12].length ? 0 : -1
+
+        return `https://${prefix}.filemoon.${match[start_idx-4]}/${match[start_idx-5]}/${match[start_idx-6]}/${match[start_idx-7]}/${match[start_idx-8]}/master.m3u8?t=${match[start_idx-11]}${offset != 0 ? `-${match[start_idx-12]}` : ''}&s=${time}&e=${match[start_idx + offset - 12]}&sp=${match[start_idx + offset - 18]}`
+    }
+}
+
 class Mixdrop implements Match {
     name = 'Mixdrop'
     id = 'mixdrop'
@@ -253,6 +273,7 @@ class Vupload implements Match {
 export const matches = [
     new Doodstream(),
     new Evoload(),
+    new Filemoon(),
     new Mixdrop(),
     new Mp4Upload(),
     new Newgrounds(),
