@@ -39,7 +39,7 @@ async function main() {
 
     const match = matches.find((m) => m.id === id)
     if (match === undefined) {
-        show_message(`Invalid id: ${id}. Please report this <a href="https://github.com/ByteDream/stream-bypass/issues/new">here</a>`)
+        show_message(`Invalid id: ${id}. Please report this <a href="https://github.com/ByteDream/stream-bypass/issues">here</a>`)
         return
     }
     document.title = `Stream Bypass (${domain})`
