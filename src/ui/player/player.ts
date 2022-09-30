@@ -34,7 +34,7 @@ async function play_hls(url: string) {
 async function main() {
     const urlQuery = new URLSearchParams(window.location.search)
     const id = urlQuery.get('id')
-    const url = urlQuery.get('url')
+    const url = decodeURIComponent(urlQuery.get('url'))
     const domain = urlQuery.get('domain')
 
     const match = matches.find((m) => m.id === id)
@@ -44,7 +44,7 @@ async function main() {
     }
     document.title = `Stream Bypass (${domain})`
 
-    url.endsWith('.m3u8') ? await play_hls(url) : await play_native(url)
+    new URL(url).pathname.endsWith('.m3u8') ? await play_hls(url) : await play_native(url)
 }
 
 main()
