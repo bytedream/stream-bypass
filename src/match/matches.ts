@@ -68,7 +68,7 @@ class Evoload implements Match {
 class Filemoon implements Match {
     name = 'Filemoon'
     id = 'filemoon'
-    reliability = Reliability.NORMAL
+    reliability = Reliability.HIGH
     domains = [
         'filemoon.sx'
     ]
@@ -118,7 +118,8 @@ class Mp4Upload implements Match {
     regex = new RegExp(/(?<=\|)\w{2,}/gm)
 
     async match(match: RegExpMatchArray): Promise<string> {
-        return `https://${match[34]}.mp4upload.com:${match[89]}/d/${match[88]}/video.mp4`
+        let id = match.slice().reduce((a, b) => a.length >= b.length ? a : b)
+        return `https://www4.mp4upload.com:282/d/${id}/video.mp4`
     }
 }
 
