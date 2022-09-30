@@ -67,22 +67,25 @@ Install the addon directly from the [firefox addon store](https://addons.mozilla
 
 ## 📜 Supported sites
 
-| Site                                                                  | Supported | Note                                             |
-|-----------------------------------------------------------------------|-----------|--------------------------------------------------|
-| [doodstream.com](doodstream.com) / [dood.pm](https://dood.pm)         | ✔️        |                                                  |
-| [evoload.io](https://evoload.io)                                      | ✔️        |                                                  |
-| [mixdrop.co](https://mixdrop.co)                                      | ✔ ️       |                                                  |		
-| [mp4upload.com](https://mp4upload.com)                                | ✔         |                                                  |
-| [newgrounds.com](https://newgrounds.com)                              | ✔         |                                                  |
-| [streamtape.com](https://streamtape.com)                              | ✔         |                                                  |
-| [streamzz.to](https://streamzz.to) / [streamz.ws](https://streamz.ws) | ✔         |                                                  |
-| [upstream.to](https://upstream.to)                                    | ✔         |                                                  |
-| [videovard.sx](https://videovard.sx)                                  | ❌         | Reverse engineering the site costs too much time |
-| [vidlox.me](https://vidlox.me)                                        | ⚠         | Website down / Timeout                           |
-| [vidoza.net](https://vidoza.net)                                      | ✔         |                                                  |
-| [vivo.sx](https://vivo.sx)                                            | ⚠️        | Website down / Timeout                           |
-| [voe.sx](https://voe.sx) / [voeunblk.com](https://voeunblk.com)       | ✔         |                                                  |
-| [vupload.com](https://vupload.com)                                    | ✔         |                                                  |
+| Site                                                                  | Supported | Note                                                  |
+|-----------------------------------------------------------------------|-----------|-------------------------------------------------------|
+| [doodstream.com](doodstream.com) / [dood.pm](https://dood.pm)         | ✔️        |                                                       |
+| [evoload.io](https://evoload.io)                                      | ⚠️️       | Website down / Timeout                                |
+| [filemoon.sx](https://filemoon.sx)                                    | ✔         |                                                       |
+| [mcloud.to](https://mcloud.to/)                                       | ❌         | Reverse engineering the site costs too much time (#5) |
+| [mixdrop.co](https://mixdrop.co)                                      | ✔ ️       |                                                       |		
+| [mp4upload.com](https://mp4upload.com)                                | ✔         |                                                       |
+| [newgrounds.com](https://newgrounds.com)                              | ✔         |                                                       |
+| [streamtape.com](https://streamtape.com)                              | ✔         |                                                       |
+| [streamzz.to](https://streamzz.to) / [streamz.ws](https://streamz.ws) | ✔         |                                                       |
+| [upstream.to](https://upstream.to)                                    | ✔         |                                                       |
+| [videovard.sx](https://videovard.sx)                                  | ❌         | Reverse engineering the site costs too much time      |
+| [vidlox.me](https://vidlox.me)                                        | ⚠         | Website down / Timeout                                |
+| [vidoza.net](https://vidoza.net)                                      | ✔         |                                                       |
+| [vistream.pro](https://vidstream.pro)                                 | ❌         | Reverse engineering the site costs too much time (#5) |
+| [vivo.sx](https://vivo.sx)                                            | ⚠️        | Website down / Timeout                                |
+| [voe.sx](https://voe.sx)                                              | ✔         |                                                       |
+| [vupload.com](https://vupload.com)                                    | ✔         |                                                       |
 
 - ✔️: Everything ok.
 - ⚠: Included in the addon but will probably not work. See `Note` in this case, an explanation why will stand there in the most cases.
