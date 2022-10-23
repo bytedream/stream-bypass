@@ -70,7 +70,6 @@ Install the addon directly from the [firefox addon store](https://addons.mozilla
 | Site                                                                  | Supported | Note                                                                                                         |
 |-----------------------------------------------------------------------|-----------|--------------------------------------------------------------------------------------------------------------|
 | [doodstream.com](doodstream.com) / [dood.pm](https://dood.pm)         | ✔️        |                                                                                                              |
-| [evoload.io](https://evoload.io)                                      | ⚠️️       | Website down / Timeout                                                                                       |
 | [filemoon.sx](https://filemoon.sx)                                    | ✔         |                                                                                                              |
 | [mcloud.to](https://mcloud.to/)                                       | ❌         | Reverse engineering the site costs too much time ([#5](https://github.com/ByteDream/stream-bypass/issues/5)) |
 | [mixdrop.co](https://mixdrop.co)                                      | ✔ ️       |                                                                                                              |		
@@ -80,10 +79,8 @@ Install the addon directly from the [firefox addon store](https://addons.mozilla
 | [streamzz.to](https://streamzz.to) / [streamz.ws](https://streamz.ws) | ✔         |                                                                                                              |
 | [upstream.to](https://upstream.to)                                    | ✔         |                                                                                                              |
 | [videovard.sx](https://videovard.sx)                                  | ❌         | Reverse engineering the site costs too much time                                                             |
-| [vidlox.me](https://vidlox.me)                                        | ⚠         | Website down / Timeout                                                                                       |
 | [vidoza.net](https://vidoza.net)                                      | ✔         |                                                                                                              |
-| [vistream.pro](https://vidstream.pro)                                 | ❌         | Reverse engineering the site costs too much time ([#5](https://github.com/ByteDream/stream-bypass/issues/5)) |
-| [vivo.sx](https://vivo.sx)                                            | ⚠️        | Website down / Timeout                                                                                       |
+| [vidstream.pro](https://vidstream.pro)                                | ❌         | Reverse engineering the site costs too much time ([#5](https://github.com/ByteDream/stream-bypass/issues/5)) |
 | [voe.sx](https://voe.sx)                                              | ✔         |                                                                                                              |
 | [vupload.com](https://vupload.com)                                    | ✔         |                                                                                                              |
 
@@ -92,6 +89,15 @@ Install the addon directly from the [firefox addon store](https://addons.mozilla
 - ❌: Not included / supported by the addon. This can have various reasons. See `Note` for an explanation.
 
 Some sites put much effort in obfuscating their code / how they receive the video stream so that it simply cost too much time for me to reverse engineer it and find out how to bypass the native video player of the site.
+
+<details>
+    <summary>Hall of dead sites</summary>
+    <ul>
+        <li><a href="https://evoload.io">evoload.io</a> - Down</li>
+        <li><a href="https://vidlox.me">vidlox.me</a> - Reachable but empty</li>
+        <li><a href="https://vivo.sx">vivo.sx</a> - Down</li>
+    </ul>
+</details>
 
 ## ⚙️ Building
 

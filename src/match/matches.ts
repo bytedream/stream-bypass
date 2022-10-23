@@ -41,30 +41,6 @@ class Doodstream implements Match {
     }
 }
 
-class Evoload implements Match {
-    name = 'Evoload'
-    id = 'evoload'
-    reliability = Reliability.NORMAL
-    domains = [
-        'evoload.io'
-    ]
-    regex = new RegExp(/.*/gm)
-
-    async match(match: RegExpMatchArray): Promise<string> {
-        const code = window.location.pathname.split('/').slice(-1)[0]
-        const response = await fetch('https://evoload.io/SecurePlayer', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({code: code})
-        })
-
-        const json = await response.json()
-        return json['stream']['src']
-    }
-}
-
 class Filemoon implements Match {
     name = 'Filemoon'
     id = 'filemoon'
@@ -187,20 +163,6 @@ class Upstream implements Match {
     }
 }
 
-class Vidlox implements Match {
-    name = 'Vidlox'
-    id = 'vidlox'
-    reliability = Reliability.LOW
-    domains = [
-        'vidlox.me'
-    ]
-    regex = new RegExp(/(?<=\[")\S+?(?=")/gm)
-
-    async match(match: RegExpMatchArray): Promise<string> {
-        return match[0]
-    }
-}
-
 class Vidoza implements Match {
     name = 'Vidoza'
     id = 'vidoza'
@@ -212,34 +174,6 @@ class Vidoza implements Match {
 
     async match(match: RegExpMatchArray): Promise<string> {
         return match[0]
-    }
-}
-
-class Vivo implements Match {
-    name = 'Vivo'
-    id = 'vivo'
-    reliability = Reliability.LOW
-    domains = [
-        'vivo.sx'
-    ]
-    regex = new RegExp(/(?<=source:\s')(\S+)(?=')/gms)
-
-    async match(match: RegExpMatchArray): Promise<string> {
-        return this.rot47(decodeURIComponent(match[0]))
-    }
-
-    // decrypts a string with the rot47 algorithm (https://en.wikipedia.org/wiki/ROT13#Variants)
-    rot47(encoded: string): string {
-        const s = []
-        for(let i = 0; i < encoded.length; i++) {
-            const j = encoded.charCodeAt(i)
-            if((j >= 33) && (j <= 126)) {
-                s[i] = String.fromCharCode(33+((j+ 14)%94))
-            } else {
-                s[i] = String.fromCharCode(j)
-            }
-        }
-        return s.join('')
     }
 }
 
@@ -273,7 +207,6 @@ class Vupload implements Match {
 
 export const matches = [
     new Doodstream(),
-    new Evoload(),
     new Filemoon(),
     new Mixdrop(),
     new Mp4Upload(),
@@ -281,9 +214,7 @@ export const matches = [
     new Streamtape(),
     new Streamzz(),
     new Upstream(),
-    new Vidlox(),
     new Vidoza(),
-    new Vivo(),
     new Voe(),
     new Vupload()
 ]
