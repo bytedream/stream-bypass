@@ -184,7 +184,7 @@ class Voe implements Match {
     domains = [
         'voe.sx'
     ]
-    regex = new RegExp(/https?:\/\/\S*m3u8(?=")/gm)
+    regex = new RegExp(/https?:\/\/\S*m3u8.+(?=')/gm)
 
     async match(match: RegExpMatchArray): Promise<string> {
         return match[0]
