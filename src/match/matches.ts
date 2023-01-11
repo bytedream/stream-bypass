@@ -24,7 +24,13 @@ class Doodstream implements Match {
         'doodstream.com',
         'dood.pm',
         'dood.ws',
-        'dood.wf'
+        'dood.wf',
+        'dood.cx',
+        'dood.sh',
+        'dood.watch',
+        'dood.to',
+        'dood.so',
+        'dood.la'
     ]
     replace = true
     regex = new RegExp(/(\/pass_md5\/.*?)'.*(\?token=.*?expiry=)/s)
@@ -66,7 +72,10 @@ class Mixdrop implements Match {
     id = 'mixdrop'
     reliability = Reliability.NORMAL
     domains = [
-        'mixdrop.co'
+        'mixdrop.co',
+        'mixdrop.to',
+        'mixdrop.ch',
+        'mixdrop.bz'
     ]
     regex = new RegExp(/(?<=\|)\w{2,}/gm)
 
