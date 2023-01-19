@@ -30,7 +30,8 @@ class Doodstream implements Match {
         'dood.watch',
         'dood.to',
         'dood.so',
-        'dood.la'
+        'dood.la',
+        'dood.re'
     ]
     replace = true
     regex = new RegExp(/(\/pass_md5\/.*?)'.*(\?token=.*?expiry=)/s)
