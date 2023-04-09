@@ -21,7 +21,7 @@ async function main() {
 
     const url = await match.match(re)
 
-    if (match.replace && !url.endsWith('.m3u8')) {
+    if (match.replace && !url.includes('.m3u8')) {
         const player = document.createElement('video')
         player.style.width = '100%'
         player.style.height = '100%'
