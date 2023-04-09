@@ -1,3 +1,5 @@
+import {unPack} from "./unpack";
+
 export enum Reliability {
     HIGH,
     NORMAL,
@@ -71,41 +73,40 @@ class Filemoon implements Match {
 class Mixdrop implements Match {
     name = 'Mixdrop'
     id = 'mixdrop'
-    reliability = Reliability.NORMAL
+    reliability = Reliability.HIGH
     domains = [
         'mixdrop.co',
         'mixdrop.to',
         'mixdrop.ch',
-        'mixdrop.bz'
+        'mixdrop.bz',
+        'mixdrop.gl'
     ]
-    regex = new RegExp(/(?<=\|)\w{2,}/gm)
+    regex = new RegExp(/eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms)
 
     async match(match: RegExpMatchArray): Promise<string> {
-        const prefix = /(?<=\/\/)[a|s](?=-)/.exec(document.body.innerHTML)[0]
-        const subdomain = match[1].length < match[2].length ? match[1] : match[2]
-        const domain = match.slice().sort((a, b) => b.length - a.length).find(m => /^[a-z]+$/.test(m))
-        const id = match[1].length > match[2].length ? match[1] : match[2]
-        const tld = match.find(m => ['net', 'io', 'to', 'sx', 'com'].indexOf(m) !== -1)
-        const s = match.slice().sort((a, b) => b.length - a.length).slice(1)[0]
-        const e_t = match.find(m => m.length === 10 && !isNaN(parseInt(m)))
+        let unpacked = unPack(match[0])
+        let url = unpacked.match(/(?<=MDCore.wurl=").*(?=")/)[0]
 
-        return `https://${prefix}-${subdomain}.${domain}.${tld}/v/${id}.mp4?s=${s}&e=${e_t}&_t=${e_t}`
+        return `https:${url}`
     }
 }
 
 class Mp4Upload implements Match {
     name = 'Mp4Upload'
     id = 'mp4upload'
-    reliability = Reliability.NORMAL
+    reliability = Reliability.HIGH
     domains = [
         'mp4upload.com'
     ]
     replace = true
-    regex = new RegExp(/(?<=\|)\w{2,}/gm)
+    regex = new RegExp(/eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms)
 
     async match(match: RegExpMatchArray): Promise<string> {
-        let id = match.slice().reduce((a, b) => a.length >= b.length ? a : b)
-        return `https://www4.mp4upload.com:282/d/${id}/video.mp4`
+        let unpacked = unPack(match[0])
+        console.log(unpacked)
+        let url = unpacked.match(/(?<=player.src\(").*(?=")/)[0]
+        console.log(url)
+        return url
     }
 }
 
@@ -166,7 +167,7 @@ class Upstream implements Match {
     domains = [
         'upstream.to'
     ]
-    regex = new RegExp(/(?<=\|)\w{2,}/gm)
+    regex = new RegExp(/(?<=\|)\w{2,}/gms)
 
     async match(match: RegExpMatchArray): Promise<string> {
         return `https://${match[49]}.upstreamcdn.co/hls/${match[148]}/master.m3u8`
@@ -215,6 +216,22 @@ class Vupload implements Match {
     }
 }
 
+class Kwik implements Match {
+    name = 'Kwik'
+    id = 'kwik'
+    reliability = Reliability.HIGH
+    domains = [
+        'kwik.cx'
+    ]
+    regex = new RegExp(/eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms)
+
+    async match(match: RegExpMatchArray): Promise<string> {
+        let unpacked = unPack(match[0]) 
+        let url = unpacked.match(/(?<=source=').*(?=')/)[0]
+        return url
+    }
+}
+
 export const matches = [
     new Doodstream(),
     new Filemoon(),
@@ -226,5 +243,6 @@ export const matches = [
     new Upstream(),
     new Vidoza(),
     new Voe(),
-    new Vupload()
+    new Vupload(),
+    new Kwik()
 ]
