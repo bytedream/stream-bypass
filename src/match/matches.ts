@@ -83,7 +83,6 @@ class Mixdrop implements Match {
     async match(match: RegExpMatchArray): Promise<string> {
         let unpacked = unPack(match[0])
         let url = unpacked.match(/(?<=MDCore.wurl=").*(?=")/)[0]
-
         return `https:${url}`
     }
 }
@@ -102,7 +101,6 @@ class Mp4Upload implements Match {
         let unpacked = unPack(match[0])
         console.log(unpacked)
         let url = unpacked.match(/(?<=player.src\(").*(?=")/)[0]
-        console.log(url)
         return url
     }
 }
@@ -160,14 +158,16 @@ class Streamzz implements Match {
 class Upstream implements Match {
     name = 'Upstream'
     id = 'upstream'
-    reliability = Reliability.NORMAL
+    reliability = Reliability.HIGH
     domains = [
         'upstream.to'
     ]
-    regex = new RegExp(/(?<=\|)\w{2,}/gms)
+    regex = new RegExp(/eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms)
 
     async match(match: RegExpMatchArray): Promise<string> {
-        return `https://${match[49]}.upstreamcdn.co/hls/${match[148]}/master.m3u8`
+        let unpacked = unPack(match[0])
+        let url = unpacked.match(/(?<=file:").*(?=")/)[0]
+        return url
     }
 }
 
@@ -223,8 +223,9 @@ class Kwik implements Match {
     regex = new RegExp(/eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms)
 
     async match(match: RegExpMatchArray): Promise<string> {
-        let unpacked = unPack(match[0]) 
+        let unpacked = unPack(match[0])
         let url = unpacked.match(/(?<=source=').*(?=')/)[0]
+        console.log(url)
         return url
     }
 }
