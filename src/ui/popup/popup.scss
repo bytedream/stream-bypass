@@ -40,14 +40,24 @@ a {
 
 }
 
+
 hr {
   margin: 3px 0;
+
+  &.upper-hr {
+    width: 100%;
+  }
 }
 
 #all {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   margin: 10px 0
+}
+
+.buttons {
+  margin-bottom: 10px;
 }
 
 .low-reliability {

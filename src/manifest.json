@@ -30,6 +30,7 @@
   "permissions": [
     "storage",
     "webRequest",
+    "nativeMessaging",
     "<all_urls>"
   ],
   "web_accessible_resources": [

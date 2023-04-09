@@ -3,6 +3,13 @@ import {storageDelete, storageGet, storageSet} from "./store/store";
 import {Match} from "./match/matches";
 
 
+chrome.runtime.onMessage.addListener((message, sender) => {
+    if (message.action == "ff2mpv") {
+        chrome.runtime.sendNativeMessage("ff2mpv", {url: message.url})
+            .catch((error) => {console.error(error)})
+    }
+})
+
 chrome.webRequest.onBeforeRedirect.addListener(async details => {
     // check if redirects origins from a previous redirect
     if (await storageGet('redirect') === undefined) {
