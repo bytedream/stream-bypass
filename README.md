@@ -27,9 +27,7 @@ A multi-browser addon / extension for multiple streaming providers which redirec
   •
   <a href="#-supported-sites">Supported Sites 📜</a>
   •
-  <a href="#%EF%B8%8F-building">Building 🛠️</a>
-  •
-  <a href="#%EF%B8%8F-settings">Settings ⚙️</a>
+  <a href="#%EF%B8%8F-building">Building ⚙️</a>
   •
   <a href="#-license">License ⚖</a>
 </p>
@@ -101,7 +99,7 @@ Some sites put much effort in obfuscating their code / how they receive the vide
     </ul>
 </details>
 
-## 🛠️ Building
+## ⚙️ Building
 
 If you want to build the addon from source and not using the [installation](#installation) way, follow the instructions.
 
@@ -129,36 +127,6 @@ When using firefox, use the following:
 2. Select 'This Firefox' tab (maybe named different, depending on your language).
 3. Under `Temporary Extensions`, click `Load Temporary Add-on`.
 4. Choose any file in the directory where the compiled sources are.
-
-
-## ⚙️ Settings
-
-### <ins>ff2mpv: use mpv to directly play streams</ins>
-ff2mpv is located at this repository: https://github.com/woodruffw/ff2mpv
-
-Steps to get it set up:
-  - In the readme under `Usage` pick an installation instruction (Linux/Windows/MacOS), you do not have to install the browser addon.
-  - Scroll down to `Install manually`
-  - Follow Instructions for Firefox/Chrome
-  - Edit the `ff2mpv.json` you created:
-    - Firefox: Add `{55dd42e8-3dd9-455a-b4fe-86664881b10c}` to `allowd_extensions` -> 
-      ```
-      "allowed_extensions": [
-        "ff2mpv@yossarian.net",
-        "{55dd42e8-3dd9-455a-b4fe-86664881b10c}"
-      ]
-      ```
-    - Chrome/Chromium:
-      - Go To: Settings -> Extensions
-      - Click on `Details` of the Stream Bypass extension and copy the ID
-      - Add `chrome-extension://your-id-here/` to `allowed_origins` ->
-        ```
-        "allowed_origins": [
-          "chrome-extension://ephjcajbkgplkjmelpglennepbpmdpjg/",
-          "chrome-extension://your-id-her/"
-        ]
-        ```
-
 
 ## ⚖ License
 
