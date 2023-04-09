@@ -23,5 +23,5 @@ export class Setting {
 }
 
 export const Settings = [
-    new Setting("ff2mpv", "https://github.com/ByteDream/stream-bypass/blob/master/README.md")
+    new Setting("ff2mpv", "https://github.com/ByteDream/stream-bypass/tree/ff2mpv_feature#ff2mpv-use-mpv-to-directly-play-streams")
 ]
