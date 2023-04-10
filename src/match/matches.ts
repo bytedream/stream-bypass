@@ -62,7 +62,6 @@ class Filemoon implements Match {
     async match(match: RegExpMatchArray): Promise<string> {
         let unpacked = unPack(match[0])
         let url = unpacked.match(/(?<=file:").*(?=")/)[0]
-        console.log(url)
         return url
     }
 }
@@ -99,7 +98,6 @@ class Mp4Upload implements Match {
 
     async match(match: RegExpMatchArray): Promise<string> {
         let unpacked = unPack(match[0])
-        console.log(unpacked)
         let url = unpacked.match(/(?<=player.src\(").*(?=")/)[0]
         return url
     }
@@ -225,7 +223,6 @@ class Kwik implements Match {
     async match(match: RegExpMatchArray): Promise<string> {
         let unpacked = unPack(match[0])
         let url = unpacked.match(/(?<=source=').*(?=')/)[0]
-        console.log(url)
         return url
     }
 }
