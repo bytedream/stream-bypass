@@ -3,7 +3,7 @@
   "name": "Stream Bypass",
   "author": "ByteDream",
   "description": "A multi-browser addon / extension for multiple streaming providers which redirects directly to the source video.",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "homepage_url": "https://github.com/ByteDream/stream-bypass",
   "browser_specific_settings": {
     "gecko": {
