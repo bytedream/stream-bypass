@@ -60,7 +60,7 @@ class Filemoon implements Match {
     regex = new RegExp(/eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms)
 
     async match(match: RegExpMatchArray): Promise<string> {
-        let unpacked = unPack(match[0])
+        let unpacked = await unPack(match[0])
         let url = unpacked.match(/(?<=file:").*(?=")/)[0]
         console.log(url)
         return url
@@ -81,7 +81,7 @@ class Mixdrop implements Match {
     regex = new RegExp(/eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms)
 
     async match(match: RegExpMatchArray): Promise<string> {
-        let unpacked = unPack(match[0])
+        let unpacked = await unPack(match[0])
         let url = unpacked.match(/(?<=MDCore.wurl=").*(?=")/)[0]
         return `https:${url}`
     }
@@ -98,7 +98,7 @@ class Mp4Upload implements Match {
     regex = new RegExp(/eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms)
 
     async match(match: RegExpMatchArray): Promise<string> {
-        let unpacked = unPack(match[0])
+        let unpacked = await unPack(match[0])
         console.log(unpacked)
         let url = unpacked.match(/(?<=player.src\(").*(?=")/)[0]
         return url
@@ -165,7 +165,7 @@ class Upstream implements Match {
     regex = new RegExp(/eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms)
 
     async match(match: RegExpMatchArray): Promise<string> {
-        let unpacked = unPack(match[0])
+        let unpacked = await unPack(match[0])
         let url = unpacked.match(/(?<=file:").*(?=")/)[0]
         return url
     }
@@ -223,7 +223,8 @@ class Kwik implements Match {
     regex = new RegExp(/eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms)
 
     async match(match: RegExpMatchArray): Promise<string> {
-        let unpacked = unPack(match[0])
+        console.log(match[0]);
+        let unpacked = await unPack(match[0])
         let url = unpacked.match(/(?<=source=').*(?=')/)[0]
         console.log(url)
         return url
