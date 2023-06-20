@@ -55,14 +55,14 @@ class Filemoon implements Match {
     id = 'filemoon'
     reliability = Reliability.HIGH
     domains = [
-        'filemoon.sx'
+        'filemoon.sx',
+        'filemoon.in'
     ]
     regex = new RegExp(/eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms)
 
     async match(match: RegExpMatchArray): Promise<string> {
         let unpacked = await unPack(match[0])
         let url = unpacked.match(/(?<=file:").*(?=")/)[0]
-        console.log(url)
         return url
     }
 }
@@ -99,7 +99,6 @@ class Mp4Upload implements Match {
 
     async match(match: RegExpMatchArray): Promise<string> {
         let unpacked = await unPack(match[0])
-        console.log(unpacked)
         let url = unpacked.match(/(?<=player.src\(").*(?=")/)[0]
         return url
     }
@@ -226,7 +225,6 @@ class Kwik implements Match {
         console.log(match[0]);
         let unpacked = await unPack(match[0])
         let url = unpacked.match(/(?<=source=').*(?=')/)[0]
-        console.log(url)
         return url
     }
 }

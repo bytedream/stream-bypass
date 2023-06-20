@@ -66,3 +66,5 @@ export async function disable(match: Match) {
         await storageSet('disabled', disabled)
     }
 }
+
+export const getSetting = storageGet

@@ -1,5 +1,6 @@
 import {getDisabled, disable, enable, getAllDisabled, enableAll, disableAll} from "../../store/store";
 import {matches, Reliability} from "../../match/matches";
+import { Settings, Setting } from "../../store/settings";
 
 async function main() {
     const disabled = await getDisabled()
@@ -50,6 +51,51 @@ async function main() {
         buttons.append(on, off)
         row.append(name, buttons)
         subContainer.append(row)
+    }
+
+    const settingsContainer = document.getElementById("settings-container") 
+    for (const s of Settings) {
+        const row = document.createElement('tr')
+
+        const name = document.createElement('td')
+        const nameValue = document.createElement('p')
+        nameValue.innerText = s.name
+
+        const buttons = document.createElement('td')
+        buttons.classList.add('buttons')
+        const on = document.createElement('a')
+        on.innerText = 'On'
+        const off = document.createElement('a')
+        off.innerText = 'Off'
+        const info = document.createElement('a')
+        info.target = "_blank"
+        info.href = s.info_url
+        info.innerText = "🛈"
+
+        await s.get_status() ? on.classList.add('active') : off.classList.add('active')
+
+        on.onclick = async function () {
+            if (!on.classList.contains('disabled')) {
+                await s.enable()
+                on.classList.add('active')
+                off.classList.remove('active')
+            }
+        }
+        off.onclick = async function () {
+            if (!off.classList.contains('disabled')) {
+                await s.disable()
+                on.classList.remove('active')
+                off.classList.add('active')
+            }
+        }
+
+        name.append(nameValue)
+        buttons.append(on, off)
+        if (s.info_url) {
+            buttons.append(info)
+        }
+        row.append(name, buttons)
+        settingsContainer.append(row)
     }
 
     const allOnButton = document.getElementById('all').getElementsByTagName('a')[0]
