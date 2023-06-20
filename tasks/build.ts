@@ -5,8 +5,7 @@ const rollupPluginCommonJs = require('@rollup/plugin-commonjs')
 const rollupPluginNodeResolve = require('@rollup/plugin-node-resolve').default
 const rollupPluginReplace = require('@rollup/plugin-replace')
 const rollupPluginTypescript = require('@rollup/plugin-typescript')
-const sass = require('node-sass')
-const sassPluginNodeImport = require('node-sass-package-importer')
+const sass = require('sass')
 const typescript = require('typescript')
 
 async function buildManifest() {
@@ -52,10 +51,7 @@ async function buildCss() {
     }
 
     for (const [src, dst] of Object.entries(files)) {
-        const compiled = sass.renderSync({
-            file: src,
-            importer: sassPluginNodeImport()
-        })
+        const compiled = await sass.compileAsync(src)
         fs.mkdirSync(path.dirname(dst), {recursive: true})
         fs.writeFileSync(dst, compiled.css)
     }

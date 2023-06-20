@@ -2,7 +2,6 @@ import {getMatch} from "./match/match";
 import {storageDelete, storageGet, getSetting} from "./store/store";
 import {Match, matches} from "./match/matches";
 
-
 async function main() {
     let match: Match;
     let redirect = false;

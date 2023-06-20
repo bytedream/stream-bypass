@@ -2,7 +2,6 @@ import {getMatch} from "./match/match";
 import {storageDelete, storageGet, storageSet} from "./store/store";
 import {Match} from "./match/matches";
 
-
 chrome.runtime.onMessage.addListener((message, sender) => {
     if (message.action == "ff2mpv") {
         chrome.runtime.sendNativeMessage("ff2mpv", {url: message.url})

@@ -85,6 +85,7 @@ Install the addon directly from the [firefox addon store](https://addons.mozilla
 | [vidstream.pro](https://vidstream.pro)                                | ❌         | Reverse engineering the site costs too much time ([#5](https://github.com/ByteDream/stream-bypass/issues/5)) |
 | [voe.sx](https://voe.sx)                                              | ✔         |                                                                                                              |
 | [vupload.com](https://vupload.com)                                    | ✔         |                                                                                                              |
+| [kwik.cx](https://kwik.cx)                                            | ✔         |                                                                                                              |
 
 - ✔️: Everything ok.
 - ⚠: Included in the addon but will probably not work. See `Note` in this case, an explanation why will stand there in the most cases.
