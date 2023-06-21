@@ -229,6 +229,23 @@ class Kwik implements Match {
     }
 }
 
+class DropLoad implements Match {
+    name = 'Dropload'
+    id = 'dropload'
+    reliability = Reliability.HIGH
+    domains = [
+        'dropload.io'
+    ]
+    regex = new RegExp(/eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms)
+
+    async match(match: RegExpMatchArray): Promise<string> {
+        let unpacked = await unPack(match[0])
+        let url = unpacked.match(/(?<=file:").*(?=")/)[0]
+        console.log(unpacked)
+        return url
+    }
+}
+
 export const matches = [
     new Doodstream(),
     new Filemoon(),
@@ -241,5 +258,6 @@ export const matches = [
     new Vidoza(),
     new Voe(),
     new Vupload(),
-    new Kwik()
+    new Kwik(),
+    new DropLoad()
 ]
