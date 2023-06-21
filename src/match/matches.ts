@@ -241,7 +241,6 @@ class DropLoad implements Match {
     async match(match: RegExpMatchArray): Promise<string> {
         let unpacked = await unPack(match[0])
         let url = unpacked.match(/(?<=file:").*(?=")/)[0]
-        console.log(unpacked)
         return url
     }
 }
@@ -258,7 +257,6 @@ class SuperVideo implements Match {
     async match(match: RegExpMatchArray): Promise<string> {
         let unpacked = await unPack(match[0])
         let url = unpacked.match(/(?<=file:").*(?=")/)[0]
-        console.log(unpacked)
         return url
     }
 }

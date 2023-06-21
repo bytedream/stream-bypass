@@ -86,6 +86,9 @@ Install the addon directly from the [firefox addon store](https://addons.mozilla
 | [voe.sx](https://voe.sx)                                              | ✔         |                                                                                                              |
 | [vupload.com](https://vupload.com)                                    | ✔         |                                                                                                              |
 | [kwik.cx](https://kwik.cx)                                            | ✔         |                                                                                                              |
+| [dropload.io](https://dropload.io)                                            | ✔         |                                                                                                              |
+| [supervideo.tv](https://supervideo.tv)                                            | ✔         |                                                                                                              |
+| [goodstream.uno](https://goodstream.uno)                                            | ✔         |                                                                                                              |
 
 - ✔️: Everything ok.
 - ⚠: Included in the addon but will probably not work. See `Note` in this case, an explanation why will stand there in the most cases.
