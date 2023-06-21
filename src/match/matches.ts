@@ -263,6 +263,20 @@ class SuperVideo implements Match {
     }
 }
 
+class GoodStream implements Match {
+    name = 'Goodstream'
+    id = 'goodstream'
+    reliability = Reliability.NORMAL
+    domains = [
+        'goodstream.uno'
+    ]
+    regex = new RegExp(/(?<=file:\s+").*(?=")/g)
+
+    async match(match: RegExpMatchArray): Promise<string> {
+        return match[0]
+    }
+}
+
 export const matches = [
     new Doodstream(),
     new Filemoon(),
@@ -277,5 +291,6 @@ export const matches = [
     new Vupload(),
     new Kwik(),
     new DropLoad(),
-    new SuperVideo()
+    new SuperVideo(),
+    new GoodStream()
 ]
