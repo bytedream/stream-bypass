@@ -1,6 +1,6 @@
 {
   "name": "stream-bypass",
-  "version": "2.1.7",
+  "version": "2.2.0",
   "description": "Multi-browser addon for multiple streaming providers which redirects directly to the source video",
   "main": "src/index.ts",
   "scripts": {
