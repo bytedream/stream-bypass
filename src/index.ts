@@ -1,5 +1,5 @@
 import {getMatch} from "./match/match";
-import {storageDelete, storageGet} from "./store/store";
+import {storageDelete, storageGet, getSetting} from "./store/store";
 import {Match, matches} from "./match/matches";
 
 async function main() {
@@ -20,6 +20,10 @@ async function main() {
     if (redirect) await storageDelete('redirect')
 
     const url = await match.match(re)
+
+    if (await getSetting("ff2mpv")) {
+        chrome.runtime.sendMessage({action: "ff2mpv", url: url})
+    }
 
     if (match.replace && !url.includes('.m3u8')) {
         const player = document.createElement('video')

@@ -55,14 +55,14 @@ class Filemoon implements Match {
     id = 'filemoon'
     reliability = Reliability.HIGH
     domains = [
-        'filemoon.sx'
+        'filemoon.sx',
+        'filemoon.in'
     ]
     regex = new RegExp(/eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms)
 
     async match(match: RegExpMatchArray): Promise<string> {
         let unpacked = await unPack(match[0])
         let url = unpacked.match(/(?<=file:").*(?=")/)[0]
-        console.log(url)
         return url
     }
 }
@@ -99,7 +99,6 @@ class Mp4Upload implements Match {
 
     async match(match: RegExpMatchArray): Promise<string> {
         let unpacked = await unPack(match[0])
-        console.log(unpacked)
         let url = unpacked.match(/(?<=player.src\(").*(?=")/)[0]
         return url
     }
@@ -226,8 +225,53 @@ class Kwik implements Match {
         console.log(match[0]);
         let unpacked = await unPack(match[0])
         let url = unpacked.match(/(?<=source=').*(?=')/)[0]
-        console.log(url)
         return url
+    }
+}
+
+class DropLoad implements Match {
+    name = 'Dropload'
+    id = 'dropload'
+    reliability = Reliability.HIGH
+    domains = [
+        'dropload.io'
+    ]
+    regex = new RegExp(/eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms)
+
+    async match(match: RegExpMatchArray): Promise<string> {
+        let unpacked = await unPack(match[0])
+        let url = unpacked.match(/(?<=file:").*(?=")/)[0]
+        return url
+    }
+}
+
+class SuperVideo implements Match {
+    name = 'Supervideo'
+    id = 'supervideo'
+    reliability = Reliability.HIGH
+    domains = [
+        'supervideo.tv'
+    ]
+    regex = new RegExp(/eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms)
+
+    async match(match: RegExpMatchArray): Promise<string> {
+        let unpacked = await unPack(match[0])
+        let url = unpacked.match(/(?<=file:").*(?=")/)[0]
+        return url
+    }
+}
+
+class GoodStream implements Match {
+    name = 'Goodstream'
+    id = 'goodstream'
+    reliability = Reliability.NORMAL
+    domains = [
+        'goodstream.uno'
+    ]
+    regex = new RegExp(/(?<=file:\s+").*(?=")/g)
+
+    async match(match: RegExpMatchArray): Promise<string> {
+        return match[0]
     }
 }
 
@@ -243,5 +287,8 @@ export const matches = [
     new Vidoza(),
     new Voe(),
     new Vupload(),
-    new Kwik()
+    new Kwik(),
+    new DropLoad(),
+    new SuperVideo(),
+    new GoodStream()
 ]
