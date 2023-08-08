@@ -33,7 +33,10 @@ class Doodstream implements Match {
         'dood.to',
         'dood.so',
         'dood.la',
-        'dood.re'
+        'dood.re',
+        'dood.yt',
+        'ds2play.com',
+        'dooood.com'
     ]
     replace = true
     regex = new RegExp(/(\/pass_md5\/.*?)'.*(\?token=.*?expiry=)/s)
@@ -130,7 +133,9 @@ class Streamtape implements Match {
     id = 'streamtape'
     reliability = Reliability.NORMAL
     domains = [
-        'streamtape.com'
+        'streamtape.com',
+        'streamtape.net',
+        'shavetape.cash'
     ]
     regex = new RegExp(/id=.*(?=')/gm)
 
