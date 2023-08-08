@@ -141,11 +141,11 @@ When using firefox, use the following:
 ff2mpv is located at this repository: https://github.com/woodruffw/ff2mpv
 
 Steps to get it set up:
-  - In the readme under `Usage` pick an installation instruction (Linux/Windows/MacOS), you do not have to install the browser addon.
+  - In the [Usage](https://github.com/woodruffw/ff2mpv#usage) section of the ff2mpv repository pick the installation instruction for your operating system (Linux/Windows/macOS; you do not need the browser addon).
   - Scroll down to `Install manually`
-  - Follow Instructions for Firefox/Chrome
+  - Follow instructions for Firefox/Chrome
   - Edit the `ff2mpv.json` you created:
-    - Firefox: Add `{55dd42e8-3dd9-455a-b4fe-86664881b10c}` to `allowd_extensions` -> 
+    - Firefox: Add `{55dd42e8-3dd9-455a-b4fe-86664881b10c}` to `allowed_extensions` -> 
       ```
       "allowed_extensions": [
         "ff2mpv@yossarian.net",
