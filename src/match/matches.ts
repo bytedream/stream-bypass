@@ -36,7 +36,7 @@ class Doodstream implements Match {
         'dood.re',
         'dood.yt',
         'ds2play.com',
-        'dooood.com',
+        'dooood.com'
     ]
     replace = true
     regex = new RegExp(/(\/pass_md5\/.*?)'.*(\?token=.*?expiry=)/s)
