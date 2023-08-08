@@ -164,8 +164,7 @@ class Upstream implements Match {
     id = 'upstream'
     reliability = Reliability.HIGH
     domains = [
-        'upstream.to',
-        's96.upstreamcdn.co'
+        'upstream.to'
     ]
     regex = new RegExp(/eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms)
 
