@@ -1,40 +1,52 @@
 {
-  "name": "stream-bypass",
-  "version": "2.2.0",
-  "description": "Multi-browser addon for multiple streaming providers which redirects directly to the source video",
-  "main": "src/index.ts",
-  "scripts": {
-    "build": "node tasks/build.ts",
-    "bundle": "node tasks/build.ts && web-ext build -s build -a dist -o",
-    "bundle:all": "node tasks/build.ts && web-ext build -s build -a dist -o && web-ext sign -s build -a dist",
-    "check": "web-ext lint -s build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ByteDream/stream-bypass.git"
-  },
-  "author": "ByteDream",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ByteDream/stream-bypass/issues"
-  },
-  "homepage": "https://github.com/ByteDream/stream-bypass#readme",
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^24.1.0",
-    "@rollup/plugin-node-resolve": "^15.0.2",
-    "@rollup/plugin-replace": "^5.0.2",
-    "@rollup/plugin-typescript": "^11.1.0",
-    "@types/chrome": "^0.0.234",
-    "@types/node-sass": "^4.11.2",
-    "@types/yazl": "^2.4.2",
-    "@typescript-eslint/eslint-plugin": "^5.27.1",
-    "@typescript-eslint/parser": "^5.27.1",
-    "eslint": "^8.17.0",
-    "hls.js": "^1.1.5",
-    "rollup": "^3.21.0",
-    "sass": "^1.62.1",
-    "tippy.js": "^6.3.7",
-    "typescript": "^5.0.4",
-    "web-ext": "^7.0.0"
-  }
+	"name": "stream-bypass",
+	"version": "3.0.0",
+	"displayName": "Stream Bypass",
+	"author": "ByteDream",
+	"description": "Multi-browser addon for multiple streaming providers which redirects directly to the source video",
+	"scripts": {
+		"build": "vite build",
+		"watch": "vite build --watch --mode development --minify false",
+		"dev": "vite",
+		"serve:firefox": "web-ext run --start-url \"about:debugging#/runtime/this-firefox\" --source-dir ./dist/",
+		"serve:chrome": "web-ext run -t chromium --start-url \"https://example.com\" --source-dir ./dist/",
+		"check": "svelte-check --tsconfig ./tsconfig.json",
+		"lint": "prettier --check --plugin prettier-plugin-svelte . && eslint .",
+		"format": "prettier --write --plugin prettier-plugin-svelte .",
+		"release:firefox": "MANIFEST_VERSION=2 vite build --outDir release/firefox",
+		"release:chrome": "MANIFEST_VERSION=3 vite build --outDir release/chrome"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ByteDream/stream-bypass.git"
+	},
+	"bugs": {
+		"url": "https://github.com/ByteDream/stream-bypass/issues"
+	},
+	"devDependencies": {
+		"@samrum/vite-plugin-web-extension": "^5.0.0",
+		"@sveltejs/vite-plugin-svelte": "^2.1.1",
+		"@tsconfig/svelte": "^4.0.1",
+		"@types/chrome": "^0.0.228",
+		"@types/webextension-polyfill": "^0.10.0",
+		"@typescript-eslint/eslint-plugin": "^6.10.0",
+		"@typescript-eslint/parser": "^6.10.0",
+		"eslint": "^8.53.0",
+		"eslint-config-prettier": "^9.0.0",
+		"eslint-plugin-svelte": "^2.35.0",
+		"hls.js": "^1.4.12",
+		"prettier": "^3.0.3",
+		"prettier-plugin-svelte": "^3.1.0",
+		"sass": "^1.69.5",
+		"svelte": "^3.58.0",
+		"svelte-check": "^3.2.0",
+		"svelte-preprocess": "^5.0.3",
+		"tslib": "^2.5.0",
+		"typescript": "^5.0.4",
+		"vite": "~4.3.3",
+		"web-ext": "^7.6.2",
+		"webextension-polyfill": "^0.10.0"
+	},
+	"type": "module"
 }

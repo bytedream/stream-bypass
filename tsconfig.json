@@ -1,0 +1,18 @@
+{
+	"extends": "@tsconfig/svelte/tsconfig.json",
+	"compilerOptions": {
+		"allowSyntheticDefaultImports": true,
+		"target": "es2019",
+		"module": "esnext",
+		"useDefineForClassFields": true,
+		"resolveJsonModule": true,
+		"removeComments": true,
+		"baseUrl": ".",
+		"paths": {
+			"~/*": ["src/*"]
+		},
+		"allowJs": true,
+		"checkJs": true
+	},
+	"include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"]
+}
