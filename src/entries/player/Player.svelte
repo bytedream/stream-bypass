@@ -20,11 +20,13 @@
 {#if errorMessage}
 	<div id="message-container">
 		<p>
+			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html errorMessage}
 		</p>
 	</div>
 {/if}
 
+<!-- eslint-disable -->
 <style lang="scss" global>
 	body {
 		background-color: #131313;

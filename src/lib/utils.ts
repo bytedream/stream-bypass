@@ -1,6 +1,6 @@
 // Adapted from http://matthewfl.com/unPacker.html by matthew@matthewfl.com
 export async function unpack(packed: string): Promise<string> {
-	let context = `
+	const context = `
 		{
 			eval: function (c) {
 				packed = c;

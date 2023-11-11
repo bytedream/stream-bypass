@@ -121,6 +121,7 @@
 	>
 </main>
 
+<!-- eslint-disable -->
 <style lang="scss" global>
 	body {
 		background-color: #2b2a33;

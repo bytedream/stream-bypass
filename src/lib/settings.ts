@@ -16,7 +16,7 @@ export const Hosters = {
 		}
 	},
 	enable: async (match: Match) => {
-		let disabled = await storageGet('hosters.disabled', []);
+		const disabled = await storageGet('hosters.disabled', []);
 		const index = disabled.indexOf(match.id);
 		if (index !== -1) {
 			disabled.splice(index, 1);

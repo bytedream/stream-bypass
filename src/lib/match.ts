@@ -60,10 +60,10 @@ export const DropLoad: Match = {
 	id: 'dropload',
 	reliability: Reliability.HIGH,
 	domains: ['dropload.ui'],
-	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms,
+	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
 
 	match: async (match: RegExpMatchArray) => {
-		let unpacked = await unpack(match[0]);
+		const unpacked = await unpack(match[0]);
 		return unpacked.match(/(?<=file:").*(?=")/)[0];
 	}
 };
@@ -73,7 +73,7 @@ export const Filemoon: Match = {
 	id: 'filemoon',
 	reliability: Reliability.HIGH,
 	domains: ['filemoon.sx', 'filemoon.in'],
-	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms,
+	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
 
 	match: async (match: RegExpMatchArray) => {
 		const unpacked = await unpack(match[0]);
@@ -98,10 +98,10 @@ export const Kwik: Match = {
 	id: 'kwik',
 	reliability: Reliability.HIGH,
 	domains: ['kwik.cx'],
-	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms,
+	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
 
 	match: async (match: RegExpMatchArray) => {
-		let unpacked = await unpack(match[0]);
+		const unpacked = await unpack(match[0]);
 		return unpacked.match(/(?<=source=').*(?=')/)[0];
 	}
 };
@@ -111,11 +111,11 @@ export const Mixdrop: Match = {
 	id: 'mixdrop',
 	reliability: Reliability.HIGH,
 	domains: ['mixdrop.co', 'mixdrop.to', 'mixdrop.ch', 'mixdrop.bz', 'mixdrop.gl'],
-	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms,
+	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
 
 	match: async (match: RegExpMatchArray) => {
-		let unpacked = await unpack(match[0]);
-		let url = unpacked.match(/(?<=MDCore.wurl=").*(?=")/)[0];
+		const unpacked = await unpack(match[0]);
+		const url = unpacked.match(/(?<=MDCore.wurl=").*(?=")/)[0];
 		return `https:${url}`;
 	}
 };
@@ -126,10 +126,10 @@ export const Mp4Upload: Match = {
 	reliability: Reliability.HIGH,
 	domains: ['mp4upload.com'],
 	replace: true,
-	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms,
+	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
 
 	match: async (match: RegExpMatchArray) => {
-		let unpacked = await unpack(match[0]);
+		const unpacked = await unpack(match[0]);
 		return unpacked.match(/(?<=player.src\(").*(?=")/)[0];
 	}
 };
@@ -141,14 +141,14 @@ export const Newgrounds: Match = {
 	domains: ['newgrounds.com'],
 	regex: /.*/gm,
 
-	match: async (match: RegExpMatchArray) => {
-		let id = window.location.pathname.split('/').slice(-1)[0];
-		let response = await fetch(`https://www.newgrounds.com/portal/video/${id}`, {
+	match: async () => {
+		const id = window.location.pathname.split('/').slice(-1)[0];
+		const response = await fetch(`https://www.newgrounds.com/portal/video/${id}`, {
 			headers: {
 				'X-Requested-With': 'XMLHttpRequest'
 			}
 		});
-		let json = await response.json();
+		const json = await response.json();
 		return decodeURI(json['sources'][Object.keys(json['sources'])[0]][0]['src']);
 	}
 };
@@ -192,10 +192,10 @@ export const SuperVideo: Match = {
 	id: 'supervideo',
 	reliability: Reliability.HIGH,
 	domains: ['supervideo.tv'],
-	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms,
+	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
 
 	match: async (match: RegExpMatchArray) => {
-		let unpacked = await unpack(match[0]);
+		const unpacked = await unpack(match[0]);
 		return unpacked.match(/(?<=file:").*(?=")/)[0];
 	}
 };
@@ -205,10 +205,10 @@ export const Upstream: Match = {
 	id: 'upstream',
 	reliability: Reliability.HIGH,
 	domains: ['upstream.to'],
-	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=\<\/script\>)/gms,
+	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
 
 	match: async (match: RegExpMatchArray) => {
-		let unpacked = await unpack(match[0]);
+		const unpacked = await unpack(match[0]);
 		return unpacked.match(/(?<=file:").*(?=")/)[0];
 	}
 };
