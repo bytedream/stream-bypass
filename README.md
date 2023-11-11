@@ -119,16 +119,16 @@ If the requirements are satisfied, you can continue with the following commands:
 # install all dependencies
 $ npm install
 
-# build the extension source to a build/ directory
+# build the extension source to the dist/ directory
 $ npm run build
 
-# same as build + create a bundle zipfile at dist/
-$ npm run bundle
+# same as build + more optimizations and browser specific settings at release/
+$ npm run release:firefox  # or "release:chrome" to create a release for chromium based browsers
 ```
 
 ##### Install
 
-If you want to use the addon in Chromium or any browser which is based on it (almost every other, Google Chrome, Opera, ...), follow the steps in [installation](#-installation).
+If you want to use the addon in Chromium or any browser which is based on it, follow the steps in [installation](#-installation).
 When using firefox, use the following:
 
 1. Type `about:debugging` in the browser's address bar.
