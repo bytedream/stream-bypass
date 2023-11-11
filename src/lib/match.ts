@@ -156,11 +156,19 @@ export const Newgrounds: Match = {
 export const Streamtape: Match = {
 	name: 'Streamtape',
 	id: 'streamtape',
-	reliability: Reliability.NORMAL,
+	reliability: Reliability.HIGH,
 	domains: ['streamtape.com', 'streamtape.net', 'shavetape.cash'],
 	regex: /id=.*(?=')/gm,
 
 	match: async (match: RegExpMatchArray) => {
+		let i = 0;
+		while (i < match.length) {
+			if (match[++i - 1] == match[i]) {
+				return `https://streamtape.com/get_video?${match[i]}`;
+			}
+		}
+
+		// use the old method as fallback
 		return `https://streamtape.com/get_video?${match.reverse()[0]}`;
 	}
 };
