@@ -47,25 +47,24 @@ Additionally, this enables you to download the video by right-clicking it and ju
 
 ## 📥 Installation
 
-### Firefox
+### Official browser stores
 
-Install the addon directly from the [firefox addon store](https://addons.mozilla.org/de/firefox/addon/stream-bypass/).
+The best way to install the extension are the official browser extension stores:
 
-### Chromium / Google Chrome
+- [Firefox Addon Store](https://addons.mozilla.org/de/firefox/addon/stream-bypass/)
 
-1. Download the zipfile from the [latest release](https://smartrelease.bytedream.org/github/ByteDream/stream-bypass/stream_bypass-{tag}.zip) and unzip it (with [7zip](https://www.7-zip.org/) or something like that).
-2. Go into your browser and type `chrome://extensions` in the address bar.
-3. Turn the developer mode in the top right corner on.
-4. Click Load unpacked.
-5. Choose the cloned / unzipped directory.
+### Manual installation
 
-### Opera
-
-1. Download the zipfile from the [latest release](https://smartrelease.bytedream.org/github/ByteDream/stream-bypass/stream_bypass-{tag}.zip) and unzip it (with [7zip](https://www.7-zip.org/) or something like that).
-2. Go into your browser and type `opera://extensions` in the address bar.
-3. Turn the developer mode in the top right corner on.
-4. Click Load unpacked.
-5. Choose the cloned / unzipped directory.
+- Firefox
+  - Download `stream-bypass-<version>-mv2.zip` from the [latest release](https://github.com/ByteDream/stream-bypass/releases/latest) and unzip it (with [7zip](https://www.7-zip.org/) or something like that)
+  - Go into your browser and type `about:debugging#/runtime/this-firefox` in the address bar
+  - Click the `Load Temporary Add-on...` button and choose the `manifest.json` file in the unzipped directory
+- Chromium / Google Chrome
+  > As nearly every browser other than Firefox is based on Chromium, this should be the same for most of them
+  - Download `enhance-crunchyroll-<version>-mv3.zip` from the [latest release](https://github.com/ByteDream/stream-bypass/releases/latest) and unzip it (with [7zip](https://www.7-zip.org/) or something like that)
+  - Go into your browser and type `chrome://extensions` in the address bar
+  - Turn on the developer mode by checking the switch in the top right corner
+  - Click `Load unpacked` and choose the unzipped directory
 
 ## 📜 Supported sites
 
