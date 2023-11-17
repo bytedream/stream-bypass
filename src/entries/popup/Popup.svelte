@@ -127,8 +127,8 @@
 		background-color: #2b2a33;
 		color: white;
 		font-weight: bold;
-		overflow-x: hidden;
-		overflow-y: auto;
+		margin: 0;
+		padding: 0 8px;
 	}
 
 	#bug-notice {
