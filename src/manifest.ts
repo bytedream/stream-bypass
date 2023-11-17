@@ -1,4 +1,5 @@
 import pkg from '../package.json';
+import { matches } from './lib/match';
 
 const sharedManifest: Partial<chrome.runtime.ManifestBase> = {
 	browser_specific_settings: {
@@ -9,7 +10,7 @@ const sharedManifest: Partial<chrome.runtime.ManifestBase> = {
 	content_scripts: [
 		{
 			all_frames: true,
-			matches: ['<all_urls>'],
+			matches: Object.values(matches).flatMap((m) => m.domains.map((d) => `*://${d}/*`)),
 			js: ['src/entries/contentScript/main.ts'],
 			run_at: 'document_end'
 		}
@@ -21,7 +22,7 @@ const sharedManifest: Partial<chrome.runtime.ManifestBase> = {
 		96: 'icons/stream-bypass@96px.png',
 		128: 'icons/stream-bypass@128px.png'
 	},
-	permissions: ['storage', 'webRequest', 'nativeMessaging', '<all_urls>']
+	permissions: ['storage', 'nativeMessaging']
 };
 
 const browserAction = {
@@ -35,18 +36,19 @@ const browserAction = {
 const ManifestV2 = {
 	...sharedManifest,
 	background: {
-		scripts: ['src/entries/background/main.ts'],
+		scripts: ['src/entries/background/mv2.ts'],
 		persistent: true
 	},
+	content_scripts: [{ ...sharedManifest.content_scripts[0], matches: ['<all_urls>'] }],
 	browser_action: browserAction,
-	permissions: [...sharedManifest.permissions]
+	permissions: [...sharedManifest.permissions, 'webRequest', '<all_urls>']
 };
 
 const ManifestV3 = {
 	...sharedManifest,
 	action: browserAction,
 	background: {
-		service_worker: 'src/entries/background/main.ts'
+		service_worker: 'src/entries/background/mv3.ts'
 	}
 };
 
@@ -71,6 +73,9 @@ export function getManifest(
 	if (manifestVersion === 3) {
 		return {
 			...manifest,
+			// just like all the adblockers which are unable to fully work under MV3, we need access to every website
+			// the user enters in order to work correctly, which is forbidden when using MV3
+			name: `${manifest.name} Lite`,
 			...ManifestV3,
 			manifest_version: manifestVersion
 		};

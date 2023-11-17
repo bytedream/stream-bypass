@@ -1,12 +1,8 @@
+import './shared';
+
 import type { Match } from '~/lib/match';
 import { storageDelete, storageGet, storageSet } from '~/lib/settings';
 import { getMatch } from '~/lib/match';
-
-chrome.runtime.onMessage.addListener(async (message) => {
-	if (message.action == 'ff2mpv') {
-		await chrome.runtime.sendNativeMessage('ff2mpv', { url: message.url });
-	}
-});
 
 chrome.webRequest.onBeforeRedirect.addListener(
 	async (details) => {

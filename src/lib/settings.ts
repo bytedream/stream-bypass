@@ -1,6 +1,5 @@
-import browser from 'webextension-polyfill';
-import type { Match } from '~/lib/match';
-import { matches } from '~/lib/match';
+import type { Match } from './match';
+import { matches } from './match';
 
 export const Hosters = {
 	getDisabled: async () => {
@@ -56,7 +55,7 @@ export const Other = {
 };
 
 export async function storageGet<T>(key: string, defaultValue?: T): Promise<T | undefined> {
-	const entry = await browser.storage.local.get(key);
+	const entry = await chrome.storage.local.get(key);
 	const value = entry[key];
 	return value === undefined ? defaultValue : value;
 }
@@ -65,9 +64,9 @@ export async function storageSet<T>(key: string, value: T) {
 	const obj = {
 		[key]: value
 	};
-	await browser.storage.local.set(obj);
+	await chrome.storage.local.set(obj);
 }
 
 export async function storageDelete(key: string) {
-	await browser.storage.local.remove(key);
+	await chrome.storage.local.remove(key);
 }

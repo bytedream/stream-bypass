@@ -1,7 +1,6 @@
 import type { Match } from '~/lib/match';
 import { getMatch } from '~/lib/match';
 import { Other, Redirect } from '~/lib/settings';
-import browser from 'webextension-polyfill';
 
 async function main() {
 	let match: Match;
@@ -25,7 +24,7 @@ async function main() {
 
 	// send the url to the ff2mpv (https://github.com/woodruffw/ff2mpv) application
 	if (await Other.getFf2mpv()) {
-		await browser.runtime.sendMessage({ action: 'ff2mpv', url: url });
+		await chrome.runtime.sendMessage({ action: 'ff2mpv', url: url });
 	}
 
 	if (match.replace && !url.includes('.m3u8')) {
@@ -39,7 +38,7 @@ async function main() {
 		document.body.append(player);
 	} else {
 		window.location.assign(
-			browser.runtime.getURL(
+			chrome.runtime.getURL(
 				`src/entries/player/player.html?id=${match.id}&url=${encodeURIComponent(url)}&domain=${
 					window.location.hostname
 				}`

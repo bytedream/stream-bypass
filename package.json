@@ -29,7 +29,6 @@
 		"@sveltejs/vite-plugin-svelte": "^2.1.1",
 		"@tsconfig/svelte": "^4.0.1",
 		"@types/chrome": "^0.0.228",
-		"@types/webextension-polyfill": "^0.10.0",
 		"@typescript-eslint/eslint-plugin": "^6.10.0",
 		"@typescript-eslint/parser": "^6.10.0",
 		"eslint": "^8.53.0",
@@ -45,8 +44,7 @@
 		"tslib": "^2.5.0",
 		"typescript": "^5.0.4",
 		"vite": "~4.3.3",
-		"web-ext": "^7.6.2",
-		"webextension-polyfill": "^0.10.0"
+		"web-ext": "^7.6.2"
 	},
 	"type": "module"
 }

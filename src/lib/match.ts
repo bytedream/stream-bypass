@@ -1,5 +1,5 @@
-import { unpack } from '~/lib/utils';
-import { Hosters } from '~/lib/settings';
+import { unpack } from './utils';
+import { Hosters } from './settings';
 
 export enum Reliability {
 	HIGH,

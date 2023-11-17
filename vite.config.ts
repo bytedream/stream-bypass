@@ -3,6 +3,7 @@ import { svelte } from '@sveltejs/vite-plugin-svelte';
 import webExtension from '@samrum/vite-plugin-web-extension';
 import path from 'path';
 import { getManifest } from './src/manifest';
+import { matches } from './src/lib/match';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -18,8 +19,10 @@ export default defineConfig(({ mode }) => {
 						{
 							fileName: 'src/entries/player/player.html',
 							webAccessible: {
-								matches: ['<all_urls>'],
-								excludeEntryFile: true
+								matches:
+									Number(env.MANIFEST_VERSION) === 3
+										? Object.values(matches).flatMap((m) => m.domains.map((d) => `*://${d}/*`))
+										: ['<all_urls>']
 							}
 						}
 					]
