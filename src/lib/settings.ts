@@ -55,18 +55,34 @@ export const Other = {
 };
 
 export async function storageGet<T>(key: string, defaultValue?: T): Promise<T | undefined> {
-	const entry = await chrome.storage.local.get(key);
-	const value = entry[key];
-	return value === undefined ? defaultValue : value;
+	let resolve: (value: T | undefined) => void;
+	const promise = new Promise<T | undefined>((r) => (resolve = r));
+
+	chrome.storage.local.get(key, (entry) => {
+		const value = entry[key];
+		resolve(value === undefined ? defaultValue : value);
+	});
+
+	return promise;
 }
 
 export async function storageSet<T>(key: string, value: T) {
+	let resolve: () => void;
+	const promise = new Promise<void>((r) => (resolve = r));
+
 	const obj = {
 		[key]: value
 	};
-	await chrome.storage.local.set(obj);
+	chrome.storage.local.set(obj, () => resolve());
+
+	return promise;
 }
 
 export async function storageDelete(key: string) {
-	await chrome.storage.local.remove(key);
+	let resolve: () => void;
+	const promise = new Promise<void>((r) => (resolve = r));
+
+	chrome.storage.local.remove(key, () => resolve());
+
+	return promise;
 }
