@@ -61,7 +61,7 @@ The best way to install the extension are the official browser extension stores:
   - Click the `Load Temporary Add-on...` button and choose the `manifest.json` file in the unzipped directory
 - Chromium / Google Chrome
   > As nearly every browser other than Firefox is based on Chromium, this should be the same for most of them
-  - Download `enhance-crunchyroll-<version>-mv3.zip` from the [latest release](https://github.com/ByteDream/stream-bypass/releases/latest) and unzip it (with [7zip](https://www.7-zip.org/) or something like that)
+  - Download `stream-bypass-<version>-mv3.zip` from the [latest release](https://github.com/ByteDream/stream-bypass/releases/latest) and unzip it (with [7zip](https://www.7-zip.org/) or something like that)
   - Go into your browser and type `chrome://extensions` in the address bar
   - Turn on the developer mode by checking the switch in the top right corner
   - Click `Load unpacked` and choose the unzipped directory
