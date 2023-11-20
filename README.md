@@ -12,6 +12,9 @@ A multi-browser addon / extension for multiple streaming providers which redirec
   <a href="https://addons.mozilla.org/de/firefox/addon/stream-bypass/">
     <img src="https://img.shields.io/amo/stars/stream-bypass?label=Firefox%20Store%20Stars&style=flat-square" alt="Firefox Addon Stars">
   </a>
+  <a href="https://chromewebstore.google.com/detail/ddfpfjomnakfckhmilacnbokdaknamdb">
+    <img src="https://img.shields.io/chrome-web-store/users/ddfpfjomnakfckhmilacnbokdaknamdb?style=flat-square&label=Chrome%20Users" alt="Chrome Users">
+  </a>
   <a href="https://github.com/ByteDream/stream-bypass/releases/latest">
     <img src="https://img.shields.io/github/downloads/ByteDream/stream-bypass/total?label=GitHub%20Downloads&style=flat-square" alt="GitHub Downloads">
   </a>
@@ -52,6 +55,7 @@ Additionally, this enables you to download the video by right-clicking it and ju
 The best way to install the extension are the official browser extension stores:
 
 - [Firefox Addon Store](https://addons.mozilla.org/de/firefox/addon/stream-bypass/)
+- [Chrome Web Store](https://chromewebstore.google.com/detail/ddfpfjomnakfckhmilacnbokdaknamdb)
 
 ### Manual installation
 
