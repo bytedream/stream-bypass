@@ -1,5 +1,6 @@
 import { matches } from '~/lib/match';
 import Hls from 'hls.js';
+import { storageSet } from '~/lib/settings';
 
 async function playNative(url: string, videoElem: HTMLVideoElement) {
 	videoElem.src = url;
@@ -30,6 +31,8 @@ export async function play(videoElem: HTMLVideoElement) {
 		throw `Invalid id: ${id}. Please report this <a href="https://github.com/ByteDream/stream-bypass/issues">here</a>`;
 	}
 	document.title = `Stream Bypass (${domain})`;
+
+	await storageSet('referer', { domain: domain });
 
 	if (new URL(url).pathname.endsWith('.m3u8')) {
 		await playHls(url, videoElem);

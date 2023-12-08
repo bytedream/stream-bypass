@@ -41,7 +41,7 @@ const ManifestV2 = {
 	},
 	content_scripts: [{ ...sharedManifest.content_scripts[0], matches: ['<all_urls>'] }],
 	browser_action: browserAction,
-	permissions: [...sharedManifest.permissions, 'webRequest', '<all_urls>']
+	permissions: [...sharedManifest.permissions, 'webRequest', 'webRequestBlocking', '<all_urls>']
 };
 
 const ManifestV3 = {

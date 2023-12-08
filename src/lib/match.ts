@@ -213,6 +213,18 @@ export const Upstream: Match = {
 	}
 };
 
+export const Vidmoly: Match = {
+	name: 'Vidmoly',
+	id: 'vidmoly',
+	reliability: Reliability.HIGH,
+	domains: ['vidmoly.me', 'vidmoly.to'],
+	regex: /(?<=file:").+\.m3u8(?=")/gm,
+
+	match: async (match: RegExpMatchArray) => {
+		return match[0];
+	}
+};
+
 export const Vidoza: Match = {
 	name: 'Vidoza',
 	id: 'vidoza',
@@ -262,6 +274,7 @@ export const matches = {
 	[Streamzz.id]: Streamzz,
 	[SuperVideo.id]: SuperVideo,
 	[Upstream.id]: Upstream,
+	[Vidmoly.id]: Vidmoly,
 	[Vidoza.id]: Vidoza,
 	[Voe.id]: Voe,
 	[Vupload.id]: Vupload

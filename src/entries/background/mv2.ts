@@ -4,6 +4,24 @@ import type { Match } from '~/lib/match';
 import { storageDelete, storageGet, storageSet } from '~/lib/settings';
 import { getMatch } from '~/lib/match';
 
+chrome.webRequest.onBeforeSendHeaders.addListener(
+	async (details) => {
+		const referer: { domain: string } | undefined = await storageGet('referer');
+		if (referer === undefined) return;
+
+		details.requestHeaders.push({
+			name: 'Referer',
+			value: `https://${referer.domain}/`
+		});
+
+		await storageDelete('referer');
+
+		return { requestHeaders: details.requestHeaders };
+	},
+	{ urls: ['<all_urls>'], types: ['xmlhttprequest'] },
+	['blocking', 'requestHeaders']
+);
+
 chrome.webRequest.onBeforeRedirect.addListener(
 	async (details) => {
 		// check if redirects origins from a previous redirect
