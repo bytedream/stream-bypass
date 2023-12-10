@@ -18,9 +18,6 @@ A multi-browser addon / extension for multiple streaming providers which redirec
   <a href="https://github.com/ByteDream/stream-bypass/releases/latest">
     <img src="https://img.shields.io/github/downloads/ByteDream/stream-bypass/total?label=GitHub%20Downloads&style=flat-square" alt="GitHub Downloads">
   </a>
-  <a href="https://discord.gg/gUWwekeNNg">
-    <img src="https://img.shields.io/discord/915659846836162561?label=Discord&style=flat-square" alt="Discord">
-  </a>
 </p>
 
 <p align="center">
