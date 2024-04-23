@@ -36,6 +36,7 @@ export const Doodstream: Match = {
 		'dood.la',
 		'dood.re',
 		'dood.yt',
+		'doods.pro',
 		'ds2play.com',
 		'dooood.com'
 	],
