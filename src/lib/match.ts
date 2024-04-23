@@ -242,7 +242,7 @@ export const Voe: Match = {
 	id: 'voe',
 	reliability: Reliability.HIGH,
 	domains: ['voe.sx'],
-	regex: /https?:\/\/\S*m3u8.+(?=')/gm,
+	regex: /https?:\/\/\S*m3u8.+(?=['"])/gm,
 
 	match: async (match: RegExpMatchArray) => {
 		return match[0];
