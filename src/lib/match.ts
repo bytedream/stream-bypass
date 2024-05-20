@@ -199,9 +199,10 @@ export const Vidmoly: Match = {
 	name: 'Vidmoly',
 	id: 'vidmoly',
 	domains: ['vidmoly.me', 'vidmoly.to'],
-	regex: /(?<=file:").+\.m3u8(?=")/gm,
+	regex: /(?<=file:").+\.m3u8/gm,
 
 	match: async (match: RegExpMatchArray) => {
+		alert('a');
 		return match[0];
 	}
 };

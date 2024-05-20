@@ -81,6 +81,7 @@ The best way to install the extension are the official browser extension stores:
 | [streamzz.to](https://streamzz.to) / [streamz.ws](https://streamz.ws) | ✔        |                                                                                                              |
 | [upstream.to](https://upstream.to)                                    | ✔        |                                                                                                              |
 | [videovard.sx](https://videovard.sx)                                  | ❌        | Reverse engineering the site costs too much time                                                             |
+| [vidmoly.me](https://vidmoly.me)                                      | ✔        |                                                                                                              |
 | [vidoza.net](https://vidoza.net)                                      | ✔        |                                                                                                              |
 | [vidstream.pro](https://vidstream.pro)                                | ❌        | Reverse engineering the site costs too much time ([#5](https://github.com/ByteDream/stream-bypass/issues/5)) |
 | [voe.sx](https://voe.sx)                                              | ✔        |                                                                                                              |
