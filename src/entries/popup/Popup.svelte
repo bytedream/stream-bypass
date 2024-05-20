@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { matches, Reliability } from '~/lib/match';
+	import { matches } from '~/lib/match';
 	import { Hosters, Other } from '~/lib/settings';
 
 	let hostersEnabled: boolean;
@@ -52,13 +52,7 @@
 			{#each hosters as hoster}
 				<tr>
 					<td class="setting-name">
-						<p
-							class:reliability-low={hoster.reliability === Reliability.LOW}
-							class:reliability-normal={hoster.reliability === Reliability.NORMAL}
-							class:reliability-high={hoster.reliability === Reliability.HIGH}
-						>
-							{hoster.name}
-						</p>
+						<p>{hoster.name}</p>
 					</td>
 					<td class="buttons">
 						<button
@@ -201,18 +195,5 @@
 			width: 100%;
 			margin-bottom: 10px;
 		}
-	}
-
-	.reliability-low {
-		text-decoration: underline;
-		text-decoration-color: red;
-	}
-	.reliability-normal {
-		text-decoration: underline;
-		text-decoration-color: yellow;
-	}
-	.reliability-high {
-		text-decoration: underline;
-		text-decoration-color: #00ff00;
 	}
 </style>

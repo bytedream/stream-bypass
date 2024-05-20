@@ -1,16 +1,9 @@
 import { unpack } from './utils';
 import { Hosters } from './settings';
 
-export enum Reliability {
-	HIGH,
-	NORMAL,
-	LOW
-}
-
 export interface Match {
 	name: string;
 	id: string;
-	reliability: Reliability;
 	domains: string[];
 	replace?: boolean;
 	regex: RegExp;
@@ -22,7 +15,6 @@ export interface Match {
 export const Doodstream: Match = {
 	name: 'Doodstream',
 	id: 'doodstream',
-	reliability: Reliability.NORMAL,
 	domains: [
 		'doodstream.com',
 		'dood.pm',
@@ -59,7 +51,6 @@ export const Doodstream: Match = {
 export const DropLoad: Match = {
 	name: 'Dropload',
 	id: 'dropload',
-	reliability: Reliability.HIGH,
 	domains: ['dropload.ui'],
 	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
 
@@ -72,7 +63,6 @@ export const DropLoad: Match = {
 export const Filemoon: Match = {
 	name: 'Filemoon',
 	id: 'filemoon',
-	reliability: Reliability.HIGH,
 	domains: ['filemoon.sx', 'filemoon.in'],
 	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
 
@@ -85,7 +75,6 @@ export const Filemoon: Match = {
 export const GoodStream: Match = {
 	name: 'Goodstream',
 	id: 'goodstream',
-	reliability: Reliability.NORMAL,
 	domains: ['goodstream.uno'],
 	regex: /(?<=file:\s+").*(?=")/g,
 
@@ -97,7 +86,6 @@ export const GoodStream: Match = {
 export const Kwik: Match = {
 	name: 'Kwik',
 	id: 'kwik',
-	reliability: Reliability.HIGH,
 	domains: ['kwik.cx'],
 	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
 
@@ -110,7 +98,6 @@ export const Kwik: Match = {
 export const Mixdrop: Match = {
 	name: 'Mixdrop',
 	id: 'mixdrop',
-	reliability: Reliability.HIGH,
 	domains: ['mixdrop.co', 'mixdrop.to', 'mixdrop.ch', 'mixdrop.bz', 'mixdrop.gl'],
 	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
 
@@ -124,7 +111,6 @@ export const Mixdrop: Match = {
 export const Mp4Upload: Match = {
 	name: 'Mp4Upload',
 	id: 'mp4upload',
-	reliability: Reliability.HIGH,
 	domains: ['mp4upload.com'],
 	replace: true,
 	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
@@ -138,7 +124,6 @@ export const Mp4Upload: Match = {
 export const Newgrounds: Match = {
 	name: 'Newgrounds',
 	id: 'newgrounds',
-	reliability: Reliability.HIGH,
 	domains: ['newgrounds.com'],
 	regex: /.*/gm,
 
@@ -157,7 +142,6 @@ export const Newgrounds: Match = {
 export const Streamtape: Match = {
 	name: 'Streamtape',
 	id: 'streamtape',
-	reliability: Reliability.HIGH,
 	domains: ['streamtape.com', 'streamtape.net', 'shavetape.cash'],
 	regex: /id=.*(?=')/gm,
 
@@ -177,7 +161,6 @@ export const Streamtape: Match = {
 export const Streamzz: Match = {
 	name: 'Streamzz',
 	id: 'streamzz',
-	reliability: Reliability.LOW,
 	domains: ['streamzz.to', 'streamz.ws'],
 	regex: /(?<=\|)\w{2,}/gm,
 
@@ -191,7 +174,6 @@ export const Streamzz: Match = {
 export const SuperVideo: Match = {
 	name: 'Supervideo',
 	id: 'supervideo',
-	reliability: Reliability.HIGH,
 	domains: ['supervideo.tv'],
 	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
 
@@ -204,7 +186,6 @@ export const SuperVideo: Match = {
 export const Upstream: Match = {
 	name: 'Upstream',
 	id: 'upstream',
-	reliability: Reliability.HIGH,
 	domains: ['upstream.to'],
 	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
 
@@ -217,7 +198,6 @@ export const Upstream: Match = {
 export const Vidmoly: Match = {
 	name: 'Vidmoly',
 	id: 'vidmoly',
-	reliability: Reliability.HIGH,
 	domains: ['vidmoly.me', 'vidmoly.to'],
 	regex: /(?<=file:").+\.m3u8(?=")/gm,
 
@@ -229,7 +209,6 @@ export const Vidmoly: Match = {
 export const Vidoza: Match = {
 	name: 'Vidoza',
 	id: 'vidoza',
-	reliability: Reliability.HIGH,
 	domains: ['vidoza.net'],
 	regex: /(?<=src:\s?").+?(?=")/gm,
 
@@ -241,7 +220,6 @@ export const Vidoza: Match = {
 export const Voe: Match = {
 	name: 'Voe',
 	id: 'voe',
-	reliability: Reliability.HIGH,
 	domains: ['voe.sx'],
 	regex: /https?:\/\/\S*m3u8.+(?=['"])/gm,
 
@@ -253,7 +231,6 @@ export const Voe: Match = {
 export const Vupload: Match = {
 	name: 'Vupload',
 	id: 'vupload',
-	reliability: Reliability.HIGH,
 	domains: ['vupload.com'],
 	regex: /(?<=src:\s?").+?(?=")/gm,
 
