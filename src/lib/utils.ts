@@ -19,7 +19,7 @@ export async function unpack(packed: string): Promise<string> {
         }'
     `;
 
-	const res: string = await runInPageContext(toExecute);
+	const res = (await runInPageContext(toExecute)) as string;
 	return res
 		.replace(/;/g, ';\n')
 		.replace(/{/g, '\n{\n')
@@ -29,7 +29,7 @@ export async function unpack(packed: string): Promise<string> {
 }
 
 // Adapted from: https://github.com/arikw/extension-page-context
-async function runInPageContext<T>(toExecute: string): Promise<T> {
+async function runInPageContext<T>(toExecute: string): Promise<T | null> {
 	// test that we are running with the allow-scripts permission
 	try {
 		window.sessionStorage;
@@ -44,7 +44,8 @@ async function runInPageContext<T>(toExecute: string): Promise<T> {
 	const scriptElm = document.createElement('script');
 	scriptElm.setAttribute('type', 'application/javascript');
 
-	const code = `
+	// inject the script
+	scriptElm.textContent = `
         (
             async function () {
 
@@ -62,9 +63,6 @@ async function runInPageContext<T>(toExecute: string): Promise<T> {
             }
         )();
     `;
-
-	// inject the script
-	scriptElm.textContent = code;
 
 	// run the script
 	document.documentElement.appendChild(scriptElm);

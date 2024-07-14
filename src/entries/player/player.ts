@@ -22,9 +22,9 @@ async function playHls(url: string, videoElem: HTMLVideoElement) {
 
 export async function play(videoElem: HTMLVideoElement) {
 	const urlQuery = new URLSearchParams(window.location.search);
-	const id = urlQuery.get('id');
-	const url = decodeURIComponent(urlQuery.get('url'));
-	const domain = urlQuery.get('domain');
+	const id = urlQuery.get('id') as string;
+	const url = decodeURIComponent(urlQuery.get('url') as string);
+	const domain = urlQuery.get('domain') as string;
 
 	const match = matches[id];
 	if (match === undefined) {

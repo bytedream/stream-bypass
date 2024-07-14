@@ -3,11 +3,11 @@ import { matches } from './match';
 
 export const Hosters = {
 	getDisabled: async () => {
-		const disabled = await storageGet<string[]>('hosters.disabled', []);
+		const disabled = (await storageGet('hosters.disabled', [])) as string[];
 		return disabled.map((id) => matches[id]).filter((m) => m !== undefined);
 	},
 	disable: async (match: Match) => {
-		const disabled = await storageGet('hosters.disabled', []);
+		const disabled = (await storageGet('hosters.disabled', [])) as string[];
 		const index = disabled.indexOf(match.id);
 		if (index === -1) {
 			disabled.push(match.id);
@@ -15,7 +15,7 @@ export const Hosters = {
 		}
 	},
 	enable: async (match: Match) => {
-		const disabled = await storageGet('hosters.disabled', []);
+		const disabled = (await storageGet('hosters.disabled', [])) as string[];
 		const index = disabled.indexOf(match.id);
 		if (index !== -1) {
 			disabled.splice(index, 1);
@@ -35,7 +35,7 @@ export const Hosters = {
 
 export const Redirect = {
 	get: async (): Promise<Match | null> => {
-		return matches[await storageGet<string>('redirect')] || null;
+		return matches[(await storageGet('redirect')) as string] || null;
 	},
 	set: async (match: Match) => {
 		await storageSet('redirect', match.id);

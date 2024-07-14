@@ -56,7 +56,7 @@ export const DropLoad: Match = {
 
 	match: async (match: RegExpMatchArray) => {
 		const unpacked = await unpack(match[0]);
-		return unpacked.match(/(?<=file:").*(?=")/)[0];
+		return unpacked.match(/(?<=file:").*(?=")/)![0];
 	}
 };
 
@@ -68,7 +68,7 @@ export const Filemoon: Match = {
 
 	match: async (match: RegExpMatchArray) => {
 		const unpacked = await unpack(match[0]);
-		return unpacked.match(/(?<=file:").*(?=")/)[0];
+		return unpacked.match(/(?<=file:").*(?=")/)![0];
 	}
 };
 
@@ -91,7 +91,7 @@ export const Kwik: Match = {
 
 	match: async (match: RegExpMatchArray) => {
 		const unpacked = await unpack(match[0]);
-		return unpacked.match(/(?<=source=').*(?=')/)[0];
+		return unpacked.match(/(?<=source=').*(?=')/)![0];
 	}
 };
 
@@ -103,7 +103,7 @@ export const Mixdrop: Match = {
 
 	match: async (match: RegExpMatchArray) => {
 		const unpacked = await unpack(match[0]);
-		const url = unpacked.match(/(?<=MDCore.wurl=").*(?=")/)[0];
+		const url = unpacked.match(/(?<=MDCore.wurl=").*(?=")/)![0];
 		return `https:${url}`;
 	}
 };
@@ -117,7 +117,7 @@ export const Mp4Upload: Match = {
 
 	match: async (match: RegExpMatchArray) => {
 		const unpacked = await unpack(match[0]);
-		return unpacked.match(/(?<=player.src\(").*(?=")/)[0];
+		return unpacked.match(/(?<=player.src\(").*(?=")/)![0];
 	}
 };
 
@@ -179,7 +179,7 @@ export const SuperVideo: Match = {
 
 	match: async (match: RegExpMatchArray) => {
 		const unpacked = await unpack(match[0]);
-		return unpacked.match(/(?<=file:").*(?=")/)[0];
+		return unpacked.match(/(?<=file:").*(?=")/)![0];
 	}
 };
 
@@ -191,7 +191,7 @@ export const Upstream: Match = {
 
 	match: async (match: RegExpMatchArray) => {
 		const unpacked = await unpack(match[0]);
-		return unpacked.match(/(?<=file:").*(?=")/)[0];
+		return unpacked.match(/(?<=file:").*(?=")/)![0];
 	}
 };
 

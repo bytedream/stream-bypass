@@ -39,7 +39,7 @@ const ManifestV2 = {
 		scripts: ['src/entries/background/mv2.ts'],
 		persistent: true
 	},
-	content_scripts: [{ ...sharedManifest.content_scripts[0], matches: ['<all_urls>'] }],
+	content_scripts: [{ ...sharedManifest.content_scripts![0], matches: ['<all_urls>'] }],
 	browser_action: browserAction,
 	permissions: [...sharedManifest.permissions, 'webRequest', 'webRequestBlocking', '<all_urls>']
 };
@@ -67,7 +67,7 @@ export function getManifest(
 			...manifest,
 			...ManifestV2,
 			manifest_version: manifestVersion
-		};
+		} as chrome.runtime.ManifestV2;
 	}
 
 	if (manifestVersion === 3) {
@@ -78,7 +78,7 @@ export function getManifest(
 			name: `${manifest.name} Lite`,
 			...ManifestV3,
 			manifest_version: manifestVersion
-		};
+		} as chrome.runtime.ManifestV3;
 	}
 
 	throw new Error(`Missing manifest definition for manifestVersion ${manifestVersion}`);

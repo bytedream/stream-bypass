@@ -5,11 +5,13 @@ import { storageDelete, storageGet, storageSet } from '~/lib/settings';
 import { getMatch } from '~/lib/match';
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
 	async (details) => {
 		const referer: { domain: string } | undefined = await storageGet('referer');
 		if (referer === undefined) return;
 
-		details.requestHeaders.push({
+		details.requestHeaders!.push({
 			name: 'Referer',
 			value: `https://${referer.domain}/`
 		});
@@ -26,8 +28,8 @@ chrome.webRequest.onBeforeRedirect.addListener(
 	async (details) => {
 		// check if redirects origins from a previous redirect
 		if ((await storageGet('redirect')) === undefined) {
-			let match: Match;
-			if ((match = await getMatch(new URL(details.url).hostname)) !== undefined) {
+			let match: Match | null;
+			if ((match = await getMatch(new URL(details.url).hostname)) !== null) {
 				await storageSet('redirect', match.id);
 			}
 		} else {

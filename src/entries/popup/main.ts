@@ -1,5 +1,5 @@
 import App from './Popup.svelte';
 
 new App({
-	target: document.getElementById('app')
+	target: document.getElementById('app') as Element
 });
