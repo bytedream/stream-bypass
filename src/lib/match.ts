@@ -30,7 +30,8 @@ export const Doodstream: Match = {
 		'dood.yt',
 		'doods.pro',
 		'ds2play.com',
-		'dooood.com'
+		'dooood.com',
+		'd000d.com'
 	],
 	replace: true,
 	regex: /(\/pass_md5\/.*?)'.*(\?token=.*?expiry=)/s,
