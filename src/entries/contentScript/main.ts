@@ -35,6 +35,10 @@ async function main() {
 		return;
 	}
 
+	if (!url) {
+		return;
+	}
+
 	// send the url to the ff2mpv (https://github.com/woodruffw/ff2mpv) application
 	if (await Other.getFf2mpv()) {
 		await chrome.runtime.sendMessage({ action: 'ff2mpv', url: url });

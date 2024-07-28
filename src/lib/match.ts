@@ -1,5 +1,5 @@
 import { unpack } from './utils';
-import { Hosters } from './settings';
+import { Hosters, Redirect } from './settings';
 
 export interface Match {
 	name: string;
@@ -9,7 +9,7 @@ export interface Match {
 	regex: RegExp;
 	notice?: string;
 
-	match(match: RegExpMatchArray): Promise<string>;
+	match(match: RegExpMatchArray): Promise<string | null>;
 }
 
 export const Doodstream: Match = {
@@ -141,6 +141,21 @@ export const Newgrounds: Match = {
 	}
 };
 
+export const StreamA2z: Match = {
+	name: 'Stream2Az',
+	id: 'stream2az',
+	domains: ['streama2z.com', 'streama2z.xyz'],
+	regex: /https?:\/\/\S*m3u8.+(?=['"])/gm,
+
+	match: async (match: RegExpMatchArray) => {
+		if (StreamA2z.domains.indexOf(window.location.hostname) !== -1) {
+			await Redirect.set(StreamA2z);
+			return null;
+		}
+		return match[0];
+	}
+};
+
 export const Streamtape: Match = {
 	name: 'Streamtape',
 	id: 'streamtape',
@@ -252,6 +267,7 @@ export const matches = {
 	[Mixdrop.id]: Mixdrop,
 	[Mp4Upload.id]: Mp4Upload,
 	[Newgrounds.id]: Newgrounds,
+	[StreamA2z.id]: StreamA2z,
 	[Streamtape.id]: Streamtape,
 	[Streamzz.id]: Streamzz,
 	[SuperVideo.id]: SuperVideo,
