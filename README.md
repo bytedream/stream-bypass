@@ -51,7 +51,7 @@ Additionally, this enables you to download the video by right-clicking it and ju
 
 The best way to install the extension are the official browser extension stores:
 
-- [Firefox Addon Store](https://addons.mozilla.org/de/firefox/addon/stream-bypass/)
+- [Firefox Addon Store](https://addons.mozilla.org/de/firefox/addon/stream-bypass/) (Firefox for Android is supported too!)
 - [Chrome Web Store](https://chromewebstore.google.com/detail/ddfpfjomnakfckhmilacnbokdaknamdb)
 
 ### Manual installation
@@ -79,7 +79,7 @@ The best way to install the extension are the official browser extension stores:
 | [mixdrop.co](https://mixdrop.co)                                      | ✔ ️      |                                                                                                              |
 | [mp4upload.com](https://mp4upload.com)                                | ✔        |                                                                                                              |
 | [newgrounds.com](https://newgrounds.com)                              | ✔        |                                                                                                              |
-| [streama2s.com](https://streama2z.com)                                | ✔        |
+| [streama2z.com](https://streama2z.com)                                | ⚠        | Only works with Firefox                                                                                      |
 | [streamtape.com](https://streamtape.com)                              | ✔        |                                                                                                              |
 | [streamzz.to](https://streamzz.to) / [streamz.ws](https://streamz.ws) | ✔        |                                                                                                              |
 | [supervideo.tv](https://supervideo.tv)                                | ✔        |                                                                                                              |
@@ -93,7 +93,7 @@ The best way to install the extension are the official browser extension stores:
 | [kwik.cx](https://kwik.cx)                                            | ✔        |                                                                                                              |
 
 - ✔️: Everything ok.
-- ⚠: Included in the addon but will probably not work. See `Note` in this case, an explanation why will stand there in the most cases.
+- ⚠: Works with limitations.
 - ❌: Not included / supported by the addon. This can have various reasons. See `Note` for an explanation.
 
 Some sites put much effort in obfuscating their code / how they receive the video stream so that it simply cost too much time for me to reverse engineer it and find out how to bypass the native video player of the site.
