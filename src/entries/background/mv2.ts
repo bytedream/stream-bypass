@@ -1,7 +1,7 @@
 import './shared';
 
 import type { Match } from '~/lib/match';
-import { Redirect, storageDelete, storageGet, storageSet } from '~/lib/settings';
+import { Redirect, storageDelete, storageGet } from '~/lib/settings';
 import { getMatch } from '~/lib/match';
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
