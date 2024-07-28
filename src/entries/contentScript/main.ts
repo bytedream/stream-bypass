@@ -41,13 +41,28 @@ async function main() {
 	}
 
 	if (match.replace && !url.includes('.m3u8')) {
+		// this destroys all intervals that may spawn popups or events
+		let intervalId = window.setInterval(() => {}, 0);
+		while (intervalId--) {
+			clearInterval(intervalId);
+		}
+		let timeoutId = window.setTimeout(() => {}, 0);
+		while (timeoutId--) {
+			clearTimeout(timeoutId);
+		}
+
+		// clear completed document
+		document.documentElement.innerHTML = '';
+
+		// video player
 		const player = document.createElement('video');
 		player.style.width = '100%';
 		player.style.height = '100%';
 		player.controls = true;
 		player.src = url;
 
-		document.body.innerHTML = '';
+		// add video player to document body
+		document.body.style.margin = '0';
 		document.body.append(player);
 	} else {
 		window.location.assign(
