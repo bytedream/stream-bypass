@@ -25,11 +25,8 @@ export const Hosters = {
 	getAllDisabled: async () => {
 		return await storageGet<boolean>('hosters.allDisabled', false);
 	},
-	disableAll: async () => {
-		await storageSet('hosters.allDisabled', true);
-	},
-	enableAll: async () => {
-		await storageSet('hosters.allDisabled', false);
+	setAll: async (enable: boolean) => {
+		await storageSet('hosters.allDisabled', !enable);
 	}
 };
 
@@ -47,7 +44,7 @@ export const Redirect = {
 
 export const Other = {
 	getFf2mpv: async () => {
-		return await storageGet('other.ff2mpv', true);
+		return await storageGet('other.ff2mpv', false);
 	},
 	setFf2mpv: async (enable: boolean) => {
 		await storageSet('other.ff2mpv', enable);

@@ -1,117 +1,93 @@
 <script lang="ts">
-	import { matches } from '~/lib/match';
+	import { type Match, matches } from '~/lib/match';
 	import { Hosters, Other } from '~/lib/settings';
+	import Toggle from './toggle.svelte';
 
 	let hostersEnabled: boolean;
-	let hosters = [];
+	let hosters: (Match & { active: boolean; disabled: boolean })[] = [];
 	(async () => {
 		hostersEnabled = !(await Hosters.getAllDisabled());
 
 		const disabled = await Hosters.getDisabled();
-		hosters = Object.values(matches).map((m) => {
+		hosters = Object.values(matches).map((m: any) => {
 			m['active'] = disabled.findIndex((p) => p.id == m.id) == -1;
-			m['disabled'] = !hostersEnabled;
 			return m;
-		});
+		}) as typeof hosters;
+	})();
+
+	let isMobile: boolean;
+	(async () => {
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
+		isMobile = (await browser.runtime.getPlatformInfo()).os === 'android';
 	})();
 
 	let ff2mpvEnabled: boolean;
 	(async () => {
-		ff2mpvEnabled = await Other.getFf2mpv();
+		ff2mpvEnabled = (await Other.getFf2mpv()) as boolean;
 	})();
 </script>
 
-<main>
-	<div>
-		<h3 class="header">Hosters</h3>
-		<div class="buttons super-buttons">
-			<button
-				class:active={hostersEnabled}
-				on:click={async () => {
-					await Hosters.enableAll();
-					hostersEnabled = true;
-					hosters = hosters.map((m) => {
-						m['disabled'] = false;
-						return m;
-					});
-				}}>On</button
-			>
-			<button
-				class:active={!hostersEnabled}
-				on:click={async () => {
-					await Hosters.disableAll();
-					hostersEnabled = false;
-					hosters = hosters.map((m) => {
-						m['disabled'] = true;
-						return m;
-					});
-				}}>Off</button
-			>
-		</div>
-		<table class="setting-table">
-			{#each hosters as hoster}
-				<tr>
-					<td class="setting-name">
-						<p>{hoster.name}</p>
-					</td>
-					<td class="buttons">
-						<button
-							class:disabled={hoster.disabled}
-							class:active={hoster.active}
-							on:click={async () => {
-								if (hoster.disabled) return;
+<main
+	style={isMobile
+		? 'height: 100vh; display: flex; flex-direction: column; align-items: center'
+		: 'height: 500px'}
+>
+	<fieldset>
+		<legend>Hoster</legend>
+		<div class="setting-container" style={isMobile ? 'grid-column-gap: 5rem' : ''}>
+			<label for="hosters-enabled">Enabled</label>
+			<div>
+				<Toggle
+					bind:checked={hostersEnabled}
+					id="hosters-enabled"
+					on:change={() => Hosters.setAll(hostersEnabled)}
+				/>
+			</div>
+			<hr />
+			{#each hosters as hoster, i}
+				<label for="hoster-{i}" style="cursor: {hostersEnabled ? 'pointer' : 'default'}"
+					>{hoster.name}</label
+				>
+				<div>
+					<Toggle
+						bind:checked={hoster.active}
+						disabled={!hostersEnabled}
+						id="hoster-{i}"
+						on:change={async () => {
+							if (hoster.active) {
 								await Hosters.enable(hoster);
-								hoster.active = true;
-							}}>On</button
-						>
-						<button
-							class:disabled={hoster.disabled}
-							class:active={!hoster.active}
-							on:click={async () => {
-								if (hoster.disabled) return;
+							} else {
 								await Hosters.disable(hoster);
-								hoster.active = false;
-							}}>Off</button
-						>
-					</td>
-				</tr>
+							}
+						}}
+					></Toggle>
+				</div>
 			{/each}
-		</table>
-	</div>
-	<hr />
-	<div>
-		<h3 class="header">Other</h3>
-		<table>
-			<tr>
-				<td class="setting-name">
-					<p>ff2mpv</p>
-				</td>
-				<td class="buttons">
-					<button
-						class:active={ff2mpvEnabled}
-						on:click={async () => {
-							await Other.setFf2mpv(true);
-							ff2mpvEnabled = true;
-						}}>On</button
-					>
-					<button
-						class:active={!ff2mpvEnabled}
-						on:click={async () => {
-							await Other.setFf2mpv(false);
-							ff2mpvEnabled = false;
-						}}>Off</button
-					>
+		</div>
+	</fieldset>
+	{#if !isMobile}
+		<fieldset>
+			<legend>Other</legend>
+			<div class="setting-container">
+				<label for="ff2mpv">ff2mpv</label>
+				<div>
+					<Toggle
+						bind:checked={ff2mpvEnabled}
+						id="ff2mpv"
+						on:change={async () => Other.setFf2mpv(ff2mpvEnabled)}
+					></Toggle>
 					<a
+						class="info-questionmark"
 						href="https://github.com/ByteDream/stream-bypass/tree/master#ff2mpv-use-mpv-to-directly-play-streams"
-						>🛈</a
+						>?</a
 					>
-				</td>
-			</tr>
-		</table>
-	</div>
-	<hr />
-	<a id="bug-notice" href="https://github.com/ByteDream/stream-bypass/issues"
-		>Something does not work</a
+				</div>
+			</div>
+		</fieldset>
+	{/if}
+	<a id="report-notice" href="https://github.com/ByteDream/stream-bypass/issues"
+		>Report issues or requests</a
 	>
 </main>
 
@@ -125,7 +101,12 @@
 		padding: 0 8px;
 	}
 
-	#bug-notice {
+	fieldset {
+		border-radius: 5px;
+		border-color: gray;
+	}
+
+	#report-notice {
 		border: none;
 		color: white;
 		display: block;
@@ -148,52 +129,33 @@
 		text-align: center;
 	}
 
-	.setting-table {
-		border-collapse: collapse;
-		border-spacing: 0;
-	}
+	.setting-container {
+		display: grid;
+		grid-template-columns: auto auto;
+		grid-column-gap: 5px;
+		grid-row-gap: 4px;
+		align-items: end;
+		width: 100%;
 
-	.setting-name {
-		height: 34px;
-
-		p {
+		& > label {
+			height: 34px;
 			margin: 0;
-			cursor: default;
-		}
-	}
-
-	.buttons {
-		display: flex;
-		flex-direction: row;
-		height: 34px;
-
-		button,
-		a {
-			border: 1px solid #281515;
-			background-color: transparent;
-			color: white;
+			user-select: none;
 			cursor: pointer;
-			padding: 5px 8px;
-			margin: 0;
-			text-decoration: none;
-
-			&.active {
-				background-color: rgba(255, 65, 65, 0.74);
-				cursor: default;
-			}
-
-			&.disabled {
-				background-color: gray;
-				cursor: not-allowed;
-			}
-		}
-
-		&.super-buttons {
 			display: flex;
-			justify-content: center;
-			gap: 4px;
-			width: 100%;
-			margin-bottom: 10px;
+			align-items: center;
 		}
+
+		& > hr {
+			grid-column: 1 / span 2;
+			width: 100%;
+		}
+	}
+
+	.info-questionmark {
+		display: inline-block;
+		transform: translateX(-40%) translateY(-100%);
+		color: black;
+		text-decoration: none;
 	}
 </style>
