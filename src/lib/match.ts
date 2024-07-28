@@ -26,6 +26,7 @@ export const Doodstream: Match = {
 		'dood.to',
 		'dood.so',
 		'dood.la',
+		'dood.li',
 		'dood.re',
 		'dood.yt',
 		'doods.pro',
@@ -213,6 +214,7 @@ export const Vidoza: Match = {
 	id: 'vidoza',
 	domains: ['vidoza.net'],
 	regex: /(?<=src:\s?").+?(?=")/gm,
+	replace: true,
 
 	match: async (match: RegExpMatchArray) => {
 		return match[0];
