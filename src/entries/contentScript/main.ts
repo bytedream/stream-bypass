@@ -12,6 +12,14 @@ async function main() {
 		redirect = true;
 	}
 
+	// some sites have a javascript based redirect, e.g. example.com redirects to example.org by changing
+	// window.location.href instead of a 3XX http redirect. an empty body is a sign that such a javascript redirect
+	// occurred
+	if (document.body == null) {
+		await Redirect.set(match);
+		return;
+	}
+
 	const re = document.body.innerHTML.match(match.regex);
 	if (re === null) {
 		return;
@@ -20,7 +28,7 @@ async function main() {
 		await Redirect.delete();
 	}
 
-	let url: string;
+	let url: string | null;
 	try {
 		url = await match.match(re);
 	} catch (e) {

@@ -1,7 +1,7 @@
 import './shared';
 
 import type { Match } from '~/lib/match';
-import { storageDelete, storageGet, storageSet } from '~/lib/settings';
+import { Redirect, storageDelete, storageGet, storageSet } from '~/lib/settings';
 import { getMatch } from '~/lib/match';
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
@@ -27,13 +27,13 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
 chrome.webRequest.onBeforeRedirect.addListener(
 	async (details) => {
 		// check if redirects origins from a previous redirect
-		if ((await storageGet('redirect')) === undefined) {
+		if ((await Redirect.get()) == null) {
 			let match: Match | null;
 			if ((match = await getMatch(new URL(details.url).hostname)) !== null) {
-				await storageSet('redirect', match.id);
+				await Redirect.set(match);
 			}
 		} else {
-			await storageDelete('redirect');
+			await Redirect.delete();
 		}
 	},
 	{ urls: ['<all_urls>'], types: ['main_frame', 'sub_frame'] }
