@@ -5,7 +5,8 @@ const sharedManifest: Partial<chrome.runtime.ManifestBase> = {
 	browser_specific_settings: {
 		gecko: {
 			id: '{55dd42e8-3dd9-455a-b4fe-86664881b10c}'
-		}
+		},
+		gecko_android: {}
 	},
 	content_scripts: [
 		{
