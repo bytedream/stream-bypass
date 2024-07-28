@@ -17,8 +17,6 @@
 
 	let isMobile: boolean;
 	(async () => {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
 		isMobile = (await browser.runtime.getPlatformInfo()).os === 'android';
 	})();
 
@@ -75,7 +73,13 @@
 					<Toggle
 						bind:checked={ff2mpvEnabled}
 						id="ff2mpv"
-						on:change={async () => Other.setFf2mpv(ff2mpvEnabled)}
+						on:change={async () => {
+							ff2mpvEnabled = !ff2mpvEnabled;
+							if (await browser.permissions.request({ permissions: ['nativeMessaging'] })) {
+								await Other.setFf2mpv(ff2mpvEnabled);
+								ff2mpvEnabled = !ff2mpvEnabled;
+							}
+						}}
 					></Toggle>
 					<a
 						class="info-questionmark"

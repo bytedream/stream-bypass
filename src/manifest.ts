@@ -22,7 +22,8 @@ const sharedManifest: Partial<chrome.runtime.ManifestBase> = {
 		96: 'icons/stream-bypass@96px.png',
 		128: 'icons/stream-bypass@128px.png'
 	},
-	permissions: ['storage', 'nativeMessaging']
+	permissions: ['storage'],
+	optional_permissions: ['nativeMessaging']
 };
 
 const browserAction = {
