@@ -3,19 +3,19 @@
 A multi-browser addon / extension for multiple streaming providers which redirects directly to the source video.
 
 <p align="center">
-  <a href="https://github.com/ByteDream/stream-bypass/releases/latest">
+  <a href="https://github.com/bytedream/stream-bypass/releases/latest">
     <img src="https://img.shields.io/github/v/release/ByteDream/stream-bypass?label=Version&style=flat-square" alt="Version">
   </a>
   <a href="https://addons.mozilla.org/de/firefox/addon/stream-bypass/">
-    <img src="https://img.shields.io/amo/users/stream-bypass?label=Firefox%20Store%20Downloads&style=flat-square" alt="Firefox Addon Store">
+    <img src="https://img.shields.io/amo/users/stream-bypass?label=Firefox%20Users&style=flat-square" alt="Firefox Addon Store">
+  </a>
+  <a href="https://chromewebstore.google.com/detail/ddfpfjomnakfckhmilacnbokdaknamdb">
+    <img src="https://img.shields.io/chrome-web-store/users/ddfpfjomnakfckhmilacnbokdaknamdb?style=flat-square&label=Chrome%20Users" alt="Chrome Store">
   </a>
   <a href="https://addons.mozilla.org/de/firefox/addon/stream-bypass/">
     <img src="https://img.shields.io/amo/stars/stream-bypass?label=Firefox%20Store%20Stars&style=flat-square" alt="Firefox Addon Stars">
   </a>
-  <a href="https://chromewebstore.google.com/detail/ddfpfjomnakfckhmilacnbokdaknamdb">
-    <img src="https://img.shields.io/chrome-web-store/users/ddfpfjomnakfckhmilacnbokdaknamdb?style=flat-square&label=Chrome%20Users" alt="Chrome Users">
-  </a>
-  <a href="https://github.com/ByteDream/stream-bypass/releases/latest">
+  <a href="https://github.com/bytedream/stream-bypass/releases/latest">
     <img src="https://img.shields.io/github/downloads/ByteDream/stream-bypass/total?label=GitHub%20Downloads&style=flat-square" alt="GitHub Downloads">
   </a>
 </p>
@@ -71,14 +71,18 @@ The best way to install the extension are the official browser extension stores:
 
 | Site                                                                  | Supported | Note                                                                                                         |
 | --------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------ |
+| [dropload.io](https://dropload.io)                                    | ✔        |                                                                                                              |
 | [doodstream.com](doodstream.com) / [dood.pm](https://dood.pm)         | ✔️        |                                                                                                              |
 | [filemoon.sx](https://filemoon.sx)                                    | ✔        |                                                                                                              |
+| [goodstream.uno](https://goodstream.uno)                              | ✔        |                                                                                                              |
 | [mcloud.to](https://mcloud.to/)                                       | ❌        | Reverse engineering the site costs too much time ([#5](https://github.com/ByteDream/stream-bypass/issues/5)) |
 | [mixdrop.co](https://mixdrop.co)                                      | ✔ ️      |                                                                                                              |
 | [mp4upload.com](https://mp4upload.com)                                | ✔        |                                                                                                              |
 | [newgrounds.com](https://newgrounds.com)                              | ✔        |                                                                                                              |
+| [streama2s.com](https://streama2z.com)                                | ✔        |
 | [streamtape.com](https://streamtape.com)                              | ✔        |                                                                                                              |
 | [streamzz.to](https://streamzz.to) / [streamz.ws](https://streamz.ws) | ✔        |                                                                                                              |
+| [supervideo.tv](https://supervideo.tv)                                | ✔        |                                                                                                              |
 | [upstream.to](https://upstream.to)                                    | ✔        |                                                                                                              |
 | [videovard.sx](https://videovard.sx)                                  | ❌        | Reverse engineering the site costs too much time                                                             |
 | [vidmoly.me](https://vidmoly.me)                                      | ✔        |                                                                                                              |
@@ -87,9 +91,6 @@ The best way to install the extension are the official browser extension stores:
 | [voe.sx](https://voe.sx)                                              | ✔        |                                                                                                              |
 | [vupload.com](https://vupload.com)                                    | ✔        |                                                                                                              |
 | [kwik.cx](https://kwik.cx)                                            | ✔        |                                                                                                              |
-| [dropload.io](https://dropload.io)                                    | ✔        |                                                                                                              |
-| [supervideo.tv](https://supervideo.tv)                                | ✔        |                                                                                                              |
-| [goodstream.uno](https://goodstream.uno)                              | ✔        |                                                                                                              |
 
 - ✔️: Everything ok.
 - ⚠: Included in the addon but will probably not work. See `Note` in this case, an explanation why will stand there in the most cases.
