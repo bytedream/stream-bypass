@@ -12,9 +12,6 @@ A multi-browser addon / extension for multiple streaming providers which redirec
   <a href="https://chromewebstore.google.com/detail/ddfpfjomnakfckhmilacnbokdaknamdb">
     <img src="https://img.shields.io/chrome-web-store/users/ddfpfjomnakfckhmilacnbokdaknamdb?style=flat-square&label=Chrome%20Users" alt="Chrome Store">
   </a>
-  <a href="https://addons.mozilla.org/de/firefox/addon/stream-bypass/">
-    <img src="https://img.shields.io/amo/stars/stream-bypass?label=Firefox%20Store%20Stars&style=flat-square" alt="Firefox Addon Stars">
-  </a>
   <a href="https://github.com/bytedream/stream-bypass/releases/latest">
     <img src="https://img.shields.io/github/downloads/ByteDream/stream-bypass/total?label=GitHub%20Downloads&style=flat-square" alt="GitHub Downloads">
   </a>
@@ -25,7 +22,9 @@ A multi-browser addon / extension for multiple streaming providers which redirec
   •
   <a href="#-installation">Installation 📥</a>
   •
-  <a href="#-supported-sites">Supported Sites 📜</a>
+  <a href="#-features">Features ✨</a>
+  •
+  <a href="#-supported-websites">Supported Websites 📜</a>
   •
   <a href="#%EF%B8%8F-building">Building 🛠️</a>
   •
@@ -67,45 +66,46 @@ The best way to install the extension are the official browser extension stores:
   - Turn on the developer mode by checking the switch in the top right corner
   - Click `Load unpacked` and choose the unzipped directory
 
-## 📜 Supported sites
+## ✨ Features
 
-| Site                                                                  | Supported | Note                                                                                                         |
-| --------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------ |
-| [dropload.io](https://dropload.io)                                    | ✔        |                                                                                                              |
-| [doodstream.com](doodstream.com) / [dood.pm](https://dood.pm)         | ✔️        |                                                                                                              |
-| [filemoon.sx](https://filemoon.sx)                                    | ✔        |                                                                                                              |
-| [goodstream.uno](https://goodstream.uno)                              | ✔        |                                                                                                              |
-| [mcloud.to](https://mcloud.to/)                                       | ❌        | Reverse engineering the site costs too much time ([#5](https://github.com/ByteDream/stream-bypass/issues/5)) |
-| [mixdrop.co](https://mixdrop.co)                                      | ✔ ️      |                                                                                                              |
-| [mp4upload.com](https://mp4upload.com)                                | ✔        |                                                                                                              |
-| [newgrounds.com](https://newgrounds.com)                              | ✔        |                                                                                                              |
-| [streama2z.com](https://streama2z.com)                                | ⚠        | Only works with Firefox                                                                                      |
-| [streamtape.com](https://streamtape.com)                              | ✔        |                                                                                                              |
-| [streamzz.to](https://streamzz.to) / [streamz.ws](https://streamz.ws) | ✔        |                                                                                                              |
-| [supervideo.tv](https://supervideo.tv)                                | ✔        |                                                                                                              |
-| [upstream.to](https://upstream.to)                                    | ✔        |                                                                                                              |
-| [videovard.sx](https://videovard.sx)                                  | ❌        | Reverse engineering the site costs too much time                                                             |
-| [vidmoly.me](https://vidmoly.me)                                      | ✔        |                                                                                                              |
-| [vidoza.net](https://vidoza.net)                                      | ✔        |                                                                                                              |
-| [vidstream.pro](https://vidstream.pro)                                | ❌        | Reverse engineering the site costs too much time ([#5](https://github.com/ByteDream/stream-bypass/issues/5)) |
-| [voe.sx](https://voe.sx)                                              | ✔        |                                                                                                              |
-| [vupload.com](https://vupload.com)                                    | ✔        |                                                                                                              |
-| [kwik.cx](https://kwik.cx)                                            | ✔        |                                                                                                              |
+| Feature                                                                                                                           | Firefox | Chrome | Firefox for Android |
+| --------------------------------------------------------------------------------------------------------------------------------- | ------- | ------ | ------------------- |
+| Replace site-speicifc video player with browser native video player                                                               | ✔      | ✔     | ✔                  |
+| Support websites that are accessed via a redirect                                                                                 | ✔      | ❌     | ✔                  |
+| Open video in mpv (with [ff2mpv](https://github.com/ByteDream/stream-bypass/tree/master#ff2mpv-use-mpv-to-directly-play-streams)) | ✔      | ✔     | ❌                  |
+
+- ✔️: Supported.
+- ❌: Not supported.
+
+## 📜 Supported websites
+
+| Site                                                                  | Firefox & Firefox for Android                                                                  | Chrome & Chromium based                                                                        |
+| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| [dropload.io](https://dropload.io)                                    | ✔                                                                                             | ✔                                                                                             |
+| [doodstream.com](doodstream.com) / [dood.pm](https://dood.pm)         | ✔️                                                                                             | ⚠ (redirect probably required)                                                                |
+| [filemoon.sx](https://filemoon.sx)                                    | ✔                                                                                             | ✔                                                                                             |
+| [goodstream.uno](https://goodstream.uno)                              | ✔                                                                                             | ✔                                                                                             |
+| [mixdrop.co](https://mixdrop.co)                                      | ✔ ️                                                                                           | ✔                                                                                             |
+| [mp4upload.com](https://mp4upload.com)                                | ✔                                                                                             | ✔                                                                                             |
+| [newgrounds.com](https://newgrounds.com)                              | ✔                                                                                             | ✔                                                                                             |
+| [streama2z.com](https://streama2z.com)                                | ✔                                                                                             | ❌ (redirect always required)                                                                  |
+| [streamtape.com](https://streamtape.com)                              | ⚠ (correct video url can't always be extract, retrying/reloading the page might fix it)       | ⚠ (correct video url can't always be extract, retrying/reloading the page might fix it)       |
+| [streamzz.to](https://streamzz.to) / [streamz.ws](https://streamz.ws) | ✔                                                                                             | ✔                                                                                             |
+| [supervideo.tv](https://supervideo.tv)                                | ✔                                                                                             | ✔                                                                                             |
+| [upstream.to](https://upstream.to)                                    | ✔                                                                                             | ✔                                                                                             |
+| [vidmoly.me](https://vidmoly.me)                                      | ✔                                                                                             | ✔                                                                                             |
+| [vidoza.net](https://vidoza.net)                                      | ⚠ (doesn't always work the first time, retrying/reloading the page one or two times fixes it) | ⚠ (doesn't always work the first time, retrying/reloading the page one or two times fixes it) |
+| [voe.sx](https://voe.sx)                                              | ✔                                                                                             | ❌ (redirect always required)                                                                  |
+| [vupload.com](https://vupload.com)                                    | ✔                                                                                             | ✔                                                                                             |
+| [kwik.cx](https://kwik.cx)                                            | ✔                                                                                             | ✔                                                                                             |
 
 - ✔️: Everything ok.
 - ⚠: Works with limitations.
-- ❌: Not included / supported by the addon. This can have various reasons. See `Note` for an explanation.
+- ❌: Not supported.
+
+_This table might not be 100% accurate, it isn't actively monitored if the addon works for every website!_
 
 Some sites put much effort in obfuscating their code / how they receive the video stream so that it simply cost too much time for me to reverse engineer it and find out how to bypass the native video player of the site.
-
-<details>
-    <summary>Hall of dead sites</summary>
-    <ul>
-        <li><a href="https://evoload.io">evoload.io</a> - Down</li>
-        <li><a href="https://vidlox.me">vidlox.me</a> - Reachable but empty</li>
-        <li><a href="https://vivo.sx">vivo.sx</a> - Down</li>
-    </ul>
-</details>
 
 ## 🛠️ Building
 
@@ -161,11 +161,11 @@ Steps to get it set up:
   - Chrome/Chromium:
     - Go To: Settings -> Extensions
     - Click on `Details` of the Stream Bypass extension and copy the ID
-    - Add `chrome-extension://your-id-here/` to `allowed_origins` ->
+    - Add `chrome-extension://ddfpfjomnakfckhmilacnbokdaknamdb/` to `allowed_origins` ->
       ```
       "allowed_origins": [
         "chrome-extension://ephjcajbkgplkjmelpglennepbpmdpjg/",
-        "chrome-extension://your-id-her/"
+        "chrome-extension://ddfpfjomnakfckhmilacnbokdaknamdb/"
       ]
       ```
 
