@@ -37,7 +37,7 @@ async function main() {
 	let url: string | null;
 	try {
 		url = await match.match(re);
-	} catch (e) {
+	} catch {
 		return;
 	}
 
@@ -63,6 +63,8 @@ async function main() {
 
 		// clear completed document
 		document.documentElement.innerHTML = '';
+
+		document.body.style.backgroundColor = '#131313';
 
 		// video player
 		const player = document.createElement('video');

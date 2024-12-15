@@ -1,18 +1,21 @@
 <!-- https://flowbite.com/docs/forms/toggle/ -->
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import type { Snippet } from 'svelte';
 
-	export let checked = false;
-	export let disabled = false;
-	export let id: string | null = null;
-
-	const dispatch = createEventDispatcher();
+	type Props = {
+		checked?: boolean;
+		disabled?: boolean;
+		id?: string | null;
+		onChange?: () => void;
+		children?: Snippet;
+	};
+	let { checked = $bindable(), disabled, id = null, onChange, children }: Props = $props();
 </script>
 
 <label class="toggle">
-	<slot />
-	<input type="checkbox" {id} bind:checked {disabled} on:change={(e) => dispatch('change', e)} />
-	<span />
+	{@render children?.()}
+	<input type="checkbox" {id} bind:checked {disabled} onchange={onChange} />
+	<span></span>
 </label>
 
 <style lang="scss" global>

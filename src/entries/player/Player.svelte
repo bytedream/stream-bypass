@@ -2,7 +2,8 @@
 	import { play } from '~/entries/player/player';
 	import { onMount } from 'svelte';
 
-	let errorMessage: string | null = null;
+	let errorMessage: string | null = $state(null);
+
 	let videoElem: HTMLVideoElement;
 
 	onMount(async () => {
@@ -10,13 +11,13 @@
 			await play(videoElem);
 			videoElem.controls = true;
 		} catch (e) {
-			errorMessage = e;
+			errorMessage = e as string;
 		}
 	});
 </script>
 
-<!-- svelte-ignore a11y-media-has-caption -->
-<video id="video" bind:this={videoElem} />
+<!-- svelte-ignore a11y_media_has_caption -->
+<video id="video" bind:this={videoElem}></video>
 {#if errorMessage}
 	<div id="message-container">
 		<p>

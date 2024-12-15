@@ -8,8 +8,9 @@
 	<body style="overflow-y: scroll">
 		<script type="module">
 			import Popup from '~/entries/popup/Popup.svelte';
+			import { mount } from 'svelte';
 
-			new Popup({
+			mount(Popup, {
 				target: document.body
 			});
 		</script>

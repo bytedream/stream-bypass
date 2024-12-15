@@ -32,8 +32,9 @@ export async function unpack(packed: string): Promise<string> {
 async function runInPageContext<T>(toExecute: string): Promise<T | null> {
 	// test that we are running with the allow-scripts permission
 	try {
+		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 		window.sessionStorage;
-	} catch (ignore) {
+	} catch {
 		return null;
 	}
 

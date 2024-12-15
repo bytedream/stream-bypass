@@ -39,7 +39,7 @@
 				<Toggle
 					bind:checked={hostersEnabled}
 					id="hosters-enabled"
-					on:change={() => Hosters.setAll(hostersEnabled)}
+					onChange={() => Hosters.setAll(hostersEnabled)}
 				/>
 			</div>
 			<hr />
@@ -52,7 +52,7 @@
 						bind:checked={hoster.active}
 						disabled={!hostersEnabled}
 						id="hoster-{i}"
-						on:change={async () => {
+						onChange={async () => {
 							if (hoster.active) {
 								await Hosters.enable(hoster);
 							} else {
@@ -73,7 +73,7 @@
 					<Toggle
 						bind:checked={ff2mpvEnabled}
 						id="ff2mpv"
-						on:change={async () => {
+						onChange={async () => {
 							ff2mpvEnabled = !ff2mpvEnabled;
 							if (await browser.permissions.request({ permissions: ['nativeMessaging'] })) {
 								await Other.setFf2mpv(ff2mpvEnabled);

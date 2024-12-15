@@ -7,8 +7,9 @@
 	<body>
 		<script type="module">
 			import Player from '~/entries/player/Player.svelte';
+			import { mount } from 'svelte';
 
-			new Player({
+			mount(Player, {
 				target: document.body
 			});
 		</script>
