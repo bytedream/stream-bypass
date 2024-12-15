@@ -16,7 +16,7 @@ export async function unpack(packed: string): Promise<string> {
                 ${packed}
             };
             return packed;
-        }'
+        }
     `;
 
 	const res = (await runInPageContext(toExecute)) as string;
@@ -48,18 +48,17 @@ async function runInPageContext<T>(toExecute: string): Promise<T | null> {
 	scriptElm.textContent = `
         (
             async function () {
+				const response = {
+					id: '${resultMessageId}'
+				};
 
-                    const response = {
-                        id: ${resultMessageId}
-                    };
-
-                    try {
-                        response.result = JSON.stringify(await (${toExecute})() ); // run script
-                    } catch(err) {
-                        response.error = JSON.stringify(err);
-                    }
+				try {
+					response.result = JSON.stringify(await (${toExecute})() ); // run script
+				} catch(err) {
+					response.error = JSON.stringify(err);
+				}
             
-                    window.postMessage(response, '*');
+				window.postMessage(response, '*');
             }
         )();
     `;

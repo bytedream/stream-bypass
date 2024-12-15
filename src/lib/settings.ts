@@ -42,6 +42,22 @@ export const Redirect = {
 	}
 };
 
+export const TmpHost = {
+	get: async (): Promise<[string, Match] | null> => {
+		const tmphost = await storageGet<[string, number]>('tmphost');
+		if (tmphost === undefined) {
+			return null;
+		}
+		return [tmphost[0], matches[tmphost[1]]];
+	},
+	set: async (domain: string, match: Match) => {
+		await storageSet('tmphost', [domain, match.id]);
+	},
+	delete: async () => {
+		await storageDelete('tmphost');
+	}
+};
+
 export const Other = {
 	getFf2mpv: async () => {
 		return await storageGet('other.ff2mpv', false);

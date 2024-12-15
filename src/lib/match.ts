@@ -1,12 +1,12 @@
 import { unpack } from './utils';
-import { Hosters, Redirect } from './settings';
+import { Hosters, Redirect, TmpHost } from './settings';
 
 export interface Match {
 	name: string;
 	id: string;
 	domains: string[];
 	replace?: boolean;
-	regex: RegExp;
+	regex: RegExp[];
 	notice?: string;
 
 	match(match: RegExpMatchArray): Promise<string | null>;
@@ -35,7 +35,7 @@ export const Doodstream: Match = {
 		'd000d.com'
 	],
 	replace: true,
-	regex: /(\/pass_md5\/.*?)'.*(\?token=.*?expiry=)/s,
+	regex: [/(\/pass_md5\/.*?)'.*(\?token=.*?expiry=)/s],
 
 	match: async (match: RegExpMatchArray) => {
 		const response = await fetch(`https://${window.location.host}${match[1]}`, {
@@ -54,7 +54,7 @@ export const DropLoad: Match = {
 	name: 'Dropload',
 	id: 'dropload',
 	domains: ['dropload.ui'],
-	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
+	regex: [/eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms],
 
 	match: async (match: RegExpMatchArray) => {
 		const unpacked = await unpack(match[0]);
@@ -65,12 +65,20 @@ export const DropLoad: Match = {
 export const Filemoon: Match = {
 	name: 'Filemoon',
 	id: 'filemoon',
-	domains: ['filemoon.sx', 'filemoon.in'],
-	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
+	domains: ['filemoon.sx', 'filemoon.to', 'filemoon.in'],
+	regex: [/(?<=<iframe\s*src=")\S*(?=")/s, /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms],
+	replace: true,
 
 	match: async (match: RegExpMatchArray) => {
+		if (window.location.host.startsWith('filemoon')) {
+			await TmpHost.set(new URL(match[0]).host, Filemoon);
+			return null;
+		}
+
+		await TmpHost.delete();
+
 		const unpacked = await unpack(match[0]);
-		return unpacked.match(/(?<=file:").*(?=")/)![0];
+		return unpacked.match(/(?<=file:")\S*(?=")/)![0];
 	}
 };
 
@@ -78,7 +86,7 @@ export const GoodStream: Match = {
 	name: 'Goodstream',
 	id: 'goodstream',
 	domains: ['goodstream.uno'],
-	regex: /(?<=file:\s+").*(?=")/g,
+	regex: [/(?<=file:\s+").*(?=")/g],
 
 	match: async (match: RegExpMatchArray) => {
 		return match[0];
@@ -89,7 +97,7 @@ export const Kwik: Match = {
 	name: 'Kwik',
 	id: 'kwik',
 	domains: ['kwik.cx'],
-	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
+	regex: [/eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms],
 
 	match: async (match: RegExpMatchArray) => {
 		const unpacked = await unpack(match[0]);
@@ -101,7 +109,7 @@ export const Mixdrop: Match = {
 	name: 'Mixdrop',
 	id: 'mixdrop',
 	domains: ['mixdrop.co', 'mixdrop.to', 'mixdrop.ch', 'mixdrop.bz', 'mixdrop.gl'],
-	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
+	regex: [/eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms],
 
 	match: async (match: RegExpMatchArray) => {
 		const unpacked = await unpack(match[0]);
@@ -115,7 +123,7 @@ export const Mp4Upload: Match = {
 	id: 'mp4upload',
 	domains: ['mp4upload.com'],
 	replace: true,
-	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
+	regex: [/eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms],
 
 	match: async (match: RegExpMatchArray) => {
 		const unpacked = await unpack(match[0]);
@@ -127,7 +135,7 @@ export const Newgrounds: Match = {
 	name: 'Newgrounds',
 	id: 'newgrounds',
 	domains: ['newgrounds.com'],
-	regex: /.*/gm,
+	regex: [/.*/gm],
 
 	match: async () => {
 		const id = window.location.pathname.split('/').slice(-1)[0];
@@ -145,7 +153,7 @@ export const StreamA2z: Match = {
 	name: 'Stream2Az',
 	id: 'stream2az',
 	domains: ['streama2z.com', 'streama2z.xyz'],
-	regex: /https?:\/\/\S*m3u8.+(?=['"])/gm,
+	regex: [/https?:\/\/\S*m3u8.+(?=['"])/gm],
 
 	match: async (match: RegExpMatchArray) => {
 		if (StreamA2z.domains.indexOf(window.location.hostname) !== -1) {
@@ -160,7 +168,7 @@ export const Streamtape: Match = {
 	name: 'Streamtape',
 	id: 'streamtape',
 	domains: ['streamtape.com', 'streamtape.net', 'shavetape.cash'],
-	regex: /id=.*(?=')/gm,
+	regex: [/id=.*(?=')/gm],
 
 	match: async (match: RegExpMatchArray) => {
 		let i = 0;
@@ -179,7 +187,7 @@ export const Streamzz: Match = {
 	name: 'Streamzz',
 	id: 'streamzz',
 	domains: ['streamzz.to', 'streamz.ws'],
-	regex: /(?<=\|)\w{2,}/gm,
+	regex: [/(?<=\|)\w{2,}/gm],
 
 	match: async (match: RegExpMatchArray) => {
 		return `https://get.${location.hostname.split('.')[0]}.tw/getlink-${
@@ -192,7 +200,7 @@ export const SuperVideo: Match = {
 	name: 'Supervideo',
 	id: 'supervideo',
 	domains: ['supervideo.tv'],
-	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
+	regex: [/eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms],
 
 	match: async (match: RegExpMatchArray) => {
 		const unpacked = await unpack(match[0]);
@@ -204,7 +212,7 @@ export const Upstream: Match = {
 	name: 'Upstream',
 	id: 'upstream',
 	domains: ['upstream.to'],
-	regex: /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms,
+	regex: [/eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms],
 
 	match: async (match: RegExpMatchArray) => {
 		const unpacked = await unpack(match[0]);
@@ -216,10 +224,9 @@ export const Vidmoly: Match = {
 	name: 'Vidmoly',
 	id: 'vidmoly',
 	domains: ['vidmoly.me', 'vidmoly.to'],
-	regex: /(?<=file:").+\.m3u8/gm,
+	regex: [/(?<=file:").+\.m3u8/gm],
 
 	match: async (match: RegExpMatchArray) => {
-		alert('a');
 		return match[0];
 	}
 };
@@ -228,7 +235,7 @@ export const Vidoza: Match = {
 	name: 'Vidoza',
 	id: 'vidoza',
 	domains: ['vidoza.net'],
-	regex: /(?<=src:\s?").+?(?=")/gm,
+	regex: [/(?<=src:\s?").+?(?=")/gm],
 	replace: true,
 
 	match: async (match: RegExpMatchArray) => {
@@ -240,7 +247,7 @@ export const Voe: Match = {
 	name: 'Voe',
 	id: 'voe',
 	domains: ['voe.sx'],
-	regex: /(?<='hls':\s*')\S*(?=')/gm,
+	regex: [/(?<='hls':\s*')\S*(?=')/gm],
 
 	match: async (match: RegExpMatchArray) => {
 		return atob(match[0]);
@@ -251,7 +258,7 @@ export const Vupload: Match = {
 	name: 'Vupload',
 	id: 'vupload',
 	domains: ['vupload.com'],
-	regex: /(?<=src:\s?").+?(?=")/gm,
+	regex: [/(?<=src:\s?").+?(?=")/gm],
 
 	match: async (match: RegExpMatchArray) => {
 		return match[0];
@@ -290,6 +297,11 @@ export async function getMatch(domain: string): Promise<Match | null> {
 		) {
 			return match;
 		}
+	}
+
+	const tmpHost = await TmpHost.get();
+	if (tmpHost && tmpHost[0] === domain) {
+		return tmpHost[1];
 	}
 
 	return null;

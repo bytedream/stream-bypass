@@ -20,10 +20,16 @@ async function main() {
 		return;
 	}
 
-	const re = document.body.innerHTML.match(match.regex);
+	let re = null;
+	for (const regex of match.regex) {
+		if ((re = document.body.innerHTML.match(regex)) !== null) {
+			break;
+		}
+	}
 	if (re === null) {
 		return;
 	}
+
 	if (redirect) {
 		await Redirect.delete();
 	}
