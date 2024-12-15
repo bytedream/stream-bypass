@@ -58,6 +58,18 @@ export const TmpHost = {
 	}
 };
 
+export const UrlReferer = {
+	get: async (url: string): Promise<string | null> => {
+		return (await storageGet(`urlReferer.${url}`)) || null;
+	},
+	set: async (url: string, referer: string) => {
+		await storageSet(`urlReferer.${url}`, referer);
+	},
+	delete: async (url: string) => {
+		await storageDelete(`urlReferer.${url}`);
+	}
+};
+
 export const Other = {
 	getFf2mpv: async () => {
 		return await storageGet('other.ff2mpv', false);
@@ -67,7 +79,7 @@ export const Other = {
 	}
 };
 
-export async function storageGet<T>(key: string, defaultValue?: T): Promise<T | undefined> {
+async function storageGet<T>(key: string, defaultValue?: T): Promise<T | undefined> {
 	let resolve: (value: T | undefined) => void;
 	const promise = new Promise<T | undefined>((r) => (resolve = r));
 
@@ -79,7 +91,7 @@ export async function storageGet<T>(key: string, defaultValue?: T): Promise<T | 
 	return promise;
 }
 
-export async function storageSet<T>(key: string, value: T) {
+async function storageSet<T>(key: string, value: T) {
 	let resolve: () => void;
 	const promise = new Promise<void>((r) => (resolve = r));
 
@@ -91,7 +103,7 @@ export async function storageSet<T>(key: string, value: T) {
 	return promise;
 }
 
-export async function storageDelete(key: string) {
+async function storageDelete(key: string) {
 	let resolve: () => void;
 	const promise = new Promise<void>((r) => (resolve = r));
 

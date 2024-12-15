@@ -1,22 +1,22 @@
 import './shared';
 
 import type { Match } from '~/lib/match';
-import { Redirect, storageDelete, storageGet } from '~/lib/settings';
+import { Redirect, UrlReferer } from '~/lib/settings';
 import { getMatch } from '~/lib/match';
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore
 	async (details) => {
-		const referer: { domain: string } | undefined = await storageGet('referer');
-		if (referer === undefined) return;
+		const referer = await UrlReferer.get(new URL(details.url).hostname);
+		if (!referer) return;
+
+		await UrlReferer.delete(new URL(details.url).hostname);
 
 		details.requestHeaders!.push({
 			name: 'Referer',
-			value: `https://${referer.domain}/`
+			value: `https://${referer}/`
 		});
-
-		await storageDelete('referer');
 
 		return { requestHeaders: details.requestHeaders };
 	},

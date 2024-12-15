@@ -1,17 +1,23 @@
 import { matches } from '~/lib/match';
 import Hls from 'hls.js';
-import { storageSet } from '~/lib/settings';
+import { UrlReferer } from '~/lib/settings';
 
-async function playNative(url: string, videoElem: HTMLVideoElement) {
+async function playNative(url: string, domain: string, videoElem: HTMLVideoElement) {
+	await UrlReferer.set(new URL(url).hostname, domain);
+
 	videoElem.src = url;
 }
 
-async function playHls(url: string, videoElem: HTMLVideoElement) {
+async function playHls(url: string, domain: string, videoElem: HTMLVideoElement) {
 	if (videoElem.canPlayType('application/vnd.apple.mpegurl')) {
 		videoElem.src = url;
 	} else if (Hls.isSupported()) {
 		const hls = new Hls({
-			enableWorker: false
+			enableWorker: false,
+			xhrSetup: async (xhr: XMLHttpRequest, url: string) => {
+				await UrlReferer.set(new URL(url).hostname, domain);
+				xhr.open('GET', url);
+			}
 		});
 		hls.loadSource(url);
 		hls.attachMedia(videoElem);
@@ -32,11 +38,9 @@ export async function play(videoElem: HTMLVideoElement) {
 	}
 	document.title = `Stream Bypass (${domain})`;
 
-	await storageSet('referer', { domain: domain });
-
 	if (new URL(url).pathname.endsWith('.m3u8')) {
-		await playHls(url, videoElem);
+		await playHls(url, domain, videoElem);
 	} else {
-		await playNative(url, videoElem);
+		await playNative(url, domain, videoElem);
 	}
 }

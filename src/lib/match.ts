@@ -225,6 +225,7 @@ export const Vidmoly: Match = {
 	id: 'vidmoly',
 	domains: ['vidmoly.me', 'vidmoly.to'],
 	regex: [/(?<=file:").+\.m3u8/gm],
+	replace: true,
 
 	match: async (match: RegExpMatchArray) => {
 		return match[0];
