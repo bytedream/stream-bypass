@@ -240,10 +240,10 @@ export const Voe: Match = {
 	name: 'Voe',
 	id: 'voe',
 	domains: ['voe.sx'],
-	regex: /https?:\/\/\S*m3u8.+(?=['"])/gm,
+	regex: /(?<='hls':\s*')\S*(?=')/gm,
 
 	match: async (match: RegExpMatchArray) => {
-		return match[0];
+		return atob(match[0]);
 	}
 };
 
