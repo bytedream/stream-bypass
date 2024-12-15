@@ -235,7 +235,7 @@ export const Vidmoly: Match = {
 export const Vidoza: Match = {
 	name: 'Vidoza',
 	id: 'vidoza',
-	domains: ['vidoza.net'],
+	domains: ['vidoza.net', 'videzz.net'],
 	regex: [/(?<=src:\s?").+?(?=")/gm],
 	replace: true,
 
