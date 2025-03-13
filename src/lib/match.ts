@@ -247,7 +247,7 @@ export const Vidoza: Match = {
 export const Voe: Match = {
 	name: 'Voe',
 	id: 'voe',
-	domains: ['voe.sx'],
+	domains: ['voe.sx', 'maxfinishseveral.com'],
 	regex: [/(?<='hls':\s*')\S*(?=')/gm],
 
 	match: async (match: RegExpMatchArray) => {
