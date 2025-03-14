@@ -106,6 +106,33 @@ export const Kwik: Match = {
 	}
 };
 
+export const Luluvdo: Match = {
+	name: 'Luluvdo',
+	id: 'luluvdo',
+	domains: ['luluvdo.com'],
+	regex: [/./gm],
+
+	match: async () => {
+		const post_match = window.location.href.match(/(?<=\/embed\/)\S*(\/.*)?/)!;
+
+		const request_body = new FormData();
+		request_body.set('op', 'embed');
+		request_body.set('file_code', post_match[0]);
+		const response = await fetch(`https://${window.location.host}/dl`, {
+			method: 'POST',
+			body: request_body,
+			referrer: window.location.href
+		});
+
+		const eval_match = (await response.text()).match(
+			/eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms
+		)!;
+
+		const unpacked = await unpack(eval_match[0]);
+		return unpacked.match(/(?<=file:").*(?=")/)![0];
+	}
+};
+
 export const Mixdrop: Match = {
 	name: 'Mixdrop',
 	id: 'mixdrop',
@@ -273,6 +300,7 @@ export const matches = {
 	[Filemoon.id]: Filemoon,
 	[GoodStream.id]: GoodStream,
 	[Kwik.id]: Kwik,
+	[Luluvdo.id]: Luluvdo,
 	[Mixdrop.id]: Mixdrop,
 	[Mp4Upload.id]: Mp4Upload,
 	[Newgrounds.id]: Newgrounds,
