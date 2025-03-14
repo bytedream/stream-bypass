@@ -23,6 +23,7 @@ export const Doodstream: Match = {
 		'dood.cx',
 		'dood.sh',
 		'dood.watch',
+		'dood.work',
 		'dood.to',
 		'dood.so',
 		'dood.la',
