@@ -43,7 +43,7 @@
 				/>
 			</div>
 			<hr />
-			{#each hosters as hoster, i}
+			{#each hosters as hoster, i (hoster.id)}
 				<label for="hoster-{i}" style="cursor: {hostersEnabled ? 'pointer' : 'default'}"
 					>{hoster.name}</label
 				>
