@@ -43,9 +43,8 @@ export const Doodstream: Match = {
 			headers: {
 				Range: 'bytes=0-'
 			},
-			referrer: `https://${window.location.host}/e/${
-				window.location.pathname.split('/').slice(-1)[0]
-			}`
+			referrer: `https://${window.location.host}/e/${window.location.pathname.split('/').slice(-1)[0]
+				}`
 		});
 		return `${await response.text()}1234567890${match[2]}${Date.now()}`;
 	}
@@ -218,9 +217,8 @@ export const Streamzz: Match = {
 	regex: [/(?<=\|)\w{2,}/gm],
 
 	match: async (match: RegExpMatchArray) => {
-		return `https://get.${location.hostname.split('.')[0]}.tw/getlink-${
-			match.sort((a, b) => b.length - a.length)[0]
-		}.dll`;
+		return `https://get.${location.hostname.split('.')[0]}.tw/getlink-${match.sort((a, b) => b.length - a.length)[0]
+			}.dll`;
 	}
 };
 
@@ -315,6 +313,29 @@ export const matches = {
 	[Vupload.id]: Vupload
 };
 
+export async function checkVoe(url: string, targetUrl: string): Promise<boolean> {
+	const getBaseUrl = (inputUrl: string): string => {
+		try {
+			const { hostname } = new URL(inputUrl);
+			return hostname;
+		} catch {
+			throw new Error(`Invalid URL: ${inputUrl}`);
+		}
+	};
+
+	try {
+		const targetBaseUrl = getBaseUrl(targetUrl);
+
+		const response = await fetch(url, { method: 'HEAD', redirect: 'follow' });
+		const finalUrlBase = getBaseUrl(response.url);
+
+		return finalUrlBase === targetBaseUrl;
+	} catch (error) {
+		console.error('Error checking redirect:', error);
+		return false;
+	}
+}
+
 export async function getMatch(domain: string): Promise<Match | null> {
 	if (await Hosters.getAllDisabled()) {
 		return null;
@@ -326,6 +347,16 @@ export async function getMatch(domain: string): Promise<Match | null> {
 			!(await Hosters.getDisabled().then((d) => d.find((p) => p.id == match.id)))
 		) {
 			return match;
+		}
+	}
+
+	// Check if a domain redirects to voe.sx
+	const targetUrl = 'https://voe.sx';
+	if (await checkVoe(`https://${domain}`, targetUrl)) {
+		for (const match of Object.values(matches)) {
+			if (match.domains.includes(new URL(targetUrl).hostname)) {
+				return match;
+			}
 		}
 	}
 
