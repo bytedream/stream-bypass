@@ -43,8 +43,9 @@ export const Doodstream: Match = {
 			headers: {
 				Range: 'bytes=0-'
 			},
-			referrer: `https://${window.location.host}/e/${window.location.pathname.split('/').slice(-1)[0]
-				}`
+			referrer: `https://${window.location.host}/e/${
+				window.location.pathname.split('/').slice(-1)[0]
+			}`
 		});
 		return `${await response.text()}1234567890${match[2]}${Date.now()}`;
 	}
@@ -217,8 +218,9 @@ export const Streamzz: Match = {
 	regex: [/(?<=\|)\w{2,}/gm],
 
 	match: async (match: RegExpMatchArray) => {
-		return `https://get.${location.hostname.split('.')[0]}.tw/getlink-${match.sort((a, b) => b.length - a.length)[0]
-			}.dll`;
+		return `https://get.${location.hostname.split('.')[0]}.tw/getlink-${
+			match.sort((a, b) => b.length - a.length)[0]
+		}.dll`;
 	}
 };
 
@@ -343,8 +345,10 @@ export async function getMatch(domain: string): Promise<Match | null> {
 
 	for (const match of Object.values(matches)) {
 		if (
-			(match.domains.indexOf(domain) !== -1 && !(await Hosters.getDisabled().then((d) => d.find((p) => p.id == match.id))))
-			|| (await checkVoe(`https://${domain}`, `https://${match.domains[0]}`) && !(await Hosters.getDisabled().then((d) => d.find((p) => p.id == match.id))))
+			(match.domains.indexOf(domain) !== -1 &&
+				!(await Hosters.getDisabled().then((d) => d.find((p) => p.id == match.id)))) ||
+			((await checkVoe(`https://${domain}`, `https://${match.domains[0]}`)) &&
+				!(await Hosters.getDisabled().then((d) => d.find((p) => p.id == match.id))))
 		) {
 			return match;
 		}
