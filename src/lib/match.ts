@@ -273,7 +273,7 @@ export const Vidoza: Match = {
 export const Voe: Match = {
 	name: 'Voe',
 	id: 'voe',
-	domains: ['voe.sx', 'maxfinishseveral.com'],
+	domains: ['voe.sx'],
 	regex: [/(?<='hls':\s*')\S*(?=')/gm],
 
 	match: async (match: RegExpMatchArray) => {
@@ -343,20 +343,10 @@ export async function getMatch(domain: string): Promise<Match | null> {
 
 	for (const match of Object.values(matches)) {
 		if (
-			match.domains.indexOf(domain) !== -1 &&
-			!(await Hosters.getDisabled().then((d) => d.find((p) => p.id == match.id)))
+			(match.domains.indexOf(domain) !== -1 && !(await Hosters.getDisabled().then((d) => d.find((p) => p.id == match.id))))
+			|| (await checkVoe(`https://${domain}`, `https://${match.domains[0]}`) && !(await Hosters.getDisabled().then((d) => d.find((p) => p.id == match.id))))
 		) {
 			return match;
-		}
-	}
-
-	// Check if a domain redirects to voe.sx
-	const targetUrl = 'https://voe.sx';
-	if (await checkVoe(`https://${domain}`, targetUrl)) {
-		for (const match of Object.values(matches)) {
-			if (match.domains.includes(new URL(targetUrl).hostname)) {
-				return match;
-			}
 		}
 	}
 
