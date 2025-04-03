@@ -1,6 +1,6 @@
-import {matches, MatchMediaType} from '~/lib/match';
+import { matches, MatchMediaType } from '~/lib/match';
 import Hls from 'hls.js';
-import {UrlReferer} from '~/lib/settings';
+import { UrlReferer } from '~/lib/settings';
 
 async function playNative(url: string, domain: string, videoElem: HTMLVideoElement) {
 	await UrlReferer.set(new URL(url).hostname, domain);

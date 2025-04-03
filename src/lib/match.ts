@@ -1,6 +1,6 @@
 import { unpack } from './util/userspace';
 import { Hosters, Redirect, TmpHost } from './settings';
-import {lastPathSegment} from "~/lib/util/extract";
+import { lastPathSegment } from '~/lib/util/extract';
 
 export interface Match {
 	name: string;
@@ -10,12 +10,16 @@ export interface Match {
 	regex: RegExp[];
 	notice?: string;
 
-	match(match: RegExpMatchArray): Promise<string | {[MatchMediaType.Hls]: string} | {[MatchMediaType.Native]: string} | null>;
+	match(
+		match: RegExpMatchArray
+	): Promise<
+		string | { [MatchMediaType.Hls]: string } | { [MatchMediaType.Native]: string } | null
+	>;
 }
 
 export enum MatchMediaType {
 	Hls = 'hls',
-	Native = 'native',
+	Native = 'native'
 }
 
 export const Doodstream: Match = {
@@ -134,7 +138,7 @@ export const LoadX: Match = {
 		const videoSource: string = responseJson['videoSource'];
 
 		// extension of extracted url is '.txt', so we have to manually specify that it's a hls
-		return {[MatchMediaType.Hls]: videoSource.replace('\\/', '/')};
+		return { [MatchMediaType.Hls]: videoSource.replace('\\/', '/') };
 	}
 };
 

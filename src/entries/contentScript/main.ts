@@ -1,5 +1,5 @@
-import {getMatch, type Match, MatchMediaType} from '~/lib/match';
-import {Other, Redirect} from '~/lib/settings';
+import { getMatch, type Match, MatchMediaType } from '~/lib/match';
+import { Other, Redirect } from '~/lib/settings';
 
 async function main() {
 	let match: Match | null;
