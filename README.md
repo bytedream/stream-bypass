@@ -100,7 +100,6 @@ The best way to install the extension are the official browser extension stores:
 | [vidoza.net](https://vidoza.net)                                      | ✔                                                                                       | ✔                                                                                       |
 | [voe.sx](https://voe.sx)                                              | ✔                                                                                       | ❌ (redirect always required)                                                            |
 | [vupload.com](https://vupload.com)                                    | ✔                                                                                       | ✔                                                                                       |
-| [kwik.cx](https://kwik.cx)                                            | ✔                                                                                       | ✔                                                                                       |
 
 - ✔️: Everything ok.
 - ⚠: Works with limitations.
