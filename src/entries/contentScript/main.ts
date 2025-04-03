@@ -1,6 +1,5 @@
-import type { Match } from '~/lib/match';
-import { getMatch } from '~/lib/match';
-import { Other, Redirect } from '~/lib/settings';
+import {getMatch, type Match, MatchMediaType} from '~/lib/match';
+import {Other, Redirect} from '~/lib/settings';
 
 async function main() {
 	let match: Match | null;
@@ -35,19 +34,19 @@ async function main() {
 	}
 
 	let url: string | null;
-	let urlType: 'hls' | 'native';
+	let urlType: MatchMediaType | null;
 	try {
 		const matchResult = await match.match(re);
 		if (matchResult && typeof matchResult === 'string') {
 			url = matchResult;
-			urlType = url.includes('.m3u8') ? 'hls' : 'native';
+			urlType = url.includes('.m3u8') ? MatchMediaType.Hls : MatchMediaType.Native;
 		} else if (matchResult && typeof matchResult === 'object') {
-			if ('hls' in matchResult) {
-				url = matchResult['hls'];
-				urlType = 'hls';
-			} else if ('native' in matchResult) {
-				url = matchResult['native'];
-				urlType = 'native';
+			if (MatchMediaType.Hls in matchResult) {
+				url = matchResult[MatchMediaType.Hls];
+				urlType = MatchMediaType.Hls;
+			} else if (MatchMediaType.Native in matchResult) {
+				url = matchResult[MatchMediaType.Native];
+				urlType = MatchMediaType.Native;
 			}
 		}
 	} catch {
@@ -65,7 +64,7 @@ async function main() {
 		await chrome.runtime.sendMessage({ action: 'ff2mpv', url: url });
 	}
 
-	if (match.replace && urlType !== 'hls') {
+	if (match.replace && urlType != MatchMediaType.Hls) {
 		// this destroys all intervals that may spawn popups or events
 		let intervalId = window.setInterval(() => {}, 0);
 		while (intervalId--) {

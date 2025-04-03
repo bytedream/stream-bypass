@@ -10,7 +10,12 @@ export interface Match {
 	regex: RegExp[];
 	notice?: string;
 
-	match(match: RegExpMatchArray): Promise<string | { hls: string } | { native: string } | null>;
+	match(match: RegExpMatchArray): Promise<string | {[MatchMediaType.Hls]: string} | {[MatchMediaType.Native]: string} | null>;
+}
+
+export enum MatchMediaType {
+	Hls = 'hls',
+	Native = 'native',
 }
 
 export const Doodstream: Match = {
@@ -129,7 +134,7 @@ export const LoadX: Match = {
 		const videoSource: string = responseJson['videoSource'];
 
 		// extension of extracted url is '.txt', so we have to manually specify that it's a hls
-		return {hls: videoSource.replace('\\/', '/')};
+		return {[MatchMediaType.Hls]: videoSource.replace('\\/', '/')};
 	}
 };
 
