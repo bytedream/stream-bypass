@@ -275,11 +275,22 @@ export const Vidoza: Match = {
 export const Voe: Match = {
 	name: 'Voe',
 	id: 'voe',
-	domains: ['voe.sx', 'maxfinishseveral.com'],
-	regex: [/(?<='hls':\s*')\S*(?=')/gm],
+	domains: ['voe.sx'],
+	regex: [
+		// voe.sx
+		/(?<=window\.location\.href\s=\s')\S*(?=')/gm,
+		// whatever site voe.sx redirects to
+		/(?<='hls':\s*')\S*(?=')/gm
+	],
 
 	match: async (match: RegExpMatchArray) => {
-		return atob(match[0]);
+		if (window.location.host === 'voe.sx') {
+			const redirectUrl = new URL(match[0]);
+			await TmpHost.set(redirectUrl.host, Voe);
+			return null;
+		} else {
+			return atob(match[0]);
+		}
 	}
 };
 
