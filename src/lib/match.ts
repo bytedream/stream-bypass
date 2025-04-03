@@ -1,5 +1,6 @@
-import { unpack } from './utils';
+import { unpack } from './util/userspace';
 import { Hosters, Redirect, TmpHost } from './settings';
+import {lastPathSegment} from "~/lib/util/extract";
 
 export interface Match {
 	name: string;
@@ -113,10 +114,9 @@ export const LoadX: Match = {
 	regex: [/./gm],
 
 	match: async () => {
-		const postMatch = window.location.href.match(/(?<=\/video\/)\S*(\/.*)?/)!;
-
+		const hash = encodeURIComponent(lastPathSegment(window.location.href));
 		const response = await fetch(
-			`https://${window.location.host}/player/index.php?data=${encodeURIComponent(postMatch[0])}&do=getVideo`,
+			`https://${window.location.host}/player/index.php?data=${hash}&do=getVideo`,
 			{
 				method: 'POST',
 				headers: {
@@ -140,11 +140,9 @@ export const Luluvdo: Match = {
 	regex: [/./gm],
 
 	match: async () => {
-		const postMatch = window.location.href.match(/(?<=\/embed\/)\S*(\/.*)?/)!;
-
 		const requestBody = new FormData();
 		requestBody.set('op', 'embed');
-		requestBody.set('file_code', postMatch[0]);
+		requestBody.set('file_code', lastPathSegment(window.location.href));
 		const response = await fetch(`https://${window.location.host}/dl`, {
 			method: 'POST',
 			body: requestBody,
