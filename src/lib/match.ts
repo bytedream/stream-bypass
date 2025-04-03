@@ -9,7 +9,7 @@ export interface Match {
 	regex: RegExp[];
 	notice?: string;
 
-	match(match: RegExpMatchArray): Promise<string | null>;
+	match(match: RegExpMatchArray): Promise<string | { hls: string } | { native: string } | null>;
 }
 
 export const Doodstream: Match = {

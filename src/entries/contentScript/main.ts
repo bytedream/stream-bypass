@@ -35,13 +35,28 @@ async function main() {
 	}
 
 	let url: string | null;
+	let urlType: 'hls' | 'native';
 	try {
-		url = await match.match(re);
+		const matchResult = await match.match(re);
+		if (matchResult && typeof matchResult === 'string') {
+			url = matchResult;
+			urlType = url.includes('.m3u8') ? 'hls' : 'native';
+		} else if (matchResult && typeof matchResult === 'object') {
+			if ('hls' in matchResult) {
+				url = matchResult['hls'];
+				urlType = 'hls';
+			} else if ('native' in matchResult) {
+				url = matchResult['native'];
+				urlType = 'native';
+			}
+		}
 	} catch {
 		return;
 	}
 
-	if (!url) {
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
+	if (!url || !urlType) {
 		return;
 	}
 
@@ -50,7 +65,7 @@ async function main() {
 		await chrome.runtime.sendMessage({ action: 'ff2mpv', url: url });
 	}
 
-	if (match.replace && !url.includes('.m3u8')) {
+	if (match.replace && urlType !== 'hls') {
 		// this destroys all intervals that may spawn popups or events
 		let intervalId = window.setInterval(() => {}, 0);
 		while (intervalId--) {
@@ -81,7 +96,7 @@ async function main() {
 			chrome.runtime.getURL(
 				`src/entries/player/player.html?id=${match.id}&url=${encodeURIComponent(url)}&domain=${
 					window.location.hostname
-				}`
+				}&type=${urlType}`
 			)
 		);
 	}

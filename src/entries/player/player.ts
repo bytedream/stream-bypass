@@ -31,6 +31,7 @@ export async function play(videoElem: HTMLVideoElement) {
 	const id = urlQuery.get('id') as string;
 	const url = decodeURIComponent(urlQuery.get('url') as string);
 	const domain = urlQuery.get('domain') as string;
+	const urlType = urlQuery.get('urlType') as string;
 
 	const match = matches[id];
 	if (match === undefined) {
@@ -38,9 +39,9 @@ export async function play(videoElem: HTMLVideoElement) {
 	}
 	document.title = `Stream Bypass (${domain})`;
 
-	if (new URL(url).pathname.endsWith('.m3u8')) {
+	if (urlType === 'hls') {
 		await playHls(url, domain, videoElem);
-	} else {
+	} else if (urlType === 'native') {
 		await playNative(url, domain, videoElem);
 	}
 }
