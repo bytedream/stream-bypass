@@ -106,6 +106,33 @@ export const Kwik: Match = {
 	}
 };
 
+export const LoadX: Match = {
+	name: 'LoadX',
+	id: 'loadx',
+	domains: ['loadx.ws'],
+	regex: [/./gm],
+
+	match: async () => {
+		const postMatch = window.location.href.match(/(?<=\/video\/)\S*(\/.*)?/)!;
+
+		const response = await fetch(
+			`https://${window.location.host}/player/index.php?data=${encodeURIComponent(postMatch[0])}&do=getVideo`,
+			{
+				method: 'POST',
+				headers: {
+					'X-Requested-With': 'XMLHttpRequest'
+				}
+			}
+		);
+
+		const responseJson = await response.json();
+		const videoSource: string = responseJson['videoSource'];
+
+		// extension of extracted url is '.txt', so we have to manually specify that it's a hls
+		return {hls: videoSource.replace('\\/', '/')};
+	}
+};
+
 export const Luluvdo: Match = {
 	name: 'Luluvdo',
 	id: 'luluvdo',
@@ -319,6 +346,7 @@ export const matches = {
 	[Filemoon.id]: Filemoon,
 	[GoodStream.id]: GoodStream,
 	[Kwik.id]: Kwik,
+	[LoadX.id]: LoadX,
 	[Luluvdo.id]: Luluvdo,
 	[Mixdrop.id]: Mixdrop,
 	[Mp4Upload.id]: Mp4Upload,
