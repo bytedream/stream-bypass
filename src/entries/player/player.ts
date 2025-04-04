@@ -31,7 +31,7 @@ export async function play(videoElem: HTMLVideoElement) {
 	const id = urlQuery.get('id') as string;
 	const url = decodeURIComponent(urlQuery.get('url') as string);
 	const domain = urlQuery.get('domain') as string;
-	const urlType = urlQuery.get('urlType') as MatchMediaType;
+	const type = urlQuery.get('type') as MatchMediaType;
 
 	const match = matches[id];
 	if (match === undefined) {
@@ -39,9 +39,9 @@ export async function play(videoElem: HTMLVideoElement) {
 	}
 	document.title = `Stream Bypass (${domain})`;
 
-	if (urlType === MatchMediaType.Hls) {
+	if (type === MatchMediaType.Hls) {
 		await playHls(url, domain, videoElem);
-	} else if (urlType === MatchMediaType.Native) {
+	} else if (type === MatchMediaType.Native) {
 		await playNative(url, domain, videoElem);
 	}
 }
