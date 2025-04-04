@@ -1,5 +1,5 @@
-import { matches, MatchMediaType } from '~/lib/match';
 import Hls from 'hls.js';
+import { matches, MatchMediaType } from '~/lib/match';
 import { UrlReferer } from '~/lib/settings';
 
 async function playNative(url: string, domain: string, videoElem: HTMLVideoElement) {

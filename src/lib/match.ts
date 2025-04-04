@@ -1,6 +1,6 @@
-import { unpack } from './util/userspace';
 import { Hosters, Redirect, TmpHost } from './settings';
 import { lastPathSegment } from './util/extract';
+import { unpack } from './util/userspace';
 
 export interface Match {
 	name: string;

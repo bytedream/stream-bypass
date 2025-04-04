@@ -1,5 +1,4 @@
-import type { Match } from './match';
-import { matches } from './match';
+import { matches, type Match } from './match';
 
 export const Hosters = {
 	getDisabled: async () => {

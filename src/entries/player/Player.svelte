@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { play } from '~/entries/player/player';
 	import { onMount } from 'svelte';
+	import { play } from '~/entries/player/player';
 
 	let errorMessage: string | null = $state(null);
 

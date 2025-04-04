@@ -1,4 +1,4 @@
-import { getMatch, type Match, MatchMediaType } from '~/lib/match';
+import { getMatch, MatchMediaType, type Match } from '~/lib/match';
 import { Other, Redirect } from '~/lib/settings';
 
 async function main() {

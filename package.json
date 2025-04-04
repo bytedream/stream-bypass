@@ -11,8 +11,8 @@
 		"serve:firefox": "web-ext run --start-url \"about:debugging#/runtime/this-firefox\" --source-dir ./dist/",
 		"serve:chrome": "web-ext run -t chromium --start-url \"https://example.com\" --source-dir ./dist/",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
-		"lint": "prettier --check --plugin prettier-plugin-svelte . && eslint .",
-		"format": "prettier --write --plugin prettier-plugin-svelte .",
+		"lint": "prettier --check . && eslint .",
+		"format": "prettier --write .",
 		"release:firefox": "MANIFEST_VERSION=2 vite build --outDir release/firefox",
 		"release:chrome": "MANIFEST_VERSION=3 vite build --outDir release/chrome"
 	},
@@ -25,6 +25,7 @@
 		"url": "https://github.com/bytedream/stream-bypass/issues"
 	},
 	"devDependencies": {
+		"@ianvs/prettier-plugin-sort-imports": "^4.4.1",
 		"@samrum/vite-plugin-web-extension": "^5.1.1",
 		"@sveltejs/vite-plugin-svelte": "^5.0.3",
 		"@tsconfig/svelte": "^5.0.4",

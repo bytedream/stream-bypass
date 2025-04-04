@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type Match, matches } from '~/lib/match';
+	import { matches, type Match } from '~/lib/match';
 	import { Hosters, Other } from '~/lib/settings';
 	import Toggle from './toggle.svelte';
 

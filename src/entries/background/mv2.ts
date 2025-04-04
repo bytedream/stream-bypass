@@ -1,8 +1,7 @@
 import './shared';
 
-import type { Match } from '~/lib/match';
+import { getMatch, type Match } from '~/lib/match';
 import { Redirect, UrlReferer } from '~/lib/settings';
-import { getMatch } from '~/lib/match';
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment

@@ -1,9 +1,9 @@
-import { defineConfig, loadEnv, type PluginOption } from 'vite';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
-import webExtension from '@samrum/vite-plugin-web-extension';
-import { getManifest } from './src/manifest';
-import { matches } from './src/lib/match';
 import { fileURLToPath } from 'url';
+import webExtension from '@samrum/vite-plugin-web-extension';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { defineConfig, loadEnv, type PluginOption } from 'vite';
+import { matches } from './src/lib/match';
+import { getManifest } from './src/manifest';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
