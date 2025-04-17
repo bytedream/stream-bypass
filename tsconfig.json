@@ -2,7 +2,7 @@
 	"extends": "@tsconfig/svelte/tsconfig.json",
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,
-		"target": "es2019",
+		"target": "es2021",
 		"module": "esnext",
 		"useDefineForClassFields": true,
 		"resolveJsonModule": true,
