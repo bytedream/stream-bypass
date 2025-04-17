@@ -325,7 +325,7 @@ export const Voe: Match = {
 		// voe.sx
 		/(?<=window\.location\.href\s=\s')\S*(?=')/gm,
 		// whatever site voe.sx redirects to
-		/(?<=MKGMa=").*(?=")/gm
+		/(?<=")\S+(@\$|\^\^|~@|%\?|\*~|!!|#&)(?=")/gm
 	],
 
 	match: async function (match: RegExpMatchArray) {
@@ -342,7 +342,7 @@ export const Voe: Match = {
 			deobfuscated = deobfuscated.split('').reverse().join('');
 			deobfuscated = atob(deobfuscated);
 
-			let payload = JSON.parse(deobfuscated);
+			const payload = JSON.parse(deobfuscated);
 
 			return payload['source'];
 		}
