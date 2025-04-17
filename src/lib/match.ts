@@ -17,7 +17,7 @@ export interface Match {
 	>;
 
 	// allow other properties that may be implemented by the objects that use this interface declaration
-	[other: string]: unknown;
+	[other: string]: any;
 }
 
 export enum MatchMediaType {
@@ -325,7 +325,7 @@ export const Voe: Match = {
 		// voe.sx
 		/(?<=window\.location\.href\s=\s')\S*(?=')/gm,
 		// whatever site voe.sx redirects to
-		/(?<='hls':\s*')\S*(?=')/gm
+		/(?<=MKGMa=").*(?=")/gm
 	],
 
 	match: async function (match: RegExpMatchArray) {
@@ -334,8 +334,51 @@ export const Voe: Match = {
 			await TmpHost.set(redirectUrl.host, Voe);
 			return null;
 		} else {
-			return atob(match[0]);
+			let deobfuscated = match[0];
+			deobfuscated = this.rot13(deobfuscated);
+			deobfuscated = this.removeSpecialSequences(deobfuscated);
+			deobfuscated = atob(deobfuscated);
+			deobfuscated = this.shiftString(deobfuscated);
+			deobfuscated = deobfuscated.split('').reverse().join('');
+			deobfuscated = atob(deobfuscated);
+
+			let payload = JSON.parse(deobfuscated);
+
+			return payload['source'];
 		}
+	},
+
+	rot13: function (encrypted: string) {
+		let decrypted = '';
+		for (let i = 0; i < encrypted.length; i++) {
+			let char = encrypted.charCodeAt(i);
+			if (char >= 65 && char <= 90) {
+				char = ((char - 65 + 13) % 26) + 65;
+			} else if (char >= 97 && char <= 122) {
+				char = ((char - 97 + 13) % 26) + 97;
+			}
+			decrypted += String.fromCharCode(char);
+		}
+		return decrypted;
+	},
+	removeSpecialSequences: function (input: string) {
+		return input
+			.replaceAll(/@\$/g, '')
+			.replaceAll(/\^\^/g, '')
+			.replaceAll(/~@/g, '')
+			.replaceAll(/%\?/g, '')
+			.replaceAll(/\*~/g, '')
+			.replaceAll(/!!/g, '')
+			.replaceAll(/#&/g, '');
+	},
+	shiftString: function (input: string) {
+		let shifted = '';
+		for (let i = 0; i < input.length; i++) {
+			const char = input.charCodeAt(i);
+			const shiftedChar = char - 3;
+			shifted += String.fromCharCode(shiftedChar);
+		}
+		return shifted;
 	}
 };
 
