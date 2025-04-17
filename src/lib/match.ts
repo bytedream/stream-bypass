@@ -15,6 +15,9 @@ export interface Match {
 	): Promise<
 		string | { [MatchMediaType.Hls]: string } | { [MatchMediaType.Native]: string } | null
 	>;
+
+	// allow other properties that may be implemented by the objects that use this interface declaration
+	[other: string]: unknown;
 }
 
 export enum MatchMediaType {
