@@ -48,7 +48,7 @@ export const Doodstream: Match = {
 	replace: true,
 	regex: [/(\/pass_md5\/.*?)'.*(\?token=.*?expiry=)/s],
 
-	match: async (match: RegExpMatchArray) => {
+	match: async function (match: RegExpMatchArray) {
 		const response = await fetch(`https://${window.location.host}${match[1]}`, {
 			headers: {
 				Range: 'bytes=0-'
@@ -67,7 +67,7 @@ export const DropLoad: Match = {
 	domains: ['dropload.ui'],
 	regex: [/eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms],
 
-	match: async (match: RegExpMatchArray) => {
+	match: async function (match: RegExpMatchArray) {
 		const unpacked = await unpack(match[0]);
 		return unpacked.match(/(?<=file:").*(?=")/)![0];
 	}
@@ -80,7 +80,7 @@ export const Filemoon: Match = {
 	regex: [/(?<=<iframe\s*src=")\S*(?=")/s, /eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms],
 	replace: true,
 
-	match: async (match: RegExpMatchArray) => {
+	match: async function (match: RegExpMatchArray) {
 		if (window.location.host.startsWith('filemoon')) {
 			await TmpHost.set(new URL(match[0]).host, Filemoon);
 			return null;
@@ -99,7 +99,7 @@ export const GoodStream: Match = {
 	domains: ['goodstream.uno'],
 	regex: [/(?<=file:\s+").*(?=")/g],
 
-	match: async (match: RegExpMatchArray) => {
+	match: async function (match: RegExpMatchArray) {
 		return match[0];
 	}
 };
@@ -110,7 +110,7 @@ export const Kwik: Match = {
 	domains: ['kwik.cx'],
 	regex: [/eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms],
 
-	match: async (match: RegExpMatchArray) => {
+	match: async function (match: RegExpMatchArray) {
 		const unpacked = await unpack(match[0]);
 		return unpacked.match(/(?<=source=').*(?=')/)![0];
 	}
@@ -181,7 +181,7 @@ export const Mixdrop: Match = {
 	domains: ['mixdrop.co', 'mixdrop.to', 'mixdrop.ch', 'mixdrop.bz', 'mixdrop.gl'],
 	regex: [/eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms],
 
-	match: async (match: RegExpMatchArray) => {
+	match: async function (match: RegExpMatchArray) {
 		const unpacked = await unpack(match[0]);
 		const url = unpacked.match(/(?<=MDCore.wurl=").*(?=")/)![0];
 		return `https:${url}`;
@@ -195,7 +195,7 @@ export const Mp4Upload: Match = {
 	replace: true,
 	regex: [/eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms],
 
-	match: async (match: RegExpMatchArray) => {
+	match: async function (match: RegExpMatchArray) {
 		const unpacked = await unpack(match[0]);
 		return unpacked.match(/(?<=player.src\(").*(?=")/)![0];
 	}
@@ -225,7 +225,7 @@ export const StreamA2z: Match = {
 	domains: ['streama2z.com', 'streama2z.xyz'],
 	regex: [/https?:\/\/\S*m3u8.+(?=['"])/gm],
 
-	match: async (match: RegExpMatchArray) => {
+	match: async function (match: RegExpMatchArray) {
 		if (StreamA2z.domains.indexOf(window.location.hostname) !== -1) {
 			await Redirect.set(StreamA2z);
 			return null;
@@ -240,7 +240,7 @@ export const Streamtape: Match = {
 	domains: ['streamtape.com', 'streamtape.net', 'shavetape.cash'],
 	regex: [/id=.*(?=')/gm],
 
-	match: async (match: RegExpMatchArray) => {
+	match: async function (match: RegExpMatchArray) {
 		let i = 0;
 		while (i < match.length) {
 			if (match[++i - 1] == match[i]) {
@@ -259,7 +259,7 @@ export const Streamzz: Match = {
 	domains: ['streamzz.to', 'streamz.ws'],
 	regex: [/(?<=\|)\w{2,}/gm],
 
-	match: async (match: RegExpMatchArray) => {
+	match: async function (match: RegExpMatchArray) {
 		return `https://get.${location.hostname.split('.')[0]}.tw/getlink-${
 			match.sort((a, b) => b.length - a.length)[0]
 		}.dll`;
@@ -272,7 +272,7 @@ export const SuperVideo: Match = {
 	domains: ['supervideo.tv'],
 	regex: [/eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms],
 
-	match: async (match: RegExpMatchArray) => {
+	match: async function (match: RegExpMatchArray) {
 		const unpacked = await unpack(match[0]);
 		return unpacked.match(/(?<=file:").*(?=")/)![0];
 	}
@@ -284,7 +284,7 @@ export const Upstream: Match = {
 	domains: ['upstream.to'],
 	regex: [/eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms],
 
-	match: async (match: RegExpMatchArray) => {
+	match: async function (match: RegExpMatchArray) {
 		const unpacked = await unpack(match[0]);
 		return unpacked.match(/(?<=file:").*(?=")/)![0];
 	}
@@ -297,7 +297,7 @@ export const Vidmoly: Match = {
 	regex: [/(?<=file:").+\.m3u8/gm],
 	replace: true,
 
-	match: async (match: RegExpMatchArray) => {
+	match: async function (match: RegExpMatchArray) {
 		return match[0];
 	}
 };
@@ -309,7 +309,7 @@ export const Vidoza: Match = {
 	regex: [/(?<=src:\s?").+?(?=")/gm],
 	replace: true,
 
-	match: async (match: RegExpMatchArray) => {
+	match: async function (match: RegExpMatchArray) {
 		return match[0];
 	}
 };
@@ -325,7 +325,7 @@ export const Voe: Match = {
 		/(?<='hls':\s*')\S*(?=')/gm
 	],
 
-	match: async (match: RegExpMatchArray) => {
+	match: async function (match: RegExpMatchArray) {
 		if (window.location.host === 'voe.sx') {
 			const redirectUrl = new URL(match[0]);
 			await TmpHost.set(redirectUrl.host, Voe);
@@ -342,7 +342,7 @@ export const Vupload: Match = {
 	domains: ['vupload.com'],
 	regex: [/(?<=src:\s?").+?(?=")/gm],
 
-	match: async (match: RegExpMatchArray) => {
+	match: async function (match: RegExpMatchArray) {
 		return match[0];
 	}
 };
