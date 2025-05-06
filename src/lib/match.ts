@@ -67,7 +67,7 @@ export const Doodstream: Match = {
 export const DropLoad: Match = {
 	name: 'Dropload',
 	id: 'dropload',
-	domains: ['dropload.ui'],
+	domains: ['dropload.io'],
 	regex: [/eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms],
 
 	match: async function (match: RegExpMatchArray) {
