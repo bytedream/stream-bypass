@@ -181,7 +181,7 @@ export const Luluvdo: Match = {
 export const Mixdrop: Match = {
 	name: 'Mixdrop',
 	id: 'mixdrop',
-	domains: ['mixdrop.co', 'mixdrop.to', 'mixdrop.ch', 'mixdrop.bz', 'mixdrop.gl'],
+	domains: ['mixdrop.bz', 'mixdrop.ch', 'mixdrop.co', 'mixdrop.gl', 'mixdrop.my', 'mixdrop.to'],
 	regex: [/eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms],
 
 	match: async function (match: RegExpMatchArray) {
