@@ -272,7 +272,7 @@ export const Streamzz: Match = {
 export const SuperVideo: Match = {
 	name: 'Supervideo',
 	id: 'supervideo',
-	domains: ['supervideo.tv'],
+	domains: ['supervideo.cc', 'supervideo.tv'],
 	regex: [/eval\(function\(p,a,c,k,e,d\).*?(?=<\/script>)/gms],
 
 	match: async function (match: RegExpMatchArray) {
