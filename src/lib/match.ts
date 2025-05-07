@@ -325,7 +325,7 @@ export const Voe: Match = {
 		// voe.sx
 		/(?<=window\.location\.href\s=\s')\S*(?=')/gm,
 		// whatever site voe.sx redirects to
-		/(?<=")\S+(@\$|\^\^|~@|%\?|\*~|!!|#&)(?=")/gm
+		/(?<=<script type="application\/json">).*(?=<\/script>)/m
 	],
 
 	match: async function (match: RegExpMatchArray) {
@@ -334,7 +334,10 @@ export const Voe: Match = {
 			await TmpHost.set(redirectUrl.host, Voe);
 			return null;
 		} else {
-			let deobfuscated = match[0];
+			let json = match[0];
+			json = JSON.parse(json);
+
+			let deobfuscated = json[0];
 			deobfuscated = this.rot13(deobfuscated);
 			deobfuscated = this.removeSpecialSequences(deobfuscated);
 			deobfuscated = atob(deobfuscated);
