@@ -1,8 +1,12 @@
 name: lint
 
 on:
-    push:
-    pull_request:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '*'
+  pull_request:
 
 jobs:
   lint:
