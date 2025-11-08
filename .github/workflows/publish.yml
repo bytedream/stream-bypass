@@ -64,7 +64,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: .output/*.zip
+          file: .output/*mv*.zip
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
