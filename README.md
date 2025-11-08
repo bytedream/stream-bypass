@@ -40,7 +40,7 @@ This has the advantage, that no advertising or popups are shown when trying to i
 Additionally, this enables you to download the video by right-clicking it and just choose the download option.
 
 <details id="example">
-    <summary><b>How it's working:</b></summary>
+    <summary><b>How it works:</b></summary>
     <img src="example.gif" alt="">
 </details>
 
@@ -53,31 +53,32 @@ The best way to install the extension are the official browser extension stores:
 - [Firefox Addon Store](https://addons.mozilla.org/de/firefox/addon/stream-bypass/) (Firefox for Android is supported too!)
 - [Chrome Web Store](https://chromewebstore.google.com/detail/ddfpfjomnakfckhmilacnbokdaknamdb)
 
-### Manual installation
+<details>
+    <summary><h3>Manual installation</h3></summary>
 
 - Firefox (mv2)
     - Download `stream-bypass-<version>-mv2.zip` from the [latest release](https://github.com/ByteDream/stream-bypass/releases/latest) and unzip it (with [7zip](https://www.7-zip.org/) or something like that)
     - Go into your browser and type `about:debugging#/runtime/this-firefox` in the address bar
     - Click the `Load Temporary Add-on...` button and choose the `manifest.json` file in the unzipped directory
-- Chromium / Google Chrome (mv3)
-    > As nearly every browser other than Firefox is based on Chromium, this should be the same for most of them
-    - Download `stream-bypass-<version>-mv3.zip` from the [latest release](https://github.com/ByteDream/stream-bypass/releases/latest) and unzip it (with [7zip](https://www.7-zip.org/) or something like that)
-    - Go into your browser and type `chrome://extensions` in the address bar
-    - Turn on the developer mode by checking the switch in the top right corner
-    - Click `Load unpacked` and choose the unzipped directory
+- Chromium / Google Chrome (mv3) > As nearly every browser other than Firefox is based on Chromium, this should be the same for most of them - Download `stream-bypass-<version>-mv3.zip` from the [latest release](https://github.com/ByteDream/stream-bypass/releases/latest) and unzip it (with [7zip](https://www.7-zip.org/) or something like that) - Go into your browser and type `chrome://extensions` in the address bar - Turn on the developer mode by checking the switch in the top right corner - Click `Load unpacked` and choose the unzipped directory
+  </details>
 
 ## ✨ Features
+
+- ✔: Supported.
+- ✖: Not supported.
 
 | Feature                                                                                                                           | Firefox (mv2) | Chrome (mv3) | Firefox for Android (mv2) |
 | --------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------------ | ------------------------- |
 | Replace site-speicifc video player with browser native video player                                                               | ✔            | ✔           | ✔                        |
-| Support websites that are accessed via a redirect                                                                                 | ✔            | ❌           | ✔                        |
-| Open video in mpv (with [ff2mpv](https://github.com/ByteDream/stream-bypass/tree/master#ff2mpv-use-mpv-to-directly-play-streams)) | ✔            | ✔           | ❌                        |
-
-- ✔️: Supported.
-- ❌: Not supported.
+| Support websites that are accessed via a redirect                                                                                 | ✔            | ✖           | ✔                        |
+| Open video in mpv (with [ff2mpv](https://github.com/ByteDream/stream-bypass/tree/master#ff2mpv-use-mpv-to-directly-play-streams)) | ✔            | ✔           | ✖                        |
 
 ## 📜 Supported websites
+
+- ✔: Everything ok.
+- ⚠: Works with limitations.
+- ✖: Not supported.
 
 | Site                                                                  | Firefox & Firefox for Android (mv2)                                                      | Chrome & Chromium based (mv2)                                                            |
 | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
@@ -86,24 +87,20 @@ The best way to install the extension are the official browser extension stores:
 | [filemoon.to](https://filemoon.to)                                    | ✔                                                                                       | ✔                                                                                       |
 | [goodstream.uno](https://goodstream.uno)                              | ✔                                                                                       | ✔                                                                                       |
 | [kwik.cx](https://kwik.cx)                                            | ✔                                                                                       | ✔                                                                                       |
-| [loadx.ws](https://loadx.ws)                                          | ✔                                                                                       | ❌ (background request always required)                                                  |
-| [luluvdo.com](https://luluvdo.com)                                    | ✔                                                                                       | ❌ (background request always required)                                                  |
+| [loadx.ws](https://loadx.ws)                                          | ✔                                                                                       | ✖ (background request always required)                                                  |
+| [luluvdo.com](https://luluvdo.com)                                    | ✔                                                                                       | ✖ (background request always required)                                                  |
 | [mixdrop.co](https://mixdrop.co)                                      | ✔ ️                                                                                     | ✔                                                                                       |
 | [mp4upload.com](https://mp4upload.com)                                | ✔                                                                                       | ✔                                                                                       |
 | [newgrounds.com](https://newgrounds.com)                              | ✔                                                                                       | ✔                                                                                       |
-| [streama2z.com](https://streama2z.com)                                | ✔                                                                                       | ❌ (redirect always required)                                                            |
+| [streama2z.com](https://streama2z.com)                                | ✔                                                                                       | ✖ (redirect always required)                                                            |
 | [streamtape.com](https://streamtape.com)                              | ⚠ (correct video url can't always be extract, retrying/reloading the page might fix it) | ⚠ (correct video url can't always be extract, retrying/reloading the page might fix it) |
 | [streamzz.to](https://streamzz.to) / [streamz.ws](https://streamz.ws) | ✔                                                                                       | ✔                                                                                       |
 | [supervideo.tv](https://supervideo.tv)                                | ✔                                                                                       | ✔                                                                                       |
 | [upstream.to](https://upstream.to)                                    | ✔                                                                                       | ✔                                                                                       |
 | [vidmoly.to](https://vidmoly.me)                                      | ✔                                                                                       | ✔                                                                                       |
 | [vidoza.net](https://vidoza.net)                                      | ✔                                                                                       | ✔                                                                                       |
-| [voe.sx](https://voe.sx)                                              | ✔                                                                                       | ❌ (redirect always required)                                                            |
+| [voe.sx](https://voe.sx)                                              | ✔                                                                                       | ✖ (redirect always required)                                                            |
 | [vupload.com](https://vupload.com)                                    | ✔                                                                                       | ✔                                                                                       |
-
-- ✔️: Everything ok.
-- ⚠: Works with limitations.
-- ❌: Not supported.
 
 _This table might not be 100% accurate, it isn't actively monitored if the addon works for every website!_
 
@@ -111,7 +108,7 @@ Some sites put much effort in obfuscating their code / how they receive the vide
 
 ## 🛠️ Building
 
-If you want to build the addon from source and not using the [installation](#installation) way, follow the instructions.
+If you want to build the addon from source and not using the way described in [installation](#-installation), follow the instructions.
 
 Requirements:
 
@@ -143,11 +140,19 @@ When using firefox, use the following:
 
 ## ⚙️ Settings
 
-### <ins>ff2mpv: use mpv to directly play streams</ins>
+> You reach the settings by pressing the tree dots (⋮) in the top right corner of the extension popup.
 
-ff2mpv is located at this repository: https://github.com/woodruffw/ff2mpv
+### Hosts
 
-Steps to get it set up:
+You can enable or disabled for which hosts the extension should redirect.
+
+### ff2mpv
+
+[ff2mpv](https://github.com/woodruffw/ff2mpv) allows you to play streams directly in [mpv](https://mpv.io/) instead of the browser.
+You can enable or disable this behavior.
+
+<details>
+    <summary><i>Steps to get it set up</i></summary>
 
 - In the [Usage](https://github.com/woodruffw/ff2mpv#usage) section of the ff2mpv repository pick the installation instruction for your operating system (Linux/Windows/macOS; you do not need the browser addon).
 - Scroll down to `Install manually`
@@ -160,16 +165,13 @@ Steps to get it set up:
           "{55dd42e8-3dd9-455a-b4fe-86664881b10c}"
         ]
         ```
-    - Chrome/Chromium:
-        - Go To: Settings -> Extensions
-        - Click on `Details` of the Stream Bypass extension and copy the ID
-        - Add `chrome-extension://ddfpfjomnakfckhmilacnbokdaknamdb/` to `allowed_origins` ->
-            ```
-            "allowed_origins": [
-              "chrome-extension://ephjcajbkgplkjmelpglennepbpmdpjg/",
-              "chrome-extension://ddfpfjomnakfckhmilacnbokdaknamdb/"
-            ]
-            ```
+    - Chrome/Chromium: - Go To: Settings -> Extensions - Click on `Details` of the Stream Bypass extension and copy the ID - Add `chrome-extension://ddfpfjomnakfckhmilacnbokdaknamdb/` to `allowed_origins` ->
+    `           "allowed_origins": [
+            "chrome-extension://ephjcajbkgplkjmelpglennepbpmdpjg/",
+            "chrome-extension://ddfpfjomnakfckhmilacnbokdaknamdb/"
+          ]
+          `
+      </details>
 
 ## ⚖ License
 
