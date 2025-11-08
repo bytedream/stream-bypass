@@ -29,6 +29,9 @@ export default defineConfig({
 		permissions: ['storage', ...(manifestVersion === 2 ? ['webRequest', 'webRequestBlocking', '<all_urls>'] : [])],
 		optional_permissions: ['nativeMessaging']
 	}),
+	zip: {
+		artifactTemplate: '{{name}}-{{version}}-{{manifestVersion}}.zip'
+	},
 
 	vite: () => ({
 		define: {
