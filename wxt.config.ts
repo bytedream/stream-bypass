@@ -27,7 +27,17 @@ export default defineConfig({
 					}
 				: undefined,
 		permissions: ['storage', ...(manifestVersion === 2 ? ['webRequest', 'webRequestBlocking', '<all_urls>'] : [])],
-		optional_permissions: ['nativeMessaging']
+		optional_permissions: ['nativeMessaging'],
+		web_accessible_resources: [
+			{
+				resources: ['player.html'],
+				// TODO: Replace this with all hosts domains if target manifest version is 3.
+				// This isn't working atm because importing '@/lib/host' fails. Ahhhh I love the whole fucking JS/TS
+				// environment. Maybe I'm also overlooking something and the fix is easy, but that itsn't working out of the
+				// box is once again terrible DX
+				matches: ['<all_urls>']
+			}
+		]
 	}),
 	zip: {
 		artifactTemplate: '{{name}}-{{version}}-{{manifestVersion}}.zip'
