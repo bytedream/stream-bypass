@@ -35,6 +35,30 @@ jobs:
           npm run zip:firefox
           npm run zip
 
+      - name: Resolve zip extension paths
+        id: paths
+        run: |
+          MV2_PATH=$(find .output -type f -name "*-mv2.zip")
+          MV2_NAME=$(basename $MV2_PATH)
+          MV3_PATH=$(find .output -type f -name "*-mv3.zip")
+          MV3_NAME=$(basename $MV3_PATH)
+          echo "mv2_path=$MV2_PATH" >> "$GITHUB_OUTPUT"
+          echo "mv2_name=$MV2_NAME" >> "$GITHUB_OUTPUT"
+          echo "mv3_path=$MV3_PATH" >> "$GITHUB_OUTPUT"
+          echo "mv3_name=$MV3_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Upload mv2 as artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: ${{ steps.paths.outputs.mv2_name }}
+          path: ${{ steps.paths.outputs.mv2_path }}
+
+      - name: Upload mv3 as artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: ${{ steps.paths.outputs.mv3_name }}
+          path: ${{ steps.paths.outputs.mv3_path }}
+
       - name: Upload to latest release
         if: github.event.inputs.dry_run != 'true'
         uses: svenstaro/upload-release-action@v2
