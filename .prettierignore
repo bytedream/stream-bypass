@@ -1,8 +1,11 @@
 .DS_Store
-node_modules
-/dist
-.env
-.env.*
-!.env.example
+.idea
+.vscode
+.zed
 
+node_modules
 package-lock.json
+.output
+.wxt
+
+.github
