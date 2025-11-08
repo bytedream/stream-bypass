@@ -4,7 +4,7 @@ A multi-browser addon / extension for multiple streaming providers which redirec
 
 <p align="center">
   <a href="https://github.com/bytedream/stream-bypass/releases/latest">
-    <img src="https://img.shields.io/github/v/release/ByteDream/stream-bypass?label=Version&style=flat-square" alt="Version">
+    <img src="https://img.shields.io/github/v/release/bytedream/stream-bypass?label=Version&style=flat-square" alt="Version">
   </a>
   <a href="https://addons.mozilla.org/de/firefox/addon/stream-bypass/">
     <img src="https://img.shields.io/amo/users/stream-bypass?label=Firefox%20Users&style=flat-square" alt="Firefox Addon Store">
@@ -13,7 +13,7 @@ A multi-browser addon / extension for multiple streaming providers which redirec
     <img src="https://img.shields.io/chrome-web-store/users/ddfpfjomnakfckhmilacnbokdaknamdb?style=flat-square&label=Chrome%20Users" alt="Chrome Store">
   </a>
   <a href="https://github.com/bytedream/stream-bypass/releases/latest">
-    <img src="https://img.shields.io/github/downloads/ByteDream/stream-bypass/total?label=GitHub%20Downloads&style=flat-square" alt="GitHub Downloads">
+    <img src="https://img.shields.io/github/downloads/bytedream/stream-bypass/total?label=GitHub%20Downloads&style=flat-square" alt="GitHub Downloads">
   </a>
 </p>
 
@@ -54,13 +54,18 @@ The best way to install the extension are the official browser extension stores:
 - [Chrome Web Store](https://chromewebstore.google.com/detail/ddfpfjomnakfckhmilacnbokdaknamdb)
 
 <details>
-    <summary><h3>Manual installation</h3></summary>
+    <summary><h3 id="manual-installation1">Manual installation</h3></summary>
 
 - Firefox (mv2)
-    - Download `stream-bypass-<version>-mv2.zip` from the [latest release](https://github.com/ByteDream/stream-bypass/releases/latest) and unzip it (with [7zip](https://www.7-zip.org/) or something like that)
+    - Download `stream-bypass-<version>-mv2.zip` from the [latest release](https://github.com/bytedream/stream-bypass/releases/latest) and unzip it (e.g. with [7zip](https://www.7-zip.org/))
     - Go into your browser and type `about:debugging#/runtime/this-firefox` in the address bar
     - Click the `Load Temporary Add-on...` button and choose the `manifest.json` file in the unzipped directory
-- Chromium / Google Chrome (mv3) > As nearly every browser other than Firefox is based on Chromium, this should be the same for most of them - Download `stream-bypass-<version>-mv3.zip` from the [latest release](https://github.com/ByteDream/stream-bypass/releases/latest) and unzip it (with [7zip](https://www.7-zip.org/) or something like that) - Go into your browser and type `chrome://extensions` in the address bar - Turn on the developer mode by checking the switch in the top right corner - Click `Load unpacked` and choose the unzipped directory
+- Chromium / Google Chrome (mv3)
+    > As nearly every browser other than Firefox is based on Chromium, this should be the same for most of them
+    - Download `stream-bypass-<version>-mv3.zip` from the [latest release](https://github.com/bytedream/stream-bypass/releases/latest) and unzip it (e.g. [7zip](https://www.7-zip.org/))
+    - Go into your browser and type `chrome://extensions` in the address bar
+    - Turn on the developer mode by checking the switch in the top right corner
+    - Click `Load unpacked` and choose the unzipped directory
 
 </details>
 
@@ -73,7 +78,7 @@ The best way to install the extension are the official browser extension stores:
 | --------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------------ | ------------------------- |
 | Replace site-speicifc video player with browser native video player                                                               | ✔            | ✔           | ✔                        |
 | Support websites that are accessed via a redirect                                                                                 | ✔            | ✖           | ✔                        |
-| Open video in mpv (with [ff2mpv](https://github.com/ByteDream/stream-bypass/tree/master#ff2mpv-use-mpv-to-directly-play-streams)) | ✔            | ✔           | ✖                        |
+| Open video in mpv (with [ff2mpv](https://github.com/bytedream/stream-bypass/tree/master#ff2mpv-use-mpv-to-directly-play-streams)) | ✔            | ✔           | ✖                        |
 
 ## 📜 Supported websites
 
@@ -133,7 +138,7 @@ You can omit the `:firefox` suffix, then it's built for Chrome.
 
 ##### Install
 
-If you want to use the addon in Chromium or any browser which is based on it, follow the steps in [installation](#-installation).
+If you want to use the addon in Chromium or any browser which is based on it, follow the steps in the [manual installation](#-installation).
 When using firefox, use the following:
 
 1. Type `about:debugging` in the browser's address bar.
