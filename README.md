@@ -120,14 +120,16 @@ If the requirements are satisfied, you can continue with the following commands:
 
 ```shell
 # install all dependencies
-$ npm install
+$ npm i
 
-# build the extension source to the dist/ directory
-$ npm run build
+# build the extension and start it in a new firefox instance
+$ npm run dev:firefox
 
-# same as build + more optimizations and browser specific settings at release/
-$ npm run release:firefox  # or "release:chrome" to create a release for chromium based browsers
+# build the extension with optimizations to the .output/firefox-mv2 directory
+$ npm run build:firefox
 ```
+
+You can omit the `:firefox` suffix, then it's built for Chrome.
 
 ##### Install
 
