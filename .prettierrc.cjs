@@ -5,7 +5,8 @@ module.exports = {
 	useTabs: true,
 	singleQuote: true,
 	trailingComma: 'none',
-	printWidth: 100,
+	printWidth: 120,
+	tabWidth: 4,
 	plugins: ['prettier-plugin-svelte', '@ianvs/prettier-plugin-sort-imports'],
 	/* prettier-plugin-svelte */
 	overrides: [{ files: '*.svelte', options: { parser: 'svelte' } }],

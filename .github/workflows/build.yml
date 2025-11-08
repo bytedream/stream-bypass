@@ -1,0 +1,39 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Firefox (mv2)
+        run: npm run build:firefox
+
+      - name: Build Chrome (mv3)
+        run: npm run build
+
+      - name: Upload Firefox (mv2)
+        uses: actions/upload-artifact@v5
+        with:
+          name: stream-bypass-mv2
+          path: .output/firefox-mv2
+
+      - name: Upload Chrome (mv3)
+        uses: actions/upload-artifact@v5
+        with:
+          name: stream-bypass-mv3
+          path: .output/firefox-mv3

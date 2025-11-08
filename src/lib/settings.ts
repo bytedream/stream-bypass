@@ -1,112 +1,88 @@
-import { matches, type Match } from './match';
+import { storage } from '#imports';
+import { hosts, type Host } from '@/lib/host';
 
-export const Hosters = {
-	getDisabled: async () => {
-		const disabled = (await storageGet('hosters.disabled', [])) as string[];
-		return disabled.map((id) => matches[id]).filter((m) => m !== undefined);
-	},
-	disable: async (match: Match) => {
-		const disabled = (await storageGet('hosters.disabled', [])) as string[];
-		const index = disabled.indexOf(match.id);
+export class HostSettings {
+	/* disabled hosts */
+	private static disabledHosts = storage.defineItem<string[]>('local:disabledHosts', { fallback: [] });
+	private static allHostsDisabled = storage.defineItem<boolean>('local:allHostsDisabled', { fallback: false });
+
+	static async addDisabledHost(host: Host) {
+		const ids = await this.disabledHosts.getValue();
+
+		const index = ids.indexOf(host.id);
 		if (index === -1) {
-			disabled.push(match.id);
-			await storageSet('hosters.disabled', disabled);
+			ids.push(host.id);
+			await this.disabledHosts.setValue(ids);
 		}
-	},
-	enable: async (match: Match) => {
-		const disabled = (await storageGet('hosters.disabled', [])) as string[];
-		const index = disabled.indexOf(match.id);
+	}
+	static async removeDisabledHost(host: Host) {
+		const ids = await this.disabledHosts.getValue();
+
+		const index = ids.indexOf(host.id);
 		if (index !== -1) {
-			disabled.splice(index, 1);
-			await storageSet('hosters.disabled', disabled);
+			ids.splice(index, 1);
+			await this.disabledHosts.setValue(ids);
 		}
-	},
-	getAllDisabled: async () => {
-		return await storageGet<boolean>('hosters.allDisabled', false);
-	},
-	setAll: async (enable: boolean) => {
-		await storageSet('hosters.allDisabled', !enable);
 	}
-};
-
-export const Redirect = {
-	get: async (): Promise<Match | null> => {
-		return matches[(await storageGet('redirect')) as string] || null;
-	},
-	set: async (match: Match) => {
-		await storageSet('redirect', match.id);
-	},
-	delete: async () => {
-		await storageDelete('redirect');
+	static async getDisabledHosts() {
+		return await this.disabledHosts.getValue();
 	}
-};
 
-export const TmpHost = {
-	get: async (): Promise<[string, Match] | null> => {
-		const tmphost = await storageGet<[string, number]>('tmphost');
-		if (tmphost === undefined) {
-			return null;
-		}
-		return [tmphost[0], matches[tmphost[1]]];
-	},
-	set: async (domain: string, match: Match) => {
-		await storageSet('tmphost', [domain, match.id]);
-	},
-	delete: async () => {
-		await storageDelete('tmphost');
+	static async getAllHostsDisabled() {
+		return await this.allHostsDisabled.getValue();
 	}
-};
 
-export const UrlReferer = {
-	get: async (url: string): Promise<string | null> => {
-		return (await storageGet(`urlReferer.${url}`)) || null;
-	},
-	set: async (url: string, referer: string) => {
-		await storageSet(`urlReferer.${url}`, referer);
-	},
-	delete: async (url: string) => {
-		await storageDelete(`urlReferer.${url}`);
+	static async setAllHostsDisabled(disabled: boolean) {
+		await this.allHostsDisabled.setValue(disabled);
 	}
-};
 
-export const Other = {
-	getFf2mpv: async () => {
-		return await storageGet('other.ff2mpv', false);
-	},
-	setFf2mpv: async (enable: boolean) => {
-		await storageSet('other.ff2mpv', enable);
-	}
-};
-
-async function storageGet<T>(key: string, defaultValue?: T): Promise<T | undefined> {
-	let resolve: (value: T | undefined) => void;
-	const promise = new Promise<T | undefined>((r) => (resolve = r));
-
-	chrome.storage.local.get(key, (entry) => {
-		const value = entry[key];
-		resolve(value === undefined ? defaultValue : value);
+	/* tmp */
+	private static temporaryHostDomain = storage.defineItem<Record<string, string>>('local:temporaryHostDomain', {
+		fallback: {}
 	});
 
-	return promise;
+	static async addTemporaryHostDomain(host: Host, domain: string) {
+		const temporaryHostDomains = await this.temporaryHostDomain.getValue();
+
+		temporaryHostDomains[domain] = host.id;
+		await this.temporaryHostDomain.setValue(temporaryHostDomains);
+		console.log(await this.temporaryHostDomain.getValue());
+	}
+	static async checkTemporaryHostDomain(domain: string) {
+		const temporaryHostDomains = await this.temporaryHostDomain.getValue();
+
+		const hostId = temporaryHostDomains[domain];
+		return hostId ? (hosts.find((host) => host.id === hostId) ?? null) : null;
+	}
 }
 
-async function storageSet<T>(key: string, value: T) {
-	let resolve: () => void;
-	const promise = new Promise<void>((r) => (resolve = r));
+export class FF2MPVSettings {
+	private static ff2mpvEnabled = storage.defineItem<boolean>('local:ff2mpv', { fallback: false });
 
-	const obj = {
-		[key]: value
-	};
-	chrome.storage.local.set(obj, () => resolve());
-
-	return promise;
+	static async getEnabled() {
+		return await this.ff2mpvEnabled.getValue();
+	}
+	static async setEnabled(enabled: boolean) {
+		console.log('set', enabled);
+		await this.ff2mpvEnabled.setValue(enabled);
+	}
 }
 
-async function storageDelete(key: string) {
-	let resolve: () => void;
-	const promise = new Promise<void>((r) => (resolve = r));
+export class UrlReferer {
+	private static temporaryUrlReferer = storage.defineItem<Record<string, string>>('local:temporaryUrlReferer', {
+		fallback: {}
+	});
 
-	chrome.storage.local.remove(key, () => resolve());
+	static async addTemporary(hostname: string, referer: string) {
+		const tmpUrlReferer = await this.temporaryUrlReferer.getValue();
 
-	return promise;
+		tmpUrlReferer[hostname] = referer;
+		await this.temporaryUrlReferer.setValue(tmpUrlReferer);
+	}
+
+	static async get(hostname: string) {
+		const tmpUrlReferer = await this.temporaryUrlReferer.getValue();
+
+		return tmpUrlReferer[hostname] ?? null;
+	}
 }

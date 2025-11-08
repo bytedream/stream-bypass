@@ -1,17 +1,21 @@
+import { fileURLToPath } from 'node:url';
+import { includeIgnoreFile } from '@eslint/compat';
 import js from '@eslint/js';
 import prettier from 'eslint-config-prettier';
 import svelte from 'eslint-plugin-svelte';
+import { defineConfig } from 'eslint/config';
 import ts from 'typescript-eslint';
 
-export default ts.config(
+const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url));
+
+export default defineConfig(
 	js.configs.recommended,
 	...ts.configs.recommended,
-	...svelte.configs['flat/recommended'],
+	...svelte.configs[('flat/recommended', 'flat/prettier')],
 	prettier,
-	...svelte.configs['flat/prettier'],
+	includeIgnoreFile(gitignorePath),
 	{
 		files: ['**/*.svelte'],
-
 		languageOptions: {
 			parserOptions: {
 				parser: ts.parser
@@ -23,18 +27,5 @@ export default ts.config(
 			'@typescript-eslint/no-explicit-any': 'off',
 			'no-undef': 'off'
 		}
-	},
-	{
-		ignores: [
-			'.DS_Store',
-			'node_modules',
-			'dist',
-			'release',
-			'.idea',
-			'.env',
-			'.env.*',
-			'!.env.example',
-			'package-lock.json'
-		]
 	}
 );
