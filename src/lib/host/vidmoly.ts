@@ -3,9 +3,8 @@ import { HostMatchType, type Host } from '@/lib/host';
 export default {
 	name: 'Vidmoly',
 	id: 'vidmoly',
-	domains: ['vidmoly.me', 'vidmoly.to'],
-	regex: [/(?<=file:").+\.m3u8/gm],
-	replace: true,
+	domains: ['vidmoly.me', 'vidmoly.net', 'vidmoly.to'],
+	regex: [/(?<=file:").+\.m3u8.*(?=")/gm],
 
 	match: async function (match: RegExpMatchArray) {
 		return {
