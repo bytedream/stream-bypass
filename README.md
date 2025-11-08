@@ -61,7 +61,8 @@ The best way to install the extension are the official browser extension stores:
     - Go into your browser and type `about:debugging#/runtime/this-firefox` in the address bar
     - Click the `Load Temporary Add-on...` button and choose the `manifest.json` file in the unzipped directory
 - Chromium / Google Chrome (mv3) > As nearly every browser other than Firefox is based on Chromium, this should be the same for most of them - Download `stream-bypass-<version>-mv3.zip` from the [latest release](https://github.com/ByteDream/stream-bypass/releases/latest) and unzip it (with [7zip](https://www.7-zip.org/) or something like that) - Go into your browser and type `chrome://extensions` in the address bar - Turn on the developer mode by checking the switch in the top right corner - Click `Load unpacked` and choose the unzipped directory
-  </details>
+
+</details>
 
 ## ✨ Features
 
@@ -158,20 +159,24 @@ You can enable or disable this behavior.
 - Scroll down to `Install manually`
 - Follow instructions for Firefox/Chrome
 - Edit the `ff2mpv.json` you created:
-    - Firefox: Add `{55dd42e8-3dd9-455a-b4fe-86664881b10c}` to `allowed_extensions` ->
+    - Firefox: Add `{55dd42e8-3dd9-455a-b4fe-86664881b10c}` to `allowed_extensions`:
+
         ```
         "allowed_extensions": [
           "ff2mpv@yossarian.net",
           "{55dd42e8-3dd9-455a-b4fe-86664881b10c}"
         ]
         ```
-    - Chrome/Chromium: - Go To: Settings -> Extensions - Click on `Details` of the Stream Bypass extension and copy the ID - Add `chrome-extension://ddfpfjomnakfckhmilacnbokdaknamdb/` to `allowed_origins` ->
-    `           "allowed_origins": [
-            "chrome-extension://ephjcajbkgplkjmelpglennepbpmdpjg/",
-            "chrome-extension://ddfpfjomnakfckhmilacnbokdaknamdb/"
-          ]
-          `
-      </details>
+
+    - Chrome/Chromium: - Go To: Settings -> Extensions - Click on `Details` of the Stream Bypass extension and copy the ID - Add `chrome-extension://ddfpfjomnakfckhmilacnbokdaknamdb/` to `allowed_origins`:
+        ```
+        "allowed_origins": [
+          "chrome-extension://ephjcajbkgplkjmelpglennepbpmdpjg/",
+          "chrome-extension://ddfpfjomnakfckhmilacnbokdaknamdb/"
+        ]
+        ```
+
+</details>
 
 ## ⚖ License
 
