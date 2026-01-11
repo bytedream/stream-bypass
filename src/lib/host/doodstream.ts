@@ -4,6 +4,7 @@ export default {
 	name: 'Doodstream',
 	id: 'doodstream',
 	domains: [
+		'do7go.com',
 		'doodstream.com',
 		'dood.pm',
 		'dood.ws',
@@ -34,7 +35,7 @@ export default {
 			referrer: `https://${window.location.host}/e/${window.location.pathname.split('/').slice(-1)[0]}`
 		});
 		return {
-			type: HostMatchType.HLS,
+			type: HostMatchType.NATIVE,
 			url: `${await response.text()}1234567890${match[2]}${Date.now()}`
 		};
 	}
