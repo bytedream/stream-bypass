@@ -9,7 +9,7 @@ export default {
 
 	match: async function (match: RegExpMatchArray) {
 		return {
-			type: HostMatchType.HLS,
+			type: HostMatchType.NATIVE,
 			url: match[0]
 		};
 	}
