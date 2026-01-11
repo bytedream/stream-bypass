@@ -76,9 +76,9 @@ The best way to install the extension are the official browser extension stores:
 
 | Feature                                                                                                                           | Firefox (mv2) | Chrome (mv3) | Firefox for Android (mv2) |
 | --------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------------ | ------------------------- |
-| Replace site-speicifc video player with browser native video player                                                               | ✔            | ✔           | ✔                        |
-| Support websites that are accessed via a redirect                                                                                 | ✔            | ✖           | ✔                        |
-| Open video in mpv (with [ff2mpv](https://github.com/bytedream/stream-bypass/tree/master#ff2mpv-use-mpv-to-directly-play-streams)) | ✔            | ✔           | ✖                        |
+| Replace site-speicifc video player with browser native video player                                                               | ✔             | ✔            | ✔                         |
+| Support websites that are accessed via a redirect                                                                                 | ✔             | ✖            | ✔                         |
+| Open video in mpv (with [ff2mpv](https://github.com/bytedream/stream-bypass/tree/master#ff2mpv-use-mpv-to-directly-play-streams)) | ✔             | ✔            | ✖                         |
 
 ## 📜 Supported websites
 
@@ -86,8 +86,8 @@ The best way to install the extension are the official browser extension stores:
 - ⚠: Works with limitations.
 - ✖: Not supported.
 
-| Site                                                                  | Firefox & Firefox for Android (mv2)                                                      | Chrome & Chromium based (mv2)                                                            |
-| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Site                                                                  | Firefox & Firefox for Android (mv2)                                                     | Chrome & Chromium based (mv2)                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | [dropload.io](https://dropload.io)                                    | ✔                                                                                       | ✔                                                                                       |
 | [doodstream.com](doodstream.com) / [dood.pm](https://dood.pm)         | ✔                                                                                       | ⚠ (redirect probably required)                                                          |
 | [filemoon.to](https://filemoon.to)                                    | ✔                                                                                       | ✔                                                                                       |
@@ -95,7 +95,7 @@ The best way to install the extension are the official browser extension stores:
 | [kwik.cx](https://kwik.cx)                                            | ✔                                                                                       | ✔                                                                                       |
 | [loadx.ws](https://loadx.ws)                                          | ✔                                                                                       | ✖ (background request always required)                                                  |
 | [luluvdo.com](https://luluvdo.com)                                    | ✔                                                                                       | ✖ (background request always required)                                                  |
-| [mixdrop.co](https://mixdrop.co)                                      | ✔ ️                                                                                     | ✔                                                                                       |
+| [mixdrop.co](https://mixdrop.co)                                      | ✔ ️                                                                                      | ✔                                                                                       |
 | [mp4upload.com](https://mp4upload.com)                                | ✔                                                                                       | ✔                                                                                       |
 | [newgrounds.com](https://newgrounds.com)                              | ✔                                                                                       | ✔                                                                                       |
 | [streama2z.com](https://streama2z.com)                                | ✔                                                                                       | ✖ (redirect always required)                                                            |
