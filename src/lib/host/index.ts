@@ -63,7 +63,7 @@ export const hosts = [
 	Vupload
 ];
 
-export async function getHost(domain: string) {
+export async function getHost(domain: string): Promise<Host | null> {
 	if (await HostSettings.getAllHostsDisabled()) return null;
 
 	const disabledIds = await HostSettings.getDisabledHosts();

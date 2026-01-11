@@ -1,4 +1,4 @@
-import { getHost, hosts, type Host, type HostMatch } from '@/lib/host';
+import { getHost, HostMatchType, hosts, type HostMatch } from '@/lib/host';
 import { FF2MPVSettings } from '@/lib/settings';
 
 export default defineContentScript({
@@ -13,10 +13,8 @@ export default defineContentScript({
 });
 
 async function main() {
-	let host: Host | null;
-	if ((host = await getHost(window.location.host)) === null) {
-		return;
-	}
+	const host = await getHost(window.location.host);
+	if (!host) return;
 
 	let re = null;
 	for (const regex of host.regex) {
@@ -24,7 +22,7 @@ async function main() {
 			break;
 		}
 	}
-	if (re === null) {
+	if (!re) {
 		return;
 	}
 
@@ -42,7 +40,7 @@ async function main() {
 		await browser.runtime.sendMessage({ action: 'ff2mpv', url: hostMatch.url });
 	}
 
-	if (host.replace && hostMatch.type != 'hls') {
+	if (host.replace && hostMatch.type != HostMatchType.HLS) {
 		// this destroys all intervals that may spawn popups or events
 		let intervalId = window.setInterval(() => {}, 0);
 		while (intervalId--) {
