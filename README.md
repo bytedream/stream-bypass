@@ -86,7 +86,7 @@ The best way to install the extension are the official browser extension stores:
 - ⚠: Works with limitations.
 - ✖: Not supported.
 
-| Site                                                                  | Firefox & Firefox for Android (mv2)                                                     | Chrome & Chromium based (mv2)                                                           |
+| Site                                                                  | Firefox & Firefox for Android (mv2)                                                     | Chrome & Chromium based (mv3)                                                           |
 | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | [dropload.io](https://dropload.io)                                    | ✔                                                                                       | ✔                                                                                       |
 | [doodstream.com](doodstream.com) / [dood.pm](https://dood.pm)         | ✔                                                                                       | ⚠ (redirect probably required)                                                          |
