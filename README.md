@@ -118,20 +118,20 @@ If you want to build the addon from source and not using the way described in [i
 
 Requirements:
 
-- `npm` installed.
+- `pnpm` installed.
 - A copy of this repository and a shell / console open in the copied directory.
 
 If the requirements are satisfied, you can continue with the following commands:
 
 ```shell
 # install all dependencies
-$ npm i
+$ pnpm i
 
 # build the extension and start it in a new firefox instance
-$ npm run dev:firefox
+$ pnpm run dev:firefox
 
 # build the extension with optimizations to the .output/firefox-mv2 directory
-$ npm run build:firefox
+$ pnpm run build:firefox
 ```
 
 You can omit the `:firefox` suffix, then it's built for Chrome.

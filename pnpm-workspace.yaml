@@ -1,0 +1,6 @@
+ignoredBuiltDependencies:
+    - spawn-sync
+
+onlyBuiltDependencies:
+    - '@parcel/watcher'
+    - esbuild

@@ -16,16 +16,16 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 22
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Build Firefox (mv2)
-        run: npm run build:firefox
+        run: pnpm run build:firefox
 
       - name: Build Chrome (mv3)
-        run: npm run build
+        run: pnpm run build
 
       - name: Upload Firefox (mv2)
         uses: actions/upload-artifact@v5

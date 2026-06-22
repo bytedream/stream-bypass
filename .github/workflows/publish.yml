@@ -25,15 +25,15 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 22
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Zip extensions
         run: |
-          npm run zip:firefox
-          npm run zip
+          pnpm run zip:firefox
+          pnpm run zip
 
       - name: Resolve zip extension paths
         id: paths
@@ -80,6 +80,6 @@ jobs:
           CHROME_CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
           CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
         run: |
-          npx wxt submit \
+          pnpm exec wxt submit \
             --firefox-zip .output/*-mv2.zip --firefox-sources-zip .output/*-sources.zip \
             --chrome-zip .output/*-mv3.zip
