@@ -46,7 +46,6 @@ export class HostSettings {
 
 		temporaryHostDomains[domain] = host.id;
 		await this.temporaryHostDomain.setValue(temporaryHostDomains);
-		console.log(await this.temporaryHostDomain.getValue());
 	}
 	static async checkTemporaryHostDomain(domain: string) {
 		const temporaryHostDomains = await this.temporaryHostDomain.getValue();
@@ -63,7 +62,6 @@ export class FF2MPVSettings {
 		return await this.ff2mpvEnabled.getValue();
 	}
 	static async setEnabled(enabled: boolean) {
-		console.log('set', enabled);
 		await this.ff2mpvEnabled.setValue(enabled);
 	}
 }
