@@ -20,10 +20,9 @@
 		"build:firefox": "wxt build -b firefox",
 		"zip": "wxt zip",
 		"zip:firefox": "wxt zip -b firefox",
-		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"postinstall": "wxt prepare",
 		"format": "prettier --write .",
-		"lint": "prettier --check . && eslint ."
+		"lint": "prettier --check . && eslint . && svelte-check --tsconfig ./tsconfig.json"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.1.0",

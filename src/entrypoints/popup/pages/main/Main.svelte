@@ -60,6 +60,6 @@
 
 <style>
 	* {
-		@apply select-none;
+		user-select: none;
 	}
 </style>

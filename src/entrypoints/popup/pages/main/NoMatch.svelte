@@ -1,3 +1,5 @@
+<script lang="ts"></script>
+
 <div class="relative h-full">
 	<div class="h-full flex items-center justify-center">
 		<p class="text-[1.05rem]">No supported video found on this site</p>
