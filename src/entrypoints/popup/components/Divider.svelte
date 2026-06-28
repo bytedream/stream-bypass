@@ -1,3 +1,3 @@
 <script lang="ts"></script>
 
-<div class="w-full border-b-[1px] border-gray-400"></div>
+<div class="w-full border-b border-gray-400"></div>

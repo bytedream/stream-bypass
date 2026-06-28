@@ -52,7 +52,7 @@
 			<div class="relative group h-4 flex justify-center items-center">
 				<button class="text-sm peer"><Icon src={InformationCircle} size="1rem" /></button>
 				<span
-					class="z-10 absolute w-58 bottom-5/4 p-1 bg-gray-800 text-xs invisible opacity-0 group-hover:visible group-hover:opacity-100 peer-focus:visible peer-focus:opacity-100 transition-[opacity]"
+					class="z-10 absolute w-58 bottom-5/4 p-1 bg-gray-800 text-xs invisible opacity-0 group-hover:visible group-hover:opacity-100 peer-focus:visible peer-focus:opacity-100 transition-opacity"
 					>You may have to send the referer header <code class="select-text">Referer: {domain}</code> when accessing
 					the url</span
 				>
@@ -62,7 +62,7 @@
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 	<div class="relative group w-full" tabindex={$isMobile ? 0 : undefined}>
 		<pre
-			class="w-full h-20 overflow-y-scroll text-[0.8rem] wrap-anywhere text-wrap select-text rounded bg-gray-900 py-[0.25rem] px-1.5">{urlOutput}</pre>
+			class="w-full h-20 overflow-y-scroll text-[0.8rem] wrap-anywhere text-wrap select-text rounded bg-gray-900 py-1 px-1.5">{urlOutput}</pre>
 		<div
 			class="absolute top-2 right-2 transition-opacity duration-100 opacity-0 group-hover:opacity-100 group-focus:opacity-100 h-full"
 		>
