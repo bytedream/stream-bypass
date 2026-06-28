@@ -1,86 +1,66 @@
 import { storage } from '#imports';
-import { hosts, type Host } from '@/lib/host';
+import type { Host, HostId } from '@/lib/host';
+
+class Setting<T> {
+	private item;
+
+	constructor(key: Parameters<typeof storage.defineItem>[0], fallback: T) {
+		this.item = storage.defineItem(key, { fallback });
+	}
+
+	get = () => this.item.getValue();
+	set = (value: T) => this.item.setValue(value);
+
+	update = (fn: (val: T) => T) => this.get().then(fn).then(this.set);
+}
 
 export class HostSettings {
 	/* disabled hosts */
-	private static disabledHosts = storage.defineItem<string[]>('local:disabledHosts', { fallback: [] });
-	private static allHostsDisabled = storage.defineItem<boolean>('local:allHostsDisabled', { fallback: false });
+	private static disabledHosts = new Setting<HostId[]>('local:disabledHosts', []);
+	private static allHostsDisabled = new Setting<boolean>('local:allHostsDisabled', false);
 
-	static async addDisabledHost(host: Host) {
-		const ids = await this.disabledHosts.getValue();
+	static addDisabledHost = (host: Host) =>
+		this.disabledHosts.update((val) => {
+			if (!val.includes(host.id)) val.push(host.id);
+			return val;
+		});
+	static removeDisabledHost = (host: Host) =>
+		this.disabledHosts.update((val) => {
+			const index = val.indexOf(host.id);
+			if (index !== -1) val.splice(index, 1);
+			return val;
+		});
 
-		const index = ids.indexOf(host.id);
-		if (index === -1) {
-			ids.push(host.id);
-			await this.disabledHosts.setValue(ids);
-		}
-	}
-	static async removeDisabledHost(host: Host) {
-		const ids = await this.disabledHosts.getValue();
-
-		const index = ids.indexOf(host.id);
-		if (index !== -1) {
-			ids.splice(index, 1);
-			await this.disabledHosts.setValue(ids);
-		}
-	}
-	static async getDisabledHosts() {
-		return await this.disabledHosts.getValue();
-	}
-
-	static async getAllHostsDisabled() {
-		return await this.allHostsDisabled.getValue();
-	}
-
-	static async setAllHostsDisabled(disabled: boolean) {
-		await this.allHostsDisabled.setValue(disabled);
-	}
+	static getDisabledHosts = () => this.disabledHosts.get();
+	static getAllHostsDisabled = () => this.allHostsDisabled.get();
+	static setAllHostsDisabled = (disabled: boolean) => this.allHostsDisabled.set(disabled);
 
 	/* tmp */
-	private static temporaryHostDomain = storage.defineItem<Record<string, string>>('local:temporaryHostDomain', {
-		fallback: {}
-	});
+	private static temporaryHostDomain = new Setting<Record<string, string>>('local:temporaryHostDomain', {});
 
-	static async addTemporaryHostDomain(host: Host, domain: string) {
-		const temporaryHostDomains = await this.temporaryHostDomain.getValue();
-
-		temporaryHostDomains[domain] = host.id;
-		await this.temporaryHostDomain.setValue(temporaryHostDomains);
-	}
-	static async checkTemporaryHostDomain(domain: string) {
-		const temporaryHostDomains = await this.temporaryHostDomain.getValue();
-
-		const hostId = temporaryHostDomains[domain];
-		return hostId ? (hosts.find((host) => host.id === hostId) ?? null) : null;
-	}
+	static addTemporaryHostDomain = (host: Host, domain: string) =>
+		this.temporaryHostDomain.update((val) => {
+			val[domain] = host.id;
+			return val;
+		});
+	static checkTemporaryHostDomain = (domain: string) => this.temporaryHostDomain.get().then((val) => val[domain]);
 }
 
 export class FF2MPVSettings {
-	private static ff2mpvEnabled = storage.defineItem<boolean>('local:ff2mpv', { fallback: false });
+	private static ff2mpvEnabled = new Setting<boolean>('local:ff2mpv', false);
 
-	static async getEnabled() {
-		return await this.ff2mpvEnabled.getValue();
-	}
-	static async setEnabled(enabled: boolean) {
-		await this.ff2mpvEnabled.setValue(enabled);
-	}
+	static getEnabled = () => this.ff2mpvEnabled.get();
+	static setEnabled = (enabled: boolean) => this.ff2mpvEnabled.set(enabled);
 }
 
 export class UrlReferer {
-	private static temporaryUrlReferer = storage.defineItem<Record<string, string>>('local:temporaryUrlReferer', {
-		fallback: {}
-	});
+	private static temporaryUrlReferer = new Setting<Record<string, string>>('local:temporaryUrlReferer', {});
 
-	static async addTemporary(hostname: string, referer: string) {
-		const tmpUrlReferer = await this.temporaryUrlReferer.getValue();
+	static addTemporary = (hostname: string, referer: string) =>
+		this.temporaryUrlReferer.update((val) => {
+			val[hostname] = referer;
+			return val;
+		});
 
-		tmpUrlReferer[hostname] = referer;
-		await this.temporaryUrlReferer.setValue(tmpUrlReferer);
-	}
-
-	static async get(hostname: string) {
-		const tmpUrlReferer = await this.temporaryUrlReferer.getValue();
-
-		return tmpUrlReferer[hostname] ?? null;
-	}
+	static get = (hostname: string) => this.temporaryUrlReferer.get().then((val) => val[hostname] ?? null);
 }

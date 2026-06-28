@@ -30,9 +30,11 @@ export interface HostMatch {
 	url: string | null;
 }
 
+export type HostId = string;
+
 export interface Host {
 	name: string;
-	id: string;
+	id: HostId;
 	domains: string[];
 	replace?: boolean;
 	regex: RegExp[];
@@ -63,6 +65,10 @@ export const hosts = [
 	Vupload
 ];
 
+export function getHostFromId(id: HostId): Host | null {
+	return hosts.find((host) => host.id === id) ?? null;
+}
+
 export async function getHost(domain: string): Promise<Host | null> {
 	if (await HostSettings.getAllHostsDisabled()) return null;
 
@@ -74,5 +80,5 @@ export async function getHost(domain: string): Promise<Host | null> {
 		}
 	}
 
-	return HostSettings.checkTemporaryHostDomain(domain);
+	return HostSettings.checkTemporaryHostDomain(domain).then(getHostFromId);
 }
