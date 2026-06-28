@@ -1,5 +1,5 @@
 import { storage } from '#imports';
-import type { Host, HostId } from '@/lib/host';
+import type { HostId } from '@/lib/host';
 
 class Setting<T> {
 	private item;
@@ -19,14 +19,14 @@ export class HostSettings {
 	private static disabledHosts = new Setting<HostId[]>('local:disabledHosts', []);
 	private static allHostsDisabled = new Setting<boolean>('local:allHostsDisabled', false);
 
-	static addDisabledHost = (host: Host) =>
+	static addDisabledHost = (hostId: HostId) =>
 		this.disabledHosts.update((val) => {
-			if (!val.includes(host.id)) val.push(host.id);
+			if (!val.includes(hostId)) val.push(hostId);
 			return val;
 		});
-	static removeDisabledHost = (host: Host) =>
+	static removeDisabledHost = (hostId: HostId) =>
 		this.disabledHosts.update((val) => {
-			const index = val.indexOf(host.id);
+			const index = val.indexOf(hostId);
 			if (index !== -1) val.splice(index, 1);
 			return val;
 		});
@@ -38,9 +38,9 @@ export class HostSettings {
 	/* tmp */
 	private static temporaryHostDomain = new Setting<Record<string, string>>('local:temporaryHostDomain', {});
 
-	static addTemporaryHostDomain = (host: Host, domain: string) =>
+	static addTemporaryHostDomain = (hostId: HostId, domain: string) =>
 		this.temporaryHostDomain.update((val) => {
-			val[domain] = host.id;
+			val[domain] = hostId;
 			return val;
 		});
 	static checkTemporaryHostDomain = (domain: string) => this.temporaryHostDomain.get().then((val) => val[domain]);

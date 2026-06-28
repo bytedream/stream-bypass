@@ -9,7 +9,7 @@ export default {
 
 	match: async function (match: RegExpMatchArray) {
 		if (this.domains.indexOf(window.location.hostname) !== -1) {
-			await HostSettings.addTemporaryHostDomain(this, window.location.hostname);
+			await HostSettings.addTemporaryHostDomain(this.id, window.location.hostname);
 			return null;
 		}
 		return {

@@ -49,7 +49,7 @@ export default {
 
 	match: async function (match: RegExpMatchArray) {
 		if (window.location.host === 'voe.sx') {
-			await HostSettings.addTemporaryHostDomain(this, new URL(match[0]).host);
+			await HostSettings.addTemporaryHostDomain(this.id, new URL(match[0]).host);
 			return null;
 		} else {
 			let json = match[0];

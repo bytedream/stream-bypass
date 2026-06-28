@@ -31,7 +31,7 @@
 				<Toggle
 					bind:checked={
 						() => !disabledHostIds.includes(host.id),
-						(v) => (v ? HostSettings.removeDisabledHost(host) : HostSettings.addDisabledHost(host))
+						(v) => (v ? HostSettings.removeDisabledHost(host.id) : HostSettings.addDisabledHost(host.id))
 					}
 					size="sm"
 				></Toggle>

@@ -34,7 +34,7 @@ export default defineBackground(() => {
 			const host = await getHost(new URL(details.url).hostname);
 			if (!host) return;
 
-			await HostSettings.addTemporaryHostDomain(host, new URL(details.redirectUrl).hostname);
+			await HostSettings.addTemporaryHostDomain(host.id, new URL(details.redirectUrl).hostname);
 		},
 		{ urls: ['<all_urls>'], types: ['main_frame', 'sub_frame'] }
 	);

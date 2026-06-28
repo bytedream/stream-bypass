@@ -11,7 +11,7 @@ export default {
 
 	match: async function (match: RegExpMatchArray) {
 		if (window.location.host.startsWith('filemoon')) {
-			await HostSettings.addTemporaryHostDomain(this, new URL(match[0]).host);
+			await HostSettings.addTemporaryHostDomain(this.id, new URL(match[0]).host);
 			return null;
 		}
 
