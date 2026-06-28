@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Clipboard, InformationCircle } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { isMobile } from '@/entrypoints/popup/state';
+	import { isMobile, showToast } from '@/entrypoints/popup/state';
 
 	/* types */
 	interface Props {
@@ -28,8 +28,13 @@
 	}
 
 	/* callbacks */
-	function copyUrl() {
-		navigator.clipboard.writeText(urlOutput);
+	async function copyUrl() {
+		try {
+			await navigator.clipboard.writeText(urlOutput);
+			showToast('URL copied');
+		} catch {
+			showToast('Failed to copy');
+		}
 	}
 </script>
 

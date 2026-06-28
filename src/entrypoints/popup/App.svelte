@@ -2,6 +2,7 @@
 	import '@/assets/base.css';
 
 	import { fly } from 'svelte/transition';
+	import Toast from '@/entrypoints/popup/components/Toast.svelte';
 	import Main from '@/entrypoints/popup/pages/main/Main.svelte';
 	import Settings from '@/entrypoints/popup/pages/settings/Settings.svelte';
 	import { isMobile } from '@/entrypoints/popup/state.js';
@@ -17,6 +18,7 @@
 </script>
 
 <div class="flex w-[350px] overflow-hidden" class:w-screen={$isMobile}>
+	<Toast />
 	{#if activePage === 'main'}
 		<div transition:fly={{ x: -300, duration: 150 }} class="min-w-full w-full h-[300px] flex-1 flex flex-col">
 			<Main onSettingsOpenRequest={() => (activePage = 'settings')} />
