@@ -69,6 +69,15 @@ export function getHostFromId(id: HostId): Host | null {
 	return hosts.find((host) => host.id === id) ?? null;
 }
 
+export function filterHosts(list: Host[], query: string): Host[] {
+	const q = query.trim().toLowerCase();
+	if (!q) return list;
+	return list.filter((host) => {
+		if (host.name.toLowerCase().includes(q)) return true;
+		return host.domains.some((domain) => domain.toLowerCase().includes(q));
+	});
+}
+
 export async function getHost(domain: string): Promise<Host | null> {
 	if (await HostSettings.getAllHostsDisabled()) return null;
 

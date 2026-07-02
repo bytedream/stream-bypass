@@ -16,14 +16,17 @@
 	}
 </script>
 
-<div class="flex items-center gap-2">
-	<div class="relative mr-3">
-		<span>Communication enabled</span>
+<div class="flex items-center justify-between">
+	<div class="flex flex-col gap-0.5">
+		<p class="text-sm font-semibold text-gray-100">Communication enabled</p>
 		<a
-			class="absolute -top-1 -right-4 text-sm"
+			class="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-gray-200 transition-colors"
 			href="https://github.com/bytedream/stream-bypass/tree/main?tab=readme-ov-file#ff2mpv-use-mpv-to-directly-play-streams"
-			target="_blank"><Icon src={InformationCircle} size="1rem" /></a
+			target="_blank"
 		>
+			<Icon src={InformationCircle} size="0.85rem" />
+			<span>Learn more</span>
+		</a>
 	</div>
 	{#key enabled}
 		<Toggle

@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { CommandLine, ServerStack } from '@steeze-ui/heroicons';
 	import Divider from '@/entrypoints/popup/components/Divider.svelte';
+	import Section from '@/entrypoints/popup/components/Section.svelte';
 	import Ff2mpv from '@/entrypoints/popup/pages/settings/Ff2mpv.svelte';
 	import Header from '@/entrypoints/popup/pages/settings/Header.svelte';
 	import HostsTable from '@/entrypoints/popup/pages/settings/HostsTable.svelte';
@@ -12,49 +14,33 @@
 
 	/* states */
 	let { onSettingsCloseRequest }: Props = $props();
+	let searchQuery = $state('');
 </script>
 
 <div class="w-full">
 	<Header onBackClick={onSettingsCloseRequest} />
 	<Divider />
 </div>
-<div class="flex flex-col gap-y-1 pt-1 h-full mx-2 my-1 overflow-y-scroll">
-	<details class="details" open>
-		<summary>Hosts</summary>
-		<HostsTable />
-	</details>
+<div class="flex flex-col gap-2 p-2 h-full overflow-y-scroll">
+	<div class="max-h-full">
+		<Section
+			title="Hosts"
+			description="Enable or disable support for specific streaming providers"
+			icon={ServerStack}
+			defaultOpen
+		>
+			<HostsTable bind:searchQuery />
+		</Section>
+	</div>
 	{#if !$isMobile}
-		<details class="details">
-			<summary>ff2mpv</summary>
+		<Section title="ff2mpv" description="Play streams directly in mpv via native messaging" icon={CommandLine}>
 			<Ff2mpv />
-		</details>
+		</Section>
 	{/if}
 </div>
 
 <style>
 	* {
 		user-select: none;
-	}
-
-	.details {
-		/* using normal css instead of tailwind in the following blocks.
-           for some reason tailwind fails to resolve many references */
-
-		&::before,
-		&::after {
-			content: '';
-			display: block;
-			width: 100%;
-			border-top: 1px solid var(--color-gray-600);
-			margin: 0.25rem 0;
-		}
-
-		& > summary {
-			cursor: pointer;
-		}
-
-		&[open] > summary {
-			margin-bottom: 0.5rem;
-		}
 	}
 </style>
