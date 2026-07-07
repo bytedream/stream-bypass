@@ -5,6 +5,7 @@
 	import PerSiteHostsList from '@/entrypoints/popup/pages/site-config/PerSiteHostsList.svelte';
 	import { listenTabMessages, sendTabMessageToActiveTab, TabMessageType } from '@/lib/communication';
 	import { hosts, type Host } from '@/lib/host';
+	import { PerDomainSettings } from '@/lib/settings';
 
 	/* types */
 	interface Props {
@@ -35,7 +36,10 @@
 		currentDomain = new URL(url).hostname;
 	});
 
-	onDestroy(cancel);
+	onDestroy(() => {
+		cancel();
+		PerDomainSettings.cleanEmpty();
+	});
 </script>
 
 <div class="w-full">

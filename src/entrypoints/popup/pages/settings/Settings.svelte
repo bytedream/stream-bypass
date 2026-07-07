@@ -7,6 +7,7 @@
 	import HostsTable from '@/entrypoints/popup/pages/settings/HostsTable.svelte';
 	import PerSiteDisables from '@/entrypoints/popup/pages/settings/PerSiteDisables.svelte';
 	import { isMobile } from '@/entrypoints/popup/state';
+	import { PerDomainSettings } from '@/lib/settings';
 
 	/* types */
 	interface Props {
@@ -16,6 +17,8 @@
 	/* states */
 	let { onSettingsCloseRequest }: Props = $props();
 	let searchQuery = $state('');
+
+	onDestroy(PerDomainSettings.cleanEmpty);
 </script>
 
 <div class="w-full">

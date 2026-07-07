@@ -108,4 +108,12 @@ export class PerDomainSettings {
 			delete val[domain];
 			return val;
 		});
+
+	static cleanEmpty = () =>
+		this.storage.update((val) => {
+			for (const [domain, settings] of Object.entries(val)) {
+				if (!settings.allDisabled && settings.disabledHostIds.length === 0) delete val[domain];
+			}
+			return val;
+		});
 }
