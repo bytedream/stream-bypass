@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { showToast } from '../../state';
 	import { InformationCircle } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import Toggle from '@/entrypoints/popup/components/Toggle.svelte';
@@ -9,10 +10,14 @@
 	FF2MPVSettings.getEnabled().then((val) => (enabled = val));
 
 	/* callbacks */
-	function onEnableChange(enabled: boolean) {
+	async function onEnableChange(enabled: boolean) {
 		if (!enabled) return true;
 
-		return browser.permissions.request({ permissions: ['nativeMessaging'] });
+		const id = setTimeout(() => showToast('Accept the permission request to allow communication with mpv'), 100);
+		const confirmed = await browser.permissions.request({ permissions: ['nativeMessaging'] });
+		clearTimeout(id);
+
+		return confirmed;
 	}
 </script>
 
