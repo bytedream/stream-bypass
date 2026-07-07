@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { Cog6Tooth } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
+	import PageHeader from '@/entrypoints/popup/components/PageHeader.svelte';
 	import Toggle from '@/entrypoints/popup/components/Toggle.svelte';
 	import { HostSettings } from '@/lib/settings';
 
@@ -32,15 +35,17 @@
 	});
 </script>
 
-<div class="flex justify-between items-center p-2">
-	<div class="flex items-baseline gap-2">
-		<h1>stream-bypass</h1>
-		<span class="text-xs text-gray-400">v{import.meta.env.VERSION}</span>
-	</div>
-	<div class="flex items-center gap-2">
+<PageHeader title="stream-bypass" subtitle="v{import.meta.env.VERSION}">
+	{#snippet actionsRight()}
 		{#key allHostsDisabled}
 			<Toggle bind:checked={() => !allHostsDisabled, (v) => (allHostsDisabled = !v)} />
 		{/key}
-		<button class="font-bold cursor-pointer" onclick={() => onSettingsClick()}>⋮</button>
-	</div>
-</div>
+		<button
+			type="button"
+			class="shrink-0 flex items-center justify-center w-7 h-7 rounded-md text-gray-300 hover:text-gray-100 hover:bg-gray-800/60 cursor-pointer transition-colors"
+			onclick={() => onSettingsClick()}
+		>
+			<Icon src={Cog6Tooth} size="1.1rem" />
+		</button>
+	{/snippet}
+</PageHeader>

@@ -63,7 +63,7 @@
 			<Notice
 				level="warning"
 				title="Extension disabled"
-				description="Configurations are still saved and take effect when extension is re-enabled."
+				description="Configurations are still saved and take effect the when extension is re-enabled."
 			/>
 		{:else if currentMatch}
 			<div class="flex flex-col justify-between h-full px-2">
