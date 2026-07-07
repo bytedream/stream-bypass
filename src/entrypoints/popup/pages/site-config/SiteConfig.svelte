@@ -26,23 +26,14 @@
 			domain: data.domain
 		};
 		currentMatch = match;
-		currentDomain = match.domain;
 	});
 	sendTabMessageToActiveTab(TabMessageType.RequestActiveMatch, undefined);
 
-	browser.tabs
-		.query({ active: true, currentWindow: true })
-		.then((tabs) => {
-			if (currentDomain) return;
-			const url = tabs[0]?.url;
-			if (!url) return;
-			try {
-				currentDomain = new URL(url).hostname;
-			} catch {
-				/* ignore */
-			}
-		})
-		.catch(() => {});
+	browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+		const url = tabs[0]?.url;
+		if (!url) return;
+		currentDomain = new URL(url).hostname;
+	});
 
 	onDestroy(cancel);
 </script>
