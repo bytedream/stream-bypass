@@ -3,11 +3,11 @@
 
 	import { onDestroy } from 'svelte';
 	import Divider from '@/entrypoints/popup/components/Divider.svelte';
-	import AllDisabled from '@/entrypoints/popup/pages/main/AllDisabled.svelte';
+	import Notice from '@/entrypoints/popup/components/Notice.svelte';
 	import CopyMatch from '@/entrypoints/popup/pages/main/CopyMatch.svelte';
+	import CurrentSite from '@/entrypoints/popup/pages/main/CurrentSite.svelte';
 	import Header from '@/entrypoints/popup/pages/main/Header.svelte';
 	import Match from '@/entrypoints/popup/pages/main/Match.svelte';
-	import NoMatch from '@/entrypoints/popup/pages/main/NoMatch.svelte';
 	import { listenMessages, MessageType, sendMessageToActiveTab } from '@/lib/communication';
 	import { hosts, type Host } from '@/lib/host';
 	import { HostSettings } from '@/lib/settings';
@@ -15,11 +15,13 @@
 	/* types */
 	interface Props {
 		onSettingsOpenRequest: () => void;
+		onSiteConfigOpenRequest: () => void;
 	}
 
 	/* states */
-	let { onSettingsOpenRequest }: Props = $props();
+	let { onSettingsOpenRequest, onSiteConfigOpenRequest }: Props = $props();
 	let currentMatch = $state<{ host: Host; url: string; domain: string } | null>(null);
+	let currentDomain = $state<string | null>(null);
 
 	let allHostsDisabled = $state(false);
 	HostSettings.getAllHostsDisabled().then((val) => (allHostsDisabled = val));
@@ -27,35 +29,73 @@
 	/* lifecycle */
 	const cancel = listenMessages((type, data) => {
 		if (type !== MessageType.NotifyActiveMatch) return;
-		currentMatch = {
+		const match = {
 			host: hosts.find((host) => host.id === data.id)!,
 			url: data.url,
 			domain: data.domain
 		};
+		currentMatch = match;
+		currentDomain = match.domain;
 	});
 	sendMessageToActiveTab(MessageType.RequestActiveMatch, undefined);
+
+	browser.tabs
+		.query({ active: true, currentWindow: true })
+		.then((tabs) => {
+			if (currentDomain) return;
+			const url = tabs[0]?.url;
+			if (!url) return;
+			try {
+				currentDomain = new URL(url).hostname;
+			} catch {
+				/* ignore */
+			}
+		})
+		.catch(() => {});
 
 	onDestroy(cancel);
 </script>
 
-<div class="w-full">
+<div class="w-full shrink-0">
 	<Header bind:allHostsDisabled onSettingsClick={onSettingsOpenRequest} />
 	<Divider />
 </div>
-<div class="px-2 h-full">
-	{#if allHostsDisabled}
-		<AllDisabled />
-	{:else if !currentMatch}
-		<NoMatch />
-	{:else}
-		<div class="flex flex-col justify-between h-full pb-2">
-			<Match host={currentMatch.host} domain={currentMatch.domain} />
-			<div class="divider border-dashed"></div>
-			<div class="mt-2">
+<div class="grid grid-cols-1 grid-rows-[min-content_auto_min-content] gap-2 h-full">
+	<div class="px-2 pt-1.5 shrink-0">
+		{#if currentDomain}
+			<CurrentSite domain={currentDomain} onConfigureClick={onSiteConfigOpenRequest} />
+		{/if}
+	</div>
+
+	<div>
+		{#if allHostsDisabled}
+			<Notice
+				level="warning"
+				title="Extension disabled"
+				description="Configurations are still saved and take effect when extension is re-enabled."
+			/>
+		{:else if currentMatch}
+			<div class="shrink-0 flex justify-center py-2">
+				<Match host={currentMatch.host} />
+			</div>
+			<div class="shrink-0 mt-auto">
 				<CopyMatch url={currentMatch.url} domain={currentMatch.domain} />
 			</div>
-		</div>
-	{/if}
+		{:else}
+			<div class="flex-1 min-h-0 flex flex-col">
+				<Notice level="info" title="No match found" description="No redirectable host found on this site" />
+			</div>
+		{/if}
+	</div>
+
+	<div class="px-2 pb-0.5">
+		<p class="text-xs text-gray-400 text-center">
+			Suggestions or bugs can be submitted <a
+				class="underline"
+				href="https://github.com/bytedream/stream-bypass/issues">here</a
+			>
+		</p>
+	</div>
 </div>
 
 <style>

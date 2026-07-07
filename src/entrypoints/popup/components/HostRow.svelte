@@ -6,12 +6,13 @@
 	interface Props {
 		host: Host;
 		enabled?: boolean;
+		badge?: string;
 		onclick?: () => void;
 		actions: Snippet;
 	}
 
 	/* states */
-	let { host, enabled, onclick, actions }: Props = $props();
+	let { host, enabled, badge, onclick, actions }: Props = $props();
 
 	let rowClass = $derived(
 		`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${onclick ? 'hover:bg-gray-800/40 cursor-pointer' : ''}`
@@ -40,10 +41,18 @@
 		class:bg-linux-mint-green={enabled === true}
 		class:bg-gray-500={enabled === false}
 		class:bg-transparent={enabled === undefined}
-		aria-hidden="true"
 	></span>
 	<div class="flex-1 min-w-0">
-		<p class="text-sm font-semibold text-gray-100 truncate">{host.name}</p>
+		<div class="flex items-center gap-2 min-w-0">
+			<p class="text-sm font-semibold text-gray-100 truncate">{host.name}</p>
+			{#if badge}
+				<span
+					class="shrink-0 text-[0.65rem] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded bg-linux-mint-green/20 text-linux-mint-green"
+				>
+					{badge}
+				</span>
+			{/if}
+		</div>
 		<p class="text-xs text-gray-400 truncate" title={host.domains.join(', ')}>
 			{host.domains.join(', ')}
 		</p>

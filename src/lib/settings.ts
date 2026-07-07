@@ -64,3 +64,48 @@ export class UrlReferer {
 
 	static get = (hostname: string) => this.temporaryUrlReferer.get().then((val) => val[hostname] ?? null);
 }
+
+export interface PerDomainConfig {
+	allDisabled: boolean;
+	disabledHostIds: HostId[];
+}
+
+export class PerDomainSettings {
+	private static storage = new Setting<Record<string, PerDomainConfig>>('local:perDomainSettings', {});
+
+	private static ensureDomain = (val: Record<string, PerDomainConfig>, domain: string) => {
+		if (!val[domain]) val[domain] = { allDisabled: false, disabledHostIds: [] };
+		return val[domain];
+	};
+
+	static get = (domain: string): Promise<PerDomainConfig> =>
+		this.storage.get().then((val) => val[domain] ?? { allDisabled: false, disabledHostIds: [] });
+
+	static getMap = () => this.storage.get();
+
+	static setAllDisabled = (domain: string, disabled: boolean) =>
+		this.storage.update((val) => {
+			this.ensureDomain(val, domain).allDisabled = disabled;
+			return val;
+		});
+
+	static setHostDisabled = (domain: string, hostId: HostId, disabled: boolean) =>
+		this.storage.update((val) => {
+			const entry = this.ensureDomain(val, domain);
+			if (!disabled) entry.disabledHostIds = entry.disabledHostIds.filter((id) => id !== hostId);
+			else if (!entry.disabledHostIds.includes(hostId)) entry.disabledHostIds.push(hostId);
+			return val;
+		});
+
+	static add = (domain: string) =>
+		this.storage.update((val) => {
+			this.ensureDomain(val, domain);
+			return val;
+		});
+
+	static clear = (domain: string) =>
+		this.storage.update((val) => {
+			delete val[domain];
+			return val;
+		});
+}

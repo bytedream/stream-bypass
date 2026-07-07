@@ -5,7 +5,7 @@
 
 {#if $toast}
 	<div
-		class="absolute top-2 left-1/2 -translate-x-1/2 z-20 px-3 py-1.5 bg-gray-700 text-gray-100 text-sm rounded shadow-lg pointer-events-none"
+		class="absolute top-2 left-1/2 -translate-x-1/2 z-20 w-max max-w-11/12 px-3 py-1.5 bg-gray-700 text-gray-100 text-sm rounded shadow-lg pointer-events-none"
 		transition:fly={{ y: -20, duration: 200 }}
 	>
 		{$toast.message}

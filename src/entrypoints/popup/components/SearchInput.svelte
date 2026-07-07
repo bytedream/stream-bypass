@@ -20,14 +20,12 @@
 		type="text"
 		bind:value
 		{placeholder}
-		aria-label="Filter hosts"
 		class="flex-1 bg-transparent text-sm text-gray-100 placeholder:text-gray-500 outline-none min-w-0"
 	/>
 	{#if value}
 		<button
 			type="button"
 			class="text-gray-400 hover:text-gray-100 cursor-pointer shrink-0"
-			aria-label="Clear search"
 			onclick={() => (value = '')}
 		>
 			<Icon src={XMark} size="0.95rem" />

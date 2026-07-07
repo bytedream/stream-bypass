@@ -17,7 +17,7 @@ import Vidmoly from './vidmoly';
 import Vidoza from './vidoza';
 import Voe from './voe';
 import Vupload from './vupload';
-import { HostSettings } from '@/lib/settings';
+import { HostSettings, PerDomainSettings } from '@/lib/settings';
 
 export enum HostMatchType {
 	NATIVE = 'native',
@@ -79,13 +79,25 @@ export function filterHosts(list: Host[], query: string): Host[] {
 }
 
 export async function getHost(domain: string): Promise<Host | null> {
-	if (await HostSettings.getAllHostsDisabled()) return null;
+	const [allHostsDisabled, disabledHosts, perDomainSetting] = await Promise.all([
+		HostSettings.getAllHostsDisabled(),
+		HostSettings.getDisabledHosts(),
+		PerDomainSettings.get(domain)
+	]);
 
-	const disabledIds = await HostSettings.getDisabledHosts();
+	// extension is disabled via popup
+	if (allHostsDisabled) return null;
+	// domain is disabled via popup
+	else if (perDomainSetting.allDisabled) return null;
+
 	for (const host of hosts) {
 		if (host.domains.includes(domain)) {
-			if (!disabledIds.includes(host.id)) return host;
-			else return null;
+			// host is generally disabled via popup
+			if (disabledHosts.includes(host.id)) return null;
+			// host is disabled for this domain via popup
+			else if (perDomainSetting.disabledHostIds.includes(host.id)) return null;
+
+			return host;
 		}
 	}
 

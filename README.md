@@ -154,6 +154,11 @@ When using firefox, use the following:
 
 You can enable or disabled for which hosts the extension should redirect.
 
+### Per-site disables
+
+The popup shows the current website at the top. Press **Configure this site** to disable specific hosts (or all of them) for the current site only — useful when a site uses multiple hosts and you only want to bypass a few, or when a host misbehaves on a particular site.
+All per-site disables are listed here and can be edited or removed.
+
 ### ff2mpv
 
 [ff2mpv](https://github.com/woodruffw/ff2mpv) allows you to play streams directly in [mpv](https://mpv.io/) instead of the browser.

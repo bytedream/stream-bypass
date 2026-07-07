@@ -4,14 +4,17 @@
 		checked: boolean;
 		onChecked?: (checked: boolean) => void | boolean | Promise<void> | Promise<boolean>;
 		size?: 'sm' | 'md';
+		disabled?: boolean;
+		title?: string;
 	}
 
 	/* states */
-	let { checked = $bindable(), onChecked, size = 'md' }: Props = $props();
+	let { checked = $bindable(), onChecked, size = 'md', disabled = false, title }: Props = $props();
 	let internalChecked = $state($state.snapshot(checked));
 
 	/* callbacks */
 	async function onInputChange() {
+		if (disabled) return;
 		internalChecked = !internalChecked;
 		let approved = false;
 
@@ -36,9 +39,21 @@
 	}
 </script>
 
-<label class="flex items-center cursor-pointer">
+<label
+	class="flex items-center"
+	class:cursor-pointer={!disabled}
+	class:cursor-not-allowed={disabled}
+	class:opacity-50={disabled}
+	{title}
+>
 	<div class="relative">
-		<input type="checkbox" class="peer sr-only" bind:checked={internalChecked} onchange={onInputChange} />
+		<input
+			type="checkbox"
+			class="peer sr-only"
+			bind:checked={internalChecked}
+			onchange={onInputChange}
+			{disabled}
+		/>
 		<div
 			class="block rounded-full box bg-red-700 peer-checked:bg-linux-mint-green"
 			class:w-8={size === 'sm'}

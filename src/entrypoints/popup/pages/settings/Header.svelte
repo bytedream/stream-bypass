@@ -16,7 +16,6 @@
 		<button
 			type="button"
 			class="flex items-center justify-center w-7 h-7 rounded-md text-gray-300 hover:text-gray-100 hover:bg-gray-800/60 cursor-pointer transition-colors"
-			aria-label="Back"
 			onclick={() => onBackClick()}
 		>
 			<Icon src={ArrowLeft} size="1.1rem" />

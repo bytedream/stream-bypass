@@ -22,7 +22,6 @@
 	<button
 		type="button"
 		class="w-full flex items-center justify-between gap-2 px-3 py-2.5 cursor-pointer hover:bg-gray-800/60 transition-colors"
-		aria-expanded={open}
 		onclick={() => (open = !open)}
 	>
 		<div class="flex items-center gap-2 min-w-0">
