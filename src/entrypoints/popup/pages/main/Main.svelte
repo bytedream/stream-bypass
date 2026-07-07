@@ -66,10 +66,8 @@
 				description="Configurations are still saved and take effect when extension is re-enabled."
 			/>
 		{:else if currentMatch}
-			<div class="shrink-0 flex justify-center py-2">
+			<div class="flex flex-col justify-between h-full px-2">
 				<Match host={currentMatch.host} />
-			</div>
-			<div class="shrink-0 mt-auto">
 				<CopyMatch url={currentMatch.url} domain={currentMatch.domain} />
 			</div>
 		{:else}
@@ -80,7 +78,7 @@
 	</div>
 
 	<div class="px-2 pb-0.5">
-		<p class="text-xs text-gray-400 text-center">
+		<p class="text-[.65rem] text-gray-400 text-center">
 			Suggestions or bugs can be submitted <a
 				class="underline"
 				href="https://github.com/bytedream/stream-bypass/issues">here</a
