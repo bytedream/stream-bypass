@@ -3,7 +3,7 @@
 	import Divider from '@/entrypoints/popup/components/Divider.svelte';
 	import Header from '@/entrypoints/popup/pages/site-config/Header.svelte';
 	import PerSiteHostsList from '@/entrypoints/popup/pages/site-config/PerSiteHostsList.svelte';
-	import { listenMessages, MessageType, sendMessageToActiveTab } from '@/lib/communication';
+	import { listenTabMessages, sendTabMessageToActiveTab, TabMessageType } from '@/lib/communication';
 	import { hosts, type Host } from '@/lib/host';
 
 	/* types */
@@ -18,8 +18,8 @@
 	let currentDomain = $state<string | null>(null);
 
 	/* lifecycle */
-	const cancel = listenMessages((type, data) => {
-		if (type !== MessageType.NotifyActiveMatch) return;
+	const cancel = listenTabMessages((type, data) => {
+		if (type !== TabMessageType.NotifyActiveMatch) return;
 		const match = {
 			host: hosts.find((host) => host.id === data.id)!,
 			url: data.url,
@@ -28,7 +28,7 @@
 		currentMatch = match;
 		currentDomain = match.domain;
 	});
-	sendMessageToActiveTab(MessageType.RequestActiveMatch, undefined);
+	sendTabMessageToActiveTab(TabMessageType.RequestActiveMatch, undefined);
 
 	browser.tabs
 		.query({ active: true, currentWindow: true })

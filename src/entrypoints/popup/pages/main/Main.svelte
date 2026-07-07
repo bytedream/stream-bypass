@@ -8,7 +8,7 @@
 	import CurrentSite from '@/entrypoints/popup/pages/main/CurrentSite.svelte';
 	import Header from '@/entrypoints/popup/pages/main/Header.svelte';
 	import Match from '@/entrypoints/popup/pages/main/Match.svelte';
-	import { listenMessages, MessageType, sendMessageToActiveTab } from '@/lib/communication';
+	import { listenTabMessages, sendTabMessageToActiveTab, TabMessageType } from '@/lib/communication';
 	import { hosts, type Host } from '@/lib/host';
 	import { HostSettings } from '@/lib/settings';
 
@@ -27,31 +27,22 @@
 	HostSettings.getAllHostsDisabled().then((val) => (allHostsDisabled = val));
 
 	/* lifecycle */
-	const cancel = listenMessages((type, data) => {
-		if (type !== MessageType.NotifyActiveMatch) return;
+	const cancel = listenTabMessages((type, data) => {
+		if (type !== TabMessageType.NotifyActiveMatch) return;
 		const match = {
 			host: hosts.find((host) => host.id === data.id)!,
 			url: data.url,
 			domain: data.domain
 		};
 		currentMatch = match;
-		currentDomain = match.domain;
 	});
-	sendMessageToActiveTab(MessageType.RequestActiveMatch, undefined);
+	sendTabMessageToActiveTab(TabMessageType.RequestActiveMatch, undefined);
 
-	browser.tabs
-		.query({ active: true, currentWindow: true })
-		.then((tabs) => {
-			if (currentDomain) return;
-			const url = tabs[0]?.url;
-			if (!url) return;
-			try {
-				currentDomain = new URL(url).hostname;
-			} catch {
-				/* ignore */
-			}
-		})
-		.catch(() => {});
+	browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+		const url = tabs[0]?.url;
+		if (!url) return;
+		currentDomain = new URL(url).hostname;
+	});
 
 	onDestroy(cancel);
 </script>

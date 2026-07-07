@@ -1,5 +1,6 @@
+import { BackgroundMessageType, sendBackgroundMessage } from '@/lib/communication';
 import { getHost, HostMatchType, hosts, type HostMatch } from '@/lib/host';
-import { FF2MPVSettings } from '@/lib/settings';
+import { FF2MPVSettings, PerDomainSettings } from '@/lib/settings';
 
 export default defineContentScript({
 	matches: [
@@ -15,6 +16,18 @@ export default defineContentScript({
 async function main() {
 	const host = await getHost(window.location.host);
 	if (!host) return;
+
+	// if current windows is an iframe, check if the parent has any disabled hosts
+	if (window !== window.top) {
+		const tabUrl = await sendBackgroundMessage(BackgroundMessageType.RequestTabUrl, undefined);
+		if (tabUrl) {
+			const domain = new URL(tabUrl).host;
+
+			const perDomainSetting = await PerDomainSettings.get(domain);
+			if (perDomainSetting.allDisabled) return;
+			else if (perDomainSetting.disabledHostIds.indexOf(host.id) !== -1) return;
+		}
+	}
 
 	let re = null;
 	for (const regex of host.regex) {

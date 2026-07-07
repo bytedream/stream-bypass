@@ -1,11 +1,25 @@
+import { BackgroundMessageData, BackgroundMessageType } from '@/lib/communication';
 import { getHost } from '@/lib/host';
 import { HostSettings, UrlReferer } from '@/lib/settings';
 
 export default defineBackground(() => {
-	browser.runtime.onMessage.addListener(async (message) => {
-		if (message.action == 'ff2mpv') {
-			await browser.runtime.sendNativeMessage('ff2mpv', { url: message.url });
+	browser.runtime.onMessage.addListener(async (message, sender) => {
+		const messageType = message.type as BackgroundMessageType;
+		const messageData = message.data as BackgroundMessageData<typeof messageType>;
+
+		let response;
+		switch (messageType) {
+			case BackgroundMessageType.Ff2mpv:
+				await browser.runtime.sendNativeMessage('ff2mpv', { url: messageData!.url });
+				break;
+			case BackgroundMessageType.RequestTabUrl:
+				response = sender.tab?.url ?? null;
+				break;
+			default:
+				return;
 		}
+
+		return response;
 	});
 
 	// the following listener is only available in mv2

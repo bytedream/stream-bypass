@@ -1,5 +1,5 @@
 import Hls from 'hls.js';
-import { listenMessages, MessageType, sendMessage } from '@/lib/communication';
+import { listenTabMessages, sendTabBroadcast, TabMessageType } from '@/lib/communication';
 import { HostMatchType, hosts } from '@/lib/host';
 import { UrlReferer } from '@/lib/settings';
 
@@ -56,7 +56,7 @@ export async function play(videoElem: HTMLVideoElement) {
 
 function initCommunication(id: string, url: string, domain: string) {
 	const notifyActiveMatch = () =>
-		sendMessage(MessageType.NotifyActiveMatch, {
+		sendTabBroadcast(TabMessageType.NotifyActiveMatch, {
 			id: id,
 			url: url,
 			domain: domain
@@ -67,8 +67,8 @@ function initCommunication(id: string, url: string, domain: string) {
 
 	// if an extension popup is opened, the listener will recognize it's active match request and send the match/player
 	// data
-	const cancel = listenMessages((type) => {
-		if (type !== MessageType.RequestActiveMatch) return;
+	const cancel = listenTabMessages((type) => {
+		if (type !== TabMessageType.RequestActiveMatch) return;
 		notifyActiveMatch();
 	});
 	window.onbeforeunload = cancel;
