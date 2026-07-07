@@ -2,6 +2,30 @@ import { BackgroundMessageData, BackgroundMessageType } from '@/lib/communicatio
 import { getHost } from '@/lib/host';
 import { HostSettings, UrlReferer } from '@/lib/settings';
 
+async function reInjectContentScript(domain: string) {
+	const contentScript: Browser.scripting.RegisteredContentScript = {
+		id: 'temporary-hosts',
+		js: ['content-scripts/content.js'],
+		matches: [`*://${domain}/*`],
+		persistAcrossSessions: false,
+		allFrames: true,
+		runAt: 'document_end'
+	};
+
+	const contentScripts = await browser.scripting.getRegisteredContentScripts({ ids: [contentScript.id] });
+	if (contentScripts.length !== 0) {
+		const registeredContentScript = contentScripts[0];
+
+		// do not double register for same domain
+		if (registeredContentScript.matches!.indexOf(contentScript.matches![0]) !== -1) return;
+
+		contentScript.matches!.push(...contentScripts[0].matches!);
+		await browser.scripting.updateContentScripts([contentScript]);
+	} else {
+		await browser.scripting.registerContentScripts([contentScript]);
+	}
+}
+
 export default defineBackground(() => {
 	browser.runtime.onMessage.addListener(async (message, sender) => {
 		const type = message.type as BackgroundMessageType;
@@ -25,28 +49,7 @@ export default defineBackground(() => {
 				if (import.meta.env.MANIFEST_VERSION === 3) break;
 
 				data = data as BackgroundMessageData<typeof type>;
-
-				const contentScript: Browser.scripting.RegisteredContentScript = {
-					id: 'temporary-hosts',
-					js: ['content-scripts/content.js'],
-					matches: [`*://${data.domain}/*`],
-					persistAcrossSessions: false,
-					allFrames: true,
-					runAt: 'document_end'
-				};
-
-				const contentScripts = await browser.scripting.getRegisteredContentScripts({ ids: [contentScript.id] });
-				if (contentScripts.length !== 0) {
-					const registeredContentScript = contentScripts[0];
-
-					// do not double register for same domain
-					if (registeredContentScript.matches!.indexOf(contentScript.matches![0]) !== -1) break;
-
-					contentScript.matches!.push(...contentScripts[0].matches!);
-					await browser.scripting.updateContentScripts([contentScript]);
-				} else {
-					await browser.scripting.registerContentScripts([contentScript]);
-				}
+				await reInjectContentScript(data.domain);
 
 				break;
 			}
@@ -80,10 +83,17 @@ export default defineBackground(() => {
 
 	browser.webRequest.onBeforeRedirect.addListener(
 		async (details) => {
-			const host = await getHost(new URL(details.url).hostname);
+			const domain = new URL(details.url).host;
+			const host = await getHost(domain);
 			if (!host) return;
 
-			await HostSettings.addTemporaryHostDomain(host.id, new URL(details.redirectUrl).hostname);
+			const newDomain = new URL(details.redirectUrl).host;
+
+			await Promise.all([
+				HostSettings.addTemporaryHostDomain(host.id, newDomain, { registerContentScript: false }),
+				// must be called manually, a message sent from a background script is only received on non-background pages
+				reInjectContentScript(newDomain)
+			]);
 		},
 		{ urls: ['<all_urls>'], types: ['main_frame', 'sub_frame'] }
 	);

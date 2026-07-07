@@ -39,12 +39,17 @@ export class HostSettings {
 	/* tmp */
 	private static temporaryHostDomain = new Setting<Record<string, string>>('local:temporaryHostDomain', {});
 
-	static addTemporaryHostDomain = async (hostId: HostId, domain: string) => {
-		// only has an effect with mv2
-		const backgroundScriptInject =
-			import.meta.env.MANIFEST_VERSION === 2
-				? sendBackgroundMessage(BackgroundMessageType.RegisterContentScript, { domain: domain })
-				: Promise.resolve();
+	static addTemporaryHostDomain = async (
+		hostId: HostId,
+		domain: string,
+		options = {
+			// only has an effect with mv2
+			registerContentScript: import.meta.env.MANIFEST_VERSION === 2
+		}
+	) => {
+		const backgroundScriptInject = options.registerContentScript
+			? sendBackgroundMessage(BackgroundMessageType.RegisterContentScript, { domain: domain })
+			: Promise.resolve();
 		const temporaryHostDomainUpdate = this.temporaryHostDomain.update((val) => {
 			val[domain] = hostId;
 			return val;
