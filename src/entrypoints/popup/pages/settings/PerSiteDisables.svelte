@@ -6,6 +6,9 @@
 	import { getHostFromId, hosts } from '@/lib/host';
 	import { PerDomainSettings, type PerDomainConfig } from '@/lib/settings';
 
+	/* constants */
+	const ALL_HOSTS = '__all__';
+
 	/* states */
 	let perDomainMap = $state<Record<string, PerDomainConfig>>({});
 	let expanded = $state<string | null>(null);
@@ -51,7 +54,11 @@
 
 	async function onHostAdd(domain: string, hostId: string) {
 		if (!hostId) return;
-		await PerDomainSettings.setHostDisabled(domain, hostId, true);
+		if (hostId === ALL_HOSTS) {
+			await PerDomainSettings.setAllDisabled(domain, true);
+		} else {
+			await PerDomainSettings.setHostDisabled(domain, hostId, true);
+		}
 		await loadMap();
 	}
 
@@ -174,6 +181,10 @@
 									class="flex-1 min-w-0 text-xs bg-gray-900/60 border border-gray-700 rounded px-1.5 py-1 text-gray-100 cursor-pointer focus:border-linux-mint-green focus:outline-none transition-colors"
 								>
 									<option value="" disabled>Add host…</option>
+									{#if !settings.allDisabled}
+										<option value={ALL_HOSTS}>All hosts</option>
+										<option disabled>─────────</option>
+									{/if}
 									{#each availableHosts as host (host.id)}
 										<option value={host.id}>{host.name}</option>
 									{/each}
@@ -184,7 +195,7 @@
 									disabled={!selectedHostId}
 									onclick={() => onHostAdd(domain, selectedHostId).then(() => (selectedHostId = ''))}
 								>
-									Add
+									{selectedHostId === ALL_HOSTS ? 'Disable all' : 'Add'}
 								</button>
 							</div>
 						</div>
