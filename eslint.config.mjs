@@ -25,8 +25,9 @@ export default defineConfig(
 	{
 		rules: {
 			'@typescript-eslint/no-explicit-any': 'off',
-			'no-undef': 'off',
-			'no-console': 'error'
+			'no-alert': 'error',
+			'no-console': 'error',
+			'no-undef': 'off'
 		}
 	}
 );
