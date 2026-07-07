@@ -3,11 +3,7 @@ import { getHost, HostMatchType, hosts, type HostMatch } from '@/lib/host';
 import { FF2MPVSettings, PerDomainSettings } from '@/lib/settings';
 
 export default defineContentScript({
-	matches: [
-		...Object.values(hosts).flatMap((h) => h.domains.map((d) => `*://${d}/*`)),
-		// only mv2 allows to match all urls
-		...(import.meta.env.MANIFEST_VERSION === 2 ? ['<all_urls>'] : [])
-	],
+	matches: [...Object.values(hosts).flatMap((h) => h.domains.map((d) => `*://${d}/*`))],
 	allFrames: true,
 	runAt: 'document_end',
 	main

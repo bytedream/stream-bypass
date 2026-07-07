@@ -1,6 +1,6 @@
 // --- tab communication --- //
 export enum TabMessageType {
-	RequestActiveMatch,
+	RequestActiveMatch = 10,
 	NotifyActiveMatch
 }
 
@@ -35,8 +35,9 @@ export function listenTabMessages(listener: (type: TabMessageType, data: any) =>
 
 // --- background script communication --- //
 export enum BackgroundMessageType {
-	Ff2mpv,
-	RequestTabUrl
+	Ff2mpv = 20,
+	RequestTabUrl,
+	RegisterContentScript
 }
 
 export type BackgroundMessageData<T extends BackgroundMessageType> = {
@@ -44,11 +45,15 @@ export type BackgroundMessageData<T extends BackgroundMessageType> = {
 		url: string;
 	};
 	[BackgroundMessageType.RequestTabUrl]: undefined;
+	[BackgroundMessageType.RegisterContentScript]: {
+		domain: string;
+	};
 }[T];
 
 export type BackgroundMessageReply<T extends BackgroundMessageType> = {
 	[BackgroundMessageType.Ff2mpv]: undefined;
 	[BackgroundMessageType.RequestTabUrl]: string | null;
+	[BackgroundMessageType.RegisterContentScript]: undefined;
 }[T];
 
 export async function sendBackgroundMessage<T extends BackgroundMessageType>(

@@ -26,7 +26,10 @@ export default defineConfig({
 						gecko_android: {}
 					}
 				: undefined,
-		permissions: ['storage', ...(manifestVersion === 2 ? ['webRequest', 'webRequestBlocking', '<all_urls>'] : [])],
+		permissions: [
+			'storage',
+			...(manifestVersion === 2 ? ['scripting', 'webRequest', 'webRequestBlocking', '<all_urls>'] : [])
+		],
 		optional_permissions: ['nativeMessaging'],
 		web_accessible_resources: [
 			{

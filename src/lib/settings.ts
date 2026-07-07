@@ -1,4 +1,5 @@
 import { storage } from '#imports';
+import { BackgroundMessageType, sendBackgroundMessage } from './communication';
 import type { HostId } from '@/lib/host';
 
 class Setting<T> {
@@ -38,11 +39,19 @@ export class HostSettings {
 	/* tmp */
 	private static temporaryHostDomain = new Setting<Record<string, string>>('local:temporaryHostDomain', {});
 
-	static addTemporaryHostDomain = (hostId: HostId, domain: string) =>
-		this.temporaryHostDomain.update((val) => {
+	static addTemporaryHostDomain = async (hostId: HostId, domain: string) => {
+		// only has an effect with mv2
+		const backgroundScriptInject =
+			import.meta.env.MANIFEST_VERSION === 2
+				? sendBackgroundMessage(BackgroundMessageType.RegisterContentScript, { domain: domain })
+				: Promise.resolve();
+		const temporaryHostDomainUpdate = this.temporaryHostDomain.update((val) => {
 			val[domain] = hostId;
 			return val;
 		});
+
+		return Promise.all([backgroundScriptInject, temporaryHostDomainUpdate]);
+	};
 	static checkTemporaryHostDomain = (domain: string) => this.temporaryHostDomain.get().then((val) => val[domain]);
 }
 
