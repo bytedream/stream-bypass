@@ -26,7 +26,7 @@
 		<p class="text-sm font-semibold text-gray-100">Communication enabled</p>
 		<a
 			class="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-gray-200 transition-colors"
-			href="https://github.com/bytedream/stream-bypass/tree/main?tab=readme-ov-file#ff2mpv-use-mpv-to-directly-play-streams"
+			href="https://github.com/bytedream/stream-bypass/tree/main?tab=readme-ov-file#ff2mpv"
 			target="_blank"
 		>
 			<Icon src={InformationCircle} size="0.85rem" />

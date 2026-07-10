@@ -83,7 +83,7 @@
 		<input
 			type="text"
 			bind:value={newDomainInput}
-			placeholder="Add custom domain…"
+			placeholder="Add domain…"
 			class="flex-1 min-w-0 text-xs bg-gray-900/60 border border-gray-700 rounded px-2 py-1 text-gray-100 placeholder:text-gray-500 focus:border-linux-mint-green focus:outline-none transition-colors"
 			onkeydown={(e) => {
 				if (e.key === 'Enter') onDomainAdd(newDomainInput).then(() => (newDomainInput = ''));
