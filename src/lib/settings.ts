@@ -67,18 +67,6 @@ export class FF2MPVSettings {
 	static setEnabled = (enabled: boolean) => this.ff2mpvEnabled.set(enabled);
 }
 
-export class UrlReferer {
-	private static temporaryUrlReferer = new Setting<Record<string, string>>('local:temporaryUrlReferer', {});
-
-	static addTemporary = (hostname: string, referer: string) =>
-		this.temporaryUrlReferer.update((val) => {
-			val[hostname] = referer;
-			return val;
-		});
-
-	static get = (hostname: string) => this.temporaryUrlReferer.get().then((val) => val[hostname] ?? null);
-}
-
 export interface PerDomainConfig {
 	allDisabled: boolean;
 	disabledHostIds: HostId[];

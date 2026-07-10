@@ -37,7 +37,8 @@ export function listenTabMessages(listener: (type: TabMessageType, data: any) =>
 export enum BackgroundMessageType {
 	Ff2mpv = 20,
 	RequestTabUrl,
-	RegisterContentScript
+	RegisterContentScript,
+	RegisterTemporaryReferer
 }
 
 export type BackgroundMessageData<T extends BackgroundMessageType> = {
@@ -48,12 +49,17 @@ export type BackgroundMessageData<T extends BackgroundMessageType> = {
 	[BackgroundMessageType.RegisterContentScript]: {
 		domain: string;
 	};
+	[BackgroundMessageType.RegisterTemporaryReferer]: {
+		domain: string;
+		referer: string;
+	};
 }[T];
 
 export type BackgroundMessageReply<T extends BackgroundMessageType> = {
 	[BackgroundMessageType.Ff2mpv]: undefined;
 	[BackgroundMessageType.RequestTabUrl]: string | null;
 	[BackgroundMessageType.RegisterContentScript]: undefined;
+	[BackgroundMessageType.RegisterTemporaryReferer]: undefined;
 }[T];
 
 export async function sendBackgroundMessage<T extends BackgroundMessageType>(

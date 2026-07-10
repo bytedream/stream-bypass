@@ -1,11 +1,19 @@
 import Hls from 'hls.js';
-import { listenTabMessages, sendTabBroadcast, TabMessageType } from '@/lib/communication';
+import {
+	BackgroundMessageType,
+	listenTabMessages,
+	sendBackgroundMessage,
+	sendTabBroadcast,
+	TabMessageType
+} from '@/lib/communication';
 import { HostMatchType, hosts } from '@/lib/host';
-import { UrlReferer } from '@/lib/settings';
 
 async function playNative(url: string, domain: string, videoElem: HTMLVideoElement) {
 	// multiple hosts need to have a correct referer set
-	await UrlReferer.addTemporary(new URL(url).hostname, domain);
+	await sendBackgroundMessage(BackgroundMessageType.RegisterTemporaryReferer, {
+		domain: new URL(url).host,
+		referer: domain
+	});
 
 	videoElem.src = url;
 }
@@ -18,7 +26,11 @@ async function playHls(url: string, domain: string, videoElem: HTMLVideoElement)
 			enableWorker: false,
 			xhrSetup: async (xhr: XMLHttpRequest, url: string) => {
 				// multiple hosts need to have a correct referer set
-				await UrlReferer.addTemporary(new URL(url).hostname, domain);
+				await sendBackgroundMessage(BackgroundMessageType.RegisterTemporaryReferer, {
+					domain: new URL(url).host,
+					referer: domain
+				});
+
 				xhr.open('GET', url);
 			}
 		});
